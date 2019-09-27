@@ -1166,6 +1166,11 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+extra-promise@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.4.2.tgz#9ff7afd36a49a60fdcea1142571389940c59545e"
+  integrity sha512-GSA6fo6Uj6D4HDUpDl2FjZjhV1qPc62ywO5VJ73Mwmc2Q0xtao7WIrlOJ20NIzKG+zybMDPr4PpFSQic1ADgbA==
+
 extsprintf@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"

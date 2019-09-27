@@ -16,6 +16,7 @@
   , "one-variable-per-declaration": false
   , "max-line-length": false
   , "space-before-function-paren": false
+  , "ordered-imports": false
   }
 , "rulesDirectory": []
 }

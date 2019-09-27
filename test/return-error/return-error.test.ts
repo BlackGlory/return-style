@@ -1,4 +1,6 @@
-import { returnError, returnErrorFromFunction, returnErrorFromPromise } from '../../src/return-error'
+import { returnError } from '../../src/return-error/return-error'
+import { returnErrorFromFunction } from '../../src/return-error/return-error-from-function'
+import { returnErrorFromPromise } from '../../src/return-error/return-error-from-promise'
 
 test('returnError(resolvedPromise)', async () => {
   const promise = Promise.resolve('result')
@@ -19,8 +21,8 @@ test('returnError(rejectedPromise)', async () => {
 test('returnError(fn)', async () => {
   const value = 'result'
   const fn = (x: string) => Promise.resolve(x)
-  const result = await returnError<string>(fn)(value)
-  const expected = await returnErrorFromFunction<string>(fn)(value)
+  const result = returnError<string>(fn)(value)
+  const expected = returnErrorFromFunction<string>(fn)(value)
 
   expect(result).toEqual(expected)
 })
@@ -28,8 +30,8 @@ test('returnError(fn)', async () => {
 test('returnError(fn) fn throws error', async () => {
   const value = 'error'
   const fn = (x: string) => Promise.reject(x)
-  const result = await returnError<string>(fn)(value)
-  const expected = await returnErrorFromFunction<string>(fn)(value)
+  const result = returnError<string>(fn)(value)
+  const expected = returnErrorFromFunction<string>(fn)(value)
 
   expect(result).toEqual(expected)
 })

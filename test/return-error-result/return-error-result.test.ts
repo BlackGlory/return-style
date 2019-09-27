@@ -1,4 +1,6 @@
-import { returnErrorResult, returnErrorResultFromFunction, returnErrorResultFromPromise } from '../../src/return-error-result'
+import { returnErrorResult } from '../../src/return-error-result/return-error-result'
+import { returnErrorResultFromFunction } from '../../src/return-error-result/return-error-result-from-function'
+import { returnErrorResultFromPromise } from '../../src/return-error-result/return-error-result-from-promise'
 
 test('returnErrorResult(resolvedPromise)', async () => {
   const promise = Promise.resolve('result')

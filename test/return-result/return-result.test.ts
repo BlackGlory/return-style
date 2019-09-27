@@ -1,4 +1,6 @@
-import { returnResult, returnResultFromFunction, returnResultFromPromise } from '../../src/return-result'
+import { returnResult } from '../../src/return-result/return-result'
+import { returnResultFromFunction } from '../../src/return-result/return-result-from-function'
+import { returnResultFromPromise } from '../../src/return-result/return-result-from-promise'
 
 test('returnResult(resolvedPromise)', async () => {
   const promise = Promise.resolve('result')

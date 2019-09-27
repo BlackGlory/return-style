@@ -1,9 +1,25 @@
-export function returnResultErrorFromFunction<Error, Result, Args extends unknown[] = any[]>(fn: (...args: Args) => Result | PromiseLike<Result>): (...args: Args) => Promise<[null, Error] | [Result, null]> {
-  return async function (this: unknown, ...args: Args): Promise<[null, Error] | [Result, null]> {
+import { isPromise } from 'extra-promise'
+
+export function returnResultErrorFromFunction<Error, Result, Args extends unknown[] = any[]>(fn: (...args: Args) => Result): (...args: Args) => [null, Error] | [Result, null]
+export function returnResultErrorFromFunction<Error, Result, Args extends unknown[] = any[]>(fn: (...args: Args) => PromiseLike<Result>): (...args: Args) => Promise<[null, Error] | [Result, null]>
+export function returnResultErrorFromFunction<Result, Args extends unknown[] = any[]>(fn: (...args: Args) => Result | PromiseLike<Result>) {
+  return function (this: unknown, ...args: Args) {
+    let result: Result | PromiseLike<Result>
     try {
-      return [await Promise.resolve(fn.apply(this, args)), null]
+      result = fn.apply(this, args)
     } catch (err) {
       return [null, err]
+    }
+    if (isPromise(result)) {
+      return (async (promise: PromiseLike<Result>) => {
+        try {
+          return [await promise, null]
+        } catch (err) {
+          return [null, err]
+        }
+      })(result as PromiseLike<Result>)
+    } else {
+      return [result, null]
     }
   }
 }

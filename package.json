@@ -25,5 +25,8 @@
     "hooks": {
       "pre-commit": "yarn lint && yarn test"
     }
+  },
+  "dependencies": {
+    "extra-promise": "^0.4.2"
   }
 }
