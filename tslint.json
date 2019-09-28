@@ -17,6 +17,9 @@
   , "max-line-length": false
   , "space-before-function-paren": false
   , "ordered-imports": false
+  , "curly": false
+  , "no-empty": false
+  , "object-literal-sort-keys": false
   }
 , "rulesDirectory": []
 }

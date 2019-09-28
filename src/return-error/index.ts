@@ -1,3 +1,5 @@
 export * from './return-error-from-function'
 export * from './return-error-from-promise'
 export * from './return-error'
+export * from './return-error-from-async-function'
+export * from './return-error-from-sync-function'

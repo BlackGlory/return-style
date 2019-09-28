@@ -7,9 +7,9 @@
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "yarn clean && yarn build",
     "test": "jest --coverage --config jest.config.json",
-    "clean": "rm -rf lib",
+    "clean": "rm -r lib",
     "build": "tsc --project tsconfig.build.json",
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'"
   },
