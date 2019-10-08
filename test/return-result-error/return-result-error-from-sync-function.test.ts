@@ -14,25 +14,23 @@ test('returnResultErrorFromSyncFunction(fn) fn throws error', () => {
 })
 
 test('returnResultErrorFromSyncFunction(asyncFn)', async () => {
-  const result = returnResultErrorFromSyncFunction((x: string) => Promise.resolve(x))('result')
+  const [res, err] = returnResultErrorFromSyncFunction((x: string) => Promise.resolve(x))('result')
 
-  expect(result).toBeInstanceOf(Array)
-  expect(isPromise(result[0])).toBeTruthy()
-  expect(await result[0]).toBe('result')
-  expect(result[1]).toBeNull()
+  expect(err).toBeNull()
+  expect(isPromise(res)).toBeTruthy()
+  expect(await res).toBe('result')
 })
 
 test('returnResultErrorFromSyncFunction(asyncFn) asyncFn throws error', async done => {
-  const result = returnResultErrorFromSyncFunction((x: string) => Promise.reject(x))('error')
+  const [res, err] = returnResultErrorFromSyncFunction((x: string) => Promise.reject(x))('error')
 
-  expect(result).toBeInstanceOf(Array)
-  expect(isPromise(result[0])).toBeTruthy()
+  expect(err).toBeNull()
+  expect(isPromise(res)).toBeTruthy()
   try {
-    await result[0]
+    await res
     done.fail()
   } catch (err) {
     expect(err).toBe('error')
   }
-  expect(result[1]).toBeNull()
   done()
 })

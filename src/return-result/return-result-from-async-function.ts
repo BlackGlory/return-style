@@ -3,7 +3,7 @@ export function returnResultFromAsyncFunction<T, U extends unknown[] = any[]>(fn
 export function returnResultFromAsyncFunction<T, U extends unknown[] = any[]>(fn: (...args: U) => PromiseLike<T>, defaultValue = null) {
   return async function (this: unknown, ...args: U) {
     try {
-      return await Promise.resolve(fn.apply(this, args))
+      return await Promise.resolve(Reflect.apply(fn, this, args))
     } catch {
       return await Promise.resolve(defaultValue)
     }

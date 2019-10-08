@@ -8,7 +8,7 @@ export function returnResultFromFunction<T, U extends unknown[] = any[]>(fn: (..
   return function (this: unknown, ...args: U) {
     let result: T | PromiseLike<T>
     try {
-      result = fn.apply(this, args)
+      result = Reflect.apply(fn, this, args)
     } catch {
       return defaultValue
     }

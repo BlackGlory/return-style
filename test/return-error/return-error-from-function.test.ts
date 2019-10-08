@@ -1,25 +1,42 @@
+import { isPromise } from 'extra-promise'
 import { returnErrorFromFunction } from '../../src/return-error/return-error-from-function'
+import { returnErrorFromSyncFunction } from '../../src/return-error/return-error-from-sync-function'
+import { returnErrorFromAsyncFunction } from '../../src/return-error/return-error-from-async-function'
 
 test('returnErrorFromFunction(fn)', () => {
-  const result = returnErrorFromFunction<string>((x: string) => x)('result')
+  const value = 'result'
+  const fn = (x: string) => x
+  const result = returnErrorFromFunction(fn)(value)
+  const expected = returnErrorFromSyncFunction(fn)(value)
 
-  expect(result).toBeNull()
+  expect(result).toEqual(expected)
 })
 
 test('returnErrorFromFunction(fn) fn throws error', () => {
-  const result = returnErrorFromFunction<string>((x: string) => { throw x })('error')
+  const value = 'error'
+  const fn = (x: string) => { throw x }
+  const result = returnErrorFromFunction(fn)(value)
+  const expected = returnErrorFromFunction(fn)(value)
 
-  expect(result).toBe('error')
+  expect(result).toEqual(expected)
 })
 
 test('returnErrorFromFunction(asyncFn)', async () => {
-  const result = await returnErrorFromFunction<string>((x: string) => Promise.resolve(x))('result')
+  const value = 'result'
+  const fn = (x: string) => Promise.resolve(x)
+  const result = returnErrorFromFunction(fn)(value)
+  const expected = await returnErrorFromAsyncFunction(fn)(value)
 
-  expect(result).toBeNull()
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual(expected)
 })
 
 test('returnErrorFromFunction(asyncFn) asyncFn throws error', async () => {
-  const result = await returnErrorFromFunction<string>((x: string) => Promise.reject(x))('error')
+  const value = 'error'
+  const fn = (x: string) => Promise.reject(x)
+  const result = returnErrorFromFunction(fn)(value)
+  const expected = await returnErrorFromAsyncFunction(fn)(value)
 
-  expect(result).toBe('error')
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual(expected)
 })

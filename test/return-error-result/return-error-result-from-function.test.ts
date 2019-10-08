@@ -1,29 +1,42 @@
+import { isPromise } from 'extra-promise'
 import { returnErrorResultFromFunction } from '../../src/return-error-result/return-error-result-from-function'
+import { returnErrorResultFromAsyncFunction } from '../../src/return-error-result/return-error-result-from-async-function'
+import { returnErrorResultFromSyncFunction } from '../../src/return-error-result/return-error-result-from-sync-function'
 
 test('returnErrorResultFromFunction(fn)', () => {
-  const [err, res] = returnErrorResultFromFunction<string, string>((x: string) => x)('result')
+  const value = 'result'
+  const fn = (x: string) => x
+  const result = returnErrorResultFromFunction(fn)(value)
+  const expected = returnErrorResultFromSyncFunction(fn)(value)
 
-  expect(err).toBeNull()
-  expect(res).toBe('result')
+  expect(result).toEqual(expected)
 })
 
 test('returnErrorResultFromFunction(fn) fn throws error', () => {
-  const [err, res] = returnErrorResultFromFunction((x: string) => { throw x })('error')
+  const value = 'error'
+  const fn = (x: string) => { throw x }
+  const result = returnErrorResultFromFunction(fn)(value)
+  const expected = returnErrorResultFromSyncFunction(fn)(value)
 
-  expect(err).toBe('error')
-  expect(res).toBeNull()
+  expect(result).toEqual(expected)
 })
 
 test('returnErrorResultFromFunction(asyncFn)', async () => {
-  const [err, res] = await returnErrorResultFromFunction<string, string>((x: string) => Promise.resolve(x))('result')
+  const value = 'result'
+  const fn = (x: string) => Promise.resolve(x)
+  const result = returnErrorResultFromFunction(fn)(value)
+  const expected = await returnErrorResultFromAsyncFunction(fn)(value)
 
-  expect(err).toBeNull()
-  expect(res).toBe('result')
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual(expected)
 })
 
 test('returnErrorResultFromFunction(asyncFn) asyncFn throws error', async () => {
-  const [err, res] = await returnErrorResultFromFunction((x: string) => Promise.reject(x))('error')
+  const value = 'error'
+  const fn = (x: string) => Promise.reject(x)
+  const result = returnErrorResultFromFunction(fn)(value)
+  const expected = await returnErrorResultFromAsyncFunction(fn)(value)
 
-  expect(err).toBe('error')
-  expect(res).toBeNull()
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual(expected)
 })

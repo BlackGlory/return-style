@@ -4,7 +4,7 @@ export function returnErrorFromSyncFunction<T, U extends unknown[] = any[]>(fn: 
   return function (this: unknown, ...args: U) {
     let result: unknown
     try {
-      result = fn.apply(this, args)
+      result = Reflect.apply(fn, this, args)
     } catch (err) {
       return err
     }

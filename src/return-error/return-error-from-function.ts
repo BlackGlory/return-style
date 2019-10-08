@@ -6,7 +6,7 @@ export function returnErrorFromFunction<U extends unknown[] = any[]>(fn: (...arg
   return function (this: unknown, ...args: U) {
     let result: unknown | PromiseLike<unknown>
     try {
-      result = fn.apply(this, args)
+      result = Reflect.apply(fn, this, args)
     } catch (err) {
       return err
     }

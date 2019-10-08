@@ -1,15 +1,16 @@
+import { isPromise } from 'extra-promise'
 import { returnErrorResultFromPromise } from '../../src/return-error-result/return-error-result-from-promise'
 
 test('returnErrorResultFromPromise(resolvedPromise)', async () => {
-  const [err, res] = await returnErrorResultFromPromise(Promise.resolve('result'))
+  const result = returnErrorResultFromPromise(Promise.resolve('result'))
 
-  expect(err).toBeNull()
-  expect(res).toBe('result')
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual([null, 'result'])
 })
 
 test('returnErrorResultFromPromise(rejectedPromise)', async () => {
-  const [err, res] = await returnErrorResultFromPromise(Promise.reject('error'))
+  const result = returnErrorResultFromPromise(Promise.reject('error'))
 
-  expect(err).toBe('error')
-  expect(res).toBeNull()
+  expect(isPromise(result)).toBeTruthy()
+  expect(await result).toEqual(['error', null])
 })
