@@ -7,6 +7,7 @@ import { returnResultFromSyncFunction } from '../../src/return-result/return-res
 import { returnResultFromConstructor } from '../../src/return-result/return-result-from-constructor'
 import { returnResultFromAsyncConstructor } from '../../src/return-result/return-result-from-async-constructor'
 import { returnResultFromSyncConstructor } from '../../src/return-result/return-result-from-sync-constructor'
+import { returnResultFromGenerator } from '../../src/return-result/return-result-from-generator'
 
 test('import * as ReturnResult', () => {
   expect(ReturnResult).toEqual({
@@ -18,5 +19,6 @@ test('import * as ReturnResult', () => {
   , returnResultFromConstructor
   , returnResultFromAsyncConstructor
   , returnResultFromSyncConstructor
+  , returnResultFromGenerator
   })
 })

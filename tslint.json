@@ -20,6 +20,8 @@
   , "curly": false
   , "no-empty": false
   , "object-literal-sort-keys": false
+  , "no-namespace": false
+  , "no-string-throw": false
   }
 , "rulesDirectory": []
 }

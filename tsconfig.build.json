@@ -5,6 +5,8 @@
   , "removeComments": true
   , "sourceMap": true
   , "outDir": "lib"
+  , "noUnusedLocals": true
+  , "noUnusedParameters": true
   }
 , "include": [
     "src"
