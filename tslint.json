@@ -22,6 +22,7 @@
   , "object-literal-sort-keys": false
   , "no-namespace": false
   , "no-string-throw": false
+  , "unified-signatures": false
   }
 , "rulesDirectory": []
 }
