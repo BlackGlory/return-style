@@ -9,7 +9,6 @@ import { newResultSync } from '../../src/result/new-result-sync'
 import { returnResult } from '../../src/result/return-result'
 import { returnResultAsync } from '../../src/result/return-result-async'
 import { returnResultSync } from '../../src/result/return-result-sync'
-import { returnResultGenerator } from '../../src/result/return-result-generator'
 
 test('import * as ReturnResult', () => {
   expect(ReturnResult).toEqual({
@@ -23,6 +22,5 @@ test('import * as ReturnResult', () => {
   , returnResult
   , returnResultAsync
   , returnResultSync
-  , returnResultGenerator
   })
 })

@@ -8,7 +8,7 @@ test('newResultErrorSync(fn)', () => {
 })
 
 test('newResultErrorSync(fn)', () => {
-  const [res, err] = newResultErrorSync<TypeError, URL>(URL)('error')
+  const [res, err] = newResultErrorSync<URL, TypeError>(URL)('error')
 
   expect(err!.name).toBe('TypeError')
   expect(res).toBeNull()
