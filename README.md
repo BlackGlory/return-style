@@ -70,3 +70,9 @@ yarn add return-style
 * getResultErrorAsync
 * getResultErrorSync
 * getResultErrorPromise
+
+### Safe
+
+* safe
+* safeAsync
+* safeSync

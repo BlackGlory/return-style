@@ -1,5 +1,5 @@
+import { isPromise } from '../../src/utils/is-promise'
 import { newErrorResultAsync } from '../../src/error-result/new-error-result-async'
-import { isPromise } from 'extra-promise'
 
 test('newErrorResultAsync(asyncFn)', async () => {
   const result = newErrorResultAsync(Promise)(resolve => resolve('result'))

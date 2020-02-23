@@ -1,4 +1,4 @@
-import { isPromise } from 'extra-promise'
+import { isPromise } from '../../src/utils/is-promise'
 import { getResultError } from '../../src/result-error/get-result-error'
 import { getResultErrorPromise } from '../../src/result-error/get-result-error-promise'
 import { returnResultError } from '../../src/result-error/return-result-error'

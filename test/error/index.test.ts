@@ -1,4 +1,4 @@
-import * as ReturnError from '../../src/error'
+import * as Error from '../../src/error'
 import { getError } from '../../src/error/get-error'
 import { getErrorAsync } from '../../src/error/get-error-async'
 import { getErrorSync } from '../../src/error/get-error-sync'
@@ -10,8 +10,8 @@ import { returnError } from '../../src/error/return-error'
 import { returnErrorAsync } from '../../src/error/return-error-async'
 import { returnErrorSync } from '../../src/error/return-error-sync'
 
-test('import * as ReturnError', () => {
-  expect(ReturnError).toEqual({
+test('import * as Error', () => {
+  expect(Error).toEqual({
     getError
   , getErrorAsync
   , getErrorSync

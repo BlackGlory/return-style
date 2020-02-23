@@ -1,4 +1,4 @@
-import { convertConstructorToFunction } from '../convert-constructor-to-function'
+import { convertConstructorToFunction } from '../utils/convert-constructor-to-function'
 import { returnResultAsync } from './return-result-async'
 
 export function newResultAsync<T, U extends unknown[] = any[]>(fn: new (...args: U) => PromiseLike<T>): (...args: U) => Promise<T | null>

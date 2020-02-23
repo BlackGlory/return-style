@@ -1,4 +1,4 @@
-import { isPromise } from 'extra-promise'
+import { isPromise } from '../../src/utils/is-promise'
 import { newError } from '../../src/error/new-error'
 import { newErrorAsync } from '../../src/error/new-error-async'
 import { newErrorSync } from '../../src/error/new-error-sync'

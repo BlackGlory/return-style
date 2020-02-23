@@ -1,4 +1,4 @@
-import * as ReturnResultError from '../../src/result-error'
+import * as ResultError from '../../src/result-error'
 import { getResultError } from '../../src/result-error/get-result-error'
 import { getResultErrorAsync } from '../../src/result-error/get-result-error-async'
 import { getResultErrorSync } from '../../src/result-error/get-result-error-sync'
@@ -10,8 +10,8 @@ import { returnResultError } from '../../src/result-error/return-result-error'
 import { returnResultErrorAsync } from '../../src/result-error/return-result-error-async'
 import { returnResultErrorSync } from '../../src/result-error/return-result-error-sync'
 
-test('import * as ReturnResultError', () => {
-  expect(ReturnResultError).toEqual({
+test('import * as ResultError', () => {
+  expect(ResultError).toEqual({
     getResultError
   , getResultErrorAsync
   , getResultErrorSync

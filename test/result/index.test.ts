@@ -1,4 +1,4 @@
-import * as ReturnResult from '../../src/result'
+import * as Result from '../../src/result'
 import { getResult } from '../../src/result/get-result'
 import { getResultAsync } from '../../src/result/get-result-async'
 import { getResultSync } from '../../src/result/get-result-sync'
@@ -10,8 +10,8 @@ import { returnResult } from '../../src/result/return-result'
 import { returnResultAsync } from '../../src/result/return-result-async'
 import { returnResultSync } from '../../src/result/return-result-sync'
 
-test('import * as ReturnResult', () => {
-  expect(ReturnResult).toEqual({
+test('import * as Result', () => {
+  expect(Result).toEqual({
     getResult
   , getResultAsync
   , getResultSync

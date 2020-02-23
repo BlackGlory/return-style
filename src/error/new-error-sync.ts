@@ -1,4 +1,4 @@
-import { convertConstructorToFunction } from '../convert-constructor-to-function'
+import { convertConstructorToFunction } from '../utils/convert-constructor-to-function'
 import { returnErrorSync } from './return-error-sync'
 
 export function newErrorSync<T, U extends unknown[] = any[]>(fn: new (...args: U) => unknown): (...args: U) => T | null

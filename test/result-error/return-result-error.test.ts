@@ -1,4 +1,4 @@
-import { isPromise } from 'extra-promise'
+import { isPromise } from '../../src/utils/is-promise'
 import { returnResultError } from '../../src/result-error/return-result-error'
 import { returnResultErrorAsync } from '../../src/result-error/return-result-error-async'
 import { returnResultErrorSync } from '../../src/result-error/return-result-error-sync'

@@ -1,18 +1,22 @@
 import * as ReturnStyle from '../src'
-import * as ErrorStyle from '../src/error/'
-import * as ErrorResultStyle from '../src/error-result'
-import * as ResultStyle from '../src/result'
-import * as ResultErrorStyle from '../src/result-error'
+import * as Custom from '../src/custom'
+import * as Error from '../src/error'
+import * as ErrorResult from '../src/error-result'
+import * as Result from '../src/result'
+import * as ResultError from '../src/result-error'
+import * as Safe from '../src/safe'
 
-test('import * as ReturnType', () => {
+test('import * as ReturnStyle', () => {
   expect(ReturnStyle).toEqual(
     Object.assign(
       {}
-    , ErrorStyle
-    , ErrorResultStyle
-    , ErrorResultStyle
-    , ResultStyle
-    , ResultErrorStyle
+    , Custom
+    , Error
+    , ErrorResult
+    , ErrorResult
+    , Result
+    , ResultError
+    , Safe
     )
   )
 })

@@ -1,4 +1,4 @@
-import { isPromise } from 'extra-promise'
+import { isPromiseLike } from '../utils/is-promise'
 
 export function returnCustomSync<CustomResolvedStyle, CustomRejectedStyle, Args extends unknown[] = any[]>(
   resolve: (result: any) => CustomResolvedStyle
@@ -12,7 +12,7 @@ export function returnCustomSync<CustomResolvedStyle, CustomRejectedStyle, Args 
     } catch (err) {
       return reject(err)
     }
-    if (isPromise(result)) Promise.resolve(result).catch(() => {})
+    if (isPromiseLike(result)) Promise.resolve(result).catch(() => {})
     return resolve(result)
   }
 }
