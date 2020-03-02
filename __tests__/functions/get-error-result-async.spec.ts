@@ -1,0 +1,29 @@
+import { getErrorResultAsync } from '@src/functions/get-error-result-async'
+
+describe('getErrorResultAsync(promise: PromiseLike<T>) -> Promise<[undefined, T] | [X, undefined]>', () => {
+  describe('promise resolved', () => {
+    it('return Promise<[undefined, T]>', async () => {
+      const value = 'value'
+      const promise = Promise.resolve(value)
+
+      const result = getErrorResultAsync(promise)
+      const proResult = await result
+
+      expect(result).toBeInstanceOf(Promise)
+      expect(proResult).toEqual([undefined, value])
+    })
+  })
+
+  describe('promise rejected', () => {
+    it('return Promise<[X, undefined]>', async () => {
+      const customError = new Error('CustomError')
+      const promise = Promise.reject(customError)
+
+      const result = getErrorResultAsync(promise)
+      const proResult = await result
+
+      expect(result).toBeInstanceOf(Promise)
+      expect(proResult).toEqual([customError, undefined])
+    })
+  })
+})
