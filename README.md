@@ -117,7 +117,7 @@ test('divided by zero', () => {
 ### Result: Ok / Err
 
 * `function getResult<T, X>(fn: () => T): Result<T, X>`
-* `function getResultAsync<T, X>(promise: PromiseLike<T>): Promise<Result<T, X>>>`
+* `function getResultAsync<T, X>(promise: PromiseLike<T>): Promise<Result<T, X>>`
 
 ```ts
 interface Result<T, X> {
