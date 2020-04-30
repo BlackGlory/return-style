@@ -121,7 +121,7 @@ test('divided by zero', () => {
 
 ```ts
 interface Result<T, X> {
-  [Symbol.iterable](): Iterable<T>
+  [Symbol.iterable](): Iterator<T>
 
   isOk(): boolean
   isErr(): boolean
