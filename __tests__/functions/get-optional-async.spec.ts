@@ -1,7 +1,7 @@
 import { Some, None } from '@src/classes/optional'
 import { getOptionalAsync, getOptionalAsyncPartial } from '@src/functions/get-optional-async'
 
-describe('getOptionalAsync(promise: PromiseLike<T>, isNone: (val: T) => boolean) -> Promise<Optional<T>>', () => {
+describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return Promise<None>', async () => {
       const promise = Promise.resolve()
@@ -29,7 +29,7 @@ describe('getOptionalAsync(promise: PromiseLike<T>, isNone: (val: T) => boolean)
   })
 })
 
-describe('getOptionalAsyncPartial(isNone: (val: T) => boolean) -> (promise: PromiseLike<T>) -> Promise<Optional<T>>', () => {
+describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return Promise<None>', async () => {
       const promise = Promise.resolve()

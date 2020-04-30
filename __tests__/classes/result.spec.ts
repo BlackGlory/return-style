@@ -1,7 +1,7 @@
 import { Result, Ok, Err } from '@src/classes/result'
 
-describe('Result', () => {
-  describe('of(value: T) -> Result<T, never>', () => {
+describe('Result<T, X>', () => {
+  describe('of<T>(value: T): Result<T, never>', () => {
     it('return Ok', () => {
       const value = 'value'
 
@@ -12,7 +12,7 @@ describe('Result', () => {
     })
   })
 
-  describe('ofErr(error: X) -> Result<never, X>', () => {
+  describe('ofErr<X>(error: X): Result<never, X>', () => {
     it('return Err', () => {
       const error = 'error'
 

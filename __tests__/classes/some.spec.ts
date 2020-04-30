@@ -1,7 +1,7 @@
 import { Optional, Some, None } from '@src/classes/optional'
 
-describe('Some', () => {
-  describe('[Symbol.iterable]() -> Iterator<T>', () => {
+describe('Some<T>', () => {
+  describe('[Symbol.iterable](): Iterator<T>', () => {
     it('return Iterator', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -14,7 +14,7 @@ describe('Some', () => {
     })
   })
 
-  describe('isSome() -> boolean', () => {
+  describe('isSome(): boolean', () => {
     it('return true', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -25,7 +25,7 @@ describe('Some', () => {
     })
   })
 
-  describe('isNone() -> boolean', () => {
+  describe('isNone(): boolean', () => {
     it('return false', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -36,7 +36,7 @@ describe('Some', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) -> void) -> this', () => {
+  describe('onSome(callback: (val: T) => void): this', () => {
     it('invoke callback', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -49,7 +49,7 @@ describe('Some', () => {
     })
   })
 
-  describe('onNone(callback: () -> void) -> this', () => {
+  describe('onNone(callback: () => void): this', () => {
     it('not invoke callback', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -62,7 +62,7 @@ describe('Some', () => {
     })
   })
 
-  describe('orElse(defaultValue: U) -> Optional<T | U>', () => {
+  describe('orElse<U>(defaultValue: U): Optional<T | U>', () => {
     it('return a copy', () => {
       const value = 'value'
       const defaultValue = 0
@@ -77,7 +77,7 @@ describe('Some', () => {
     })
   })
 
-  describe('map(mapper: (val: T) -> U) -> Optional<U>', () => {
+  describe('map<U>(mapper: (val: T) => U): Optional<U>', () => {
     it('return a Some', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -93,7 +93,7 @@ describe('Some', () => {
     })
   })
 
-  describe('filter(predicate: (val: T) -> boolean) -> Optional<U>', () => {
+  describe('filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>', () => {
     describe('predicate return false', () => {
       it('return None', () => {
         const value = 'value'
@@ -122,7 +122,7 @@ describe('Some', () => {
     })
   })
 
-  describe('get() -> T', () => {
+  describe('get(): T', () => {
     it('return T', () => {
       const value = 'value'
       const opt = Optional.of(value)

@@ -1,8 +1,8 @@
 import { getError } from '@src/functions/get-error'
 import { Result, Ok, Err } from '@src/classes/result'
 
-describe('Err', () => {
-  describe('[Symbol.iterable]() -> Iterator<T>', () => {
+describe('Err<X>', () => {
+  describe('[Symbol.iterable](): Iterator<T>', () => {
     it('return Iterator', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -15,7 +15,7 @@ describe('Err', () => {
     })
   })
 
-  describe('isOk() -> boolean', () => {
+  describe('isOk(): boolean', () => {
     it('return true', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -26,7 +26,7 @@ describe('Err', () => {
     })
   })
 
-  describe('isErr() -> boolean', () => {
+  describe('isErr(): boolean', () => {
     it('return false', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -37,7 +37,7 @@ describe('Err', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) -> void) -> this', () => {
+  describe('onOk(callback: (val: T) => void): this', () => {
     it('not invoke callback', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -50,7 +50,7 @@ describe('Err', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) -> void) -> this', () => {
+  describe('onErr(callback: (err: X): void): this', () => {
     it('invoke callbackl', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -63,7 +63,7 @@ describe('Err', () => {
     })
   })
 
-  describe('orElse(defaultValue: U) -> Result<T | U, X>', () => {
+  describe('orElse<U>(defaultValue: U): Result<T | U, X>', () => {
     it('return Ok', () => {
       const error = new Error('error')
       const defaultValue = 0
@@ -78,7 +78,7 @@ describe('Err', () => {
     })
   })
 
-  describe('map(mapper: (val: T) -> U) -> Result<U, X>', () => {
+  describe('map<U>(mapper: (val: T) -> U): Result<U, X>', () => {
     it('return a copy', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)
@@ -92,7 +92,7 @@ describe('Err', () => {
     })
   })
 
-  describe('get() -> T', () => {
+  describe('get(): T', () => {
     it('throw X', () => {
       const error = new Error('error')
       const res = Result.ofErr(error)

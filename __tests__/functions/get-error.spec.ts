@@ -1,6 +1,6 @@
 import { getError } from '@src/functions/get-error'
 
-describe('getError(fn: () -> unknown) -> T | undefined', () => {
+describe('getError<T>(fn: (): unknown) -> T | undefined', () => {
   describe('fn returned', () => {
     it('return undefined', () => {
       const fn = () => 'value'

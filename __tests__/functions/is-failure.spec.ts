@@ -1,6 +1,6 @@
 import { isFailure } from '@src/functions/is-failure'
 
-describe('isFailure(fn: () => unknown) -> boolean', () => {
+describe('isFailure(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
     it('return false', () => {
       const fn = () => {}

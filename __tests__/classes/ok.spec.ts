@@ -1,7 +1,7 @@
 import { Result, Ok } from '@src/classes/result'
 
-describe('Ok', () => {
-  describe('[Symbol.iterable]() -> Iterator<T>', () => {
+describe('Ok<T>', () => {
+  describe('[Symbol.iterable](): Iterator<T>', () => {
     it('return Iterator', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -14,7 +14,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('isOk() -> boolean', () => {
+  describe('isOk(): boolean', () => {
     it('return true', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -25,7 +25,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('isErr() -> boolean', () => {
+  describe('isErr(): boolean', () => {
     it('return false', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -36,7 +36,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) -> void) -> this', () => {
+  describe('onOk(callback: (val: T) => void): this', () => {
     it('invoke callback', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -49,7 +49,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) -> void) -> this', () => {
+  describe('onErr(callback: (err: X) => void): this', () => {
     it('not invoke callback', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -62,7 +62,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('orElse(defaultValue: U) -> Result<T | U, X>', () => {
+  describe('orElse<U>(defaultValue: U): Result<T | U, X>', () => {
     it('return a copy', () => {
       const value = 'value'
       const defaultValue = 0
@@ -77,7 +77,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('map(mapper: (val: T) -> U) -> Result<U, X>', () => {
+  describe('map<U>(mapper: (val: T) => U): Result<U, X>', () => {
     it('return Ok', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -93,7 +93,7 @@ describe('Ok', () => {
     })
   })
 
-  describe('get() -> T', () => {
+  describe('get(): T', () => {
     it('return T', () => {
       const value = 'value'
       const res = Result.of(value)

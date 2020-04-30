@@ -1,6 +1,6 @@
 import { getResultError } from '@src/functions/get-result-error'
 
-describe('getResultError(fn: () => T) -> [T, undefined] | [undefined, X]', () => {
+describe('getResultError<X, T>(fn: () => T): [T, undefined] | [undefined, X]', () => {
   describe('fn returned', () => {
     it('return [T, undefined]', () => {
       const value = 'value'

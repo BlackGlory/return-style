@@ -1,6 +1,6 @@
 import { isSuccess } from '@src/functions/is-success'
 
-describe('isSuccess(fn: () => unknown) -> boolean', () => {
+describe('isSuccess(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
     it('return true', () => {
       const fn = () => {}

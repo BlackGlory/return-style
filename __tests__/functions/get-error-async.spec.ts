@@ -1,6 +1,6 @@
 import { getErrorAsync } from '@src/functions/get-error-async'
 
-describe('getErrorAsync(promise: PromiseLike<unknown>) -> Promise<T | undefined>', () => {
+describe('getErrorAsync<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {
     it('return Promise<undefined>', async () => {
       const promise = Promise.resolve('value')

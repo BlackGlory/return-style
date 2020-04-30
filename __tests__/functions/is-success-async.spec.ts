@@ -1,6 +1,6 @@
 import { isSuccessAsync } from '@src/functions/is-success-async'
 
-describe('isSuccessAsync(promise: PromiseLike<unknown>) -> Promise<boolean>', () => {
+describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {
     it('return Promise<true>', async () => {
       const promise = Promise.resolve()

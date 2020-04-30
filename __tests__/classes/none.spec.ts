@@ -2,7 +2,7 @@ import { getError } from '@src/functions/get-error'
 import { Optional, Some, None } from '@src/classes/optional'
 
 describe('None', () => {
-  describe('[Symbol.iterable]', () => {
+  describe('[Symbol.iterable](): Iterator<T>', () => {
     it('return Iterator', () => {
       const opt = Optional.ofNone()
 
@@ -14,7 +14,7 @@ describe('None', () => {
     })
   })
 
-  describe('isSome() -> boolean', () => {
+  describe('isSome(): boolean', () => {
     it('return false', () => {
       const opt = Optional.ofNone()
 
@@ -24,7 +24,7 @@ describe('None', () => {
     })
   })
 
-  describe('isNone() -> boolean', () => {
+  describe('isNone(): boolean', () => {
     it('return true', () => {
       const opt = Optional.ofNone()
 
@@ -34,7 +34,7 @@ describe('None', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) -> void) -> this', () => {
+  describe('onSome(callback: (val: T) => void): this', () => {
     it('not invoke callback', () => {
       const opt = Optional.ofNone()
       const cb = jest.fn()
@@ -46,7 +46,7 @@ describe('None', () => {
     })
   })
 
-  describe('onNone(callback: () -> void) -> this', () => {
+  describe('onNone(callback: () => void): this', () => {
     it('invoke callback', () => {
       const opt = Optional.ofNone()
       const cb = jest.fn()
@@ -58,7 +58,7 @@ describe('None', () => {
     })
   })
 
-  describe('orElse(defaultValue: U) -> Optional<T | U>', () => {
+  describe('orElse<U>(defaultValue: U): Optional<T | U>', () => {
     it('return a Some', () => {
       const opt = Optional.ofNone()
       const defaultValue = 'defaultValue'
@@ -71,7 +71,7 @@ describe('None', () => {
     })
   })
 
-  describe('map(mapper: (val: T) -> U) -> Optional<U>', () => {
+  describe('map<U>(mapper: (val: T) => U): Optional<U>', () => {
     it('return a copy', () => {
       const opt = Optional.ofNone()
       const fn = jest.fn()
@@ -84,7 +84,7 @@ describe('None', () => {
     })
   })
 
-  describe('filter(predicate: (val: T) -> boolean) -> Optional<U>', () => {
+  describe('filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>', () => {
     it('return a copy', () => {
       const opt = Optional.ofNone()
       const fn = jest.fn()
@@ -97,7 +97,7 @@ describe('None', () => {
     })
   })
 
-  describe('get() -> T', () => {
+  describe('get(): T', () => {
     it('throw error', () => {
       const opt = Optional.ofNone()
 

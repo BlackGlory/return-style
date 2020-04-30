@@ -1,7 +1,7 @@
 import { Optional, Some, None } from '@src/classes/optional'
 
-describe('Optional', () => {
-  describe('of(value: T) -> Optional<T>', () => {
+describe('Optional<T>', () => {
+  describe('of<T>(value: T): Optional<T>', () => {
     it('return Some', () => {
       const value = 'value'
 
@@ -12,7 +12,7 @@ describe('Optional', () => {
     })
   })
 
-  describe('ofNone() -> Optional<never>', () => {
+  describe('ofNone(): Optional<never>', () => {
     it('return None', () => {
       const result = Optional.ofNone()
 

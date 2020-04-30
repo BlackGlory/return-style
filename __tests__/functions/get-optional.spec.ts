@@ -1,7 +1,7 @@
 import { Some, None } from '@src/classes/optional'
 import { getOptional, getOptionalPartial } from '@src/functions/get-optional'
 
-describe('getOptional(fn: () => T | U, isNone: (val: T) => boolean) -> Optional<T>', () => {
+describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null
@@ -25,7 +25,7 @@ describe('getOptional(fn: () => T | U, isNone: (val: T) => boolean) -> Optional<
   })
 })
 
-describe('getOptionalPartial(isNone: (val: T) => boolean) -> (fn: () => T | U) -> Optional<T>', () => {
+describe('getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null

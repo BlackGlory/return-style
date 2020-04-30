@@ -4,21 +4,23 @@ function createOptions({ directory, target }) {
   return [
     {
       input: 'src/index.ts'
-    , output: createOutput(directory, 'index')
+    , output: createOutput('index')
     , plugins: createPlugins(target)
     }
   ]
 
-  function createOutput(directory, name) {
+  function createOutput(name) {
     return [
       {
         file: `dist/${directory}/${name}.mjs`
       , format: 'es'
+      , sourcemap: true
       }
     , {
         file: `dist/${directory}/${name}.umd.js`
       , format: 'umd'
       , name: 'ReturnStyle'
+      , sourcemap: true
       }
     ]
   }

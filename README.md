@@ -2,7 +2,7 @@
 
 Non-intrusively convert the return value of any function or promise into the style that the user needs.
 
-## Installation
+## Install
 
 ```sh
 npm install --save return-style
@@ -138,9 +138,9 @@ interface Result<T, X> {
 
 ### Optional: Some / None
 
-* `function getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean) => Option<T>`
+* `function getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
 * `function getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
-* `function getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean) => Promise<Option<T>>`
+* `function getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Option<T>>`
 * `function getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Option<T>>`
 
 ```ts
