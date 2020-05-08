@@ -16,6 +16,7 @@ test('exports', () => {
 
   , 'getError'
   , 'getErrorAsync'
+  , 'getErrorAsyncIterable'
 
   , 'getResult'
   , 'getResultAsync'

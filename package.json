@@ -1,6 +1,6 @@
 {
   "name": "return-style",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Non-intrusively convert the return value of any function or promise into the style that the user needs.",
   "files": [
     "lib",

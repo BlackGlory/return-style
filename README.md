@@ -76,12 +76,13 @@ if (await isFailureAsync(fnAsync())) {
 }
 ```
 
-### getError / getErrorAsync
+### getError / getErrorAsync / getErrorAsyncIterable
 
 Designed for testing, helping to achieve Arrange-Act-Assert pattern.
 
 * `function getError<T>(fn: () => unknown): T | undefined`
 * `function getErrorAsync<T>(promise: PromiseLike<unknown>): Promise<T | undefined>`
+* `function getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>`
 
 ```js
 // BAD: try...catch
