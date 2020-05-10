@@ -1,4 +1,4 @@
-import { Optional, Some, None } from '@src/classes/optional'
+import { Optional } from '@src/classes/optional'
 
 describe('Optional<T>', () => {
   describe('of<T>(value: T): Optional<T>', () => {
@@ -6,18 +6,20 @@ describe('Optional<T>', () => {
       const value = 'value'
 
       const result = Optional.of(value)
+      const isSome = result.isSome()
 
-      expect(result).toBeInstanceOf(Some)
       expect(result).toBeInstanceOf(Optional)
+      expect(isSome).toBe(true)
     })
   })
 
   describe('ofNone(): Optional<never>', () => {
     it('return None', () => {
       const result = Optional.ofNone()
+      const isNone = result.isNone()
 
-      expect(result).toBeInstanceOf(None)
       expect(result).toBeInstanceOf(Optional)
+      expect(isNone).toBe(true)
     })
   })
 })

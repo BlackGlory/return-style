@@ -8,6 +8,12 @@ test('exports', () => {
   , 'getResultError'
   , 'getResultErrorAsync'
 
+  , 'getSuccess'
+  , 'getSuccessAsync'
+
+  , 'getFailure'
+  , 'getFailureAsync'
+
   , 'isSuccess'
   , 'isSuccessAsync'
 

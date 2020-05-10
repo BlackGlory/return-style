@@ -1,7 +1,7 @@
-import { Optional, Some, None } from '@src/classes/optional'
+import { Optional } from '@src/classes/optional'
 
 describe('Some<T>', () => {
-  describe('[Symbol.iterable](): Iterator<T>', () => {
+  describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -36,7 +36,7 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) => void): this', () => {
+  describe('onSome(callback: (val: T) => void): Optional<T>', () => {
     it('invoke callback', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -44,12 +44,13 @@ describe('Some<T>', () => {
 
       const result = opt.onSome(cb)
 
-      expect(result).toBe(opt)
+      expect(result).toBeInstanceOf(Optional)
+      expect(result).not.toBe(opt)
       expect(cb).toBeCalledWith(value)
     })
   })
 
-  describe('onNone(callback: () => void): this', () => {
+  describe('onNone(callback: () => void): Optional<T>', () => {
     it('not invoke callback', () => {
       const value = 'value'
       const opt = Optional.of(value)
@@ -57,7 +58,8 @@ describe('Some<T>', () => {
 
       const result = opt.onNone(cb)
 
-      expect(result).toBe(opt)
+      expect(result).toBeInstanceOf(Optional)
+      expect(result).not.toBe(opt)
       expect(cb).not.toBeCalled()
     })
   })
@@ -69,10 +71,12 @@ describe('Some<T>', () => {
       const opt = Optional.of(value)
 
       const result = opt.orElse(defaultValue)
+      const isSome = result.isSome()
       const internalValue = result.get()
 
-      expect(result).toBeInstanceOf(Some)
+      expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
+      expect(isSome).toBe(true)
       expect(internalValue).toBe(value)
     })
   })
@@ -85,10 +89,12 @@ describe('Some<T>', () => {
       const fn = jest.fn().mockReturnValue(newValue)
 
       const result = opt.map(fn)
+      const isSome = result.isSome()
       const internalValue = result.get()
 
-      expect(result).toBeInstanceOf(Some)
+      expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
+      expect(isSome).toBe(true)
       expect(internalValue).toBe(newValue)
     })
   })
@@ -101,8 +107,10 @@ describe('Some<T>', () => {
         const fn = jest.fn().mockReturnValue(false)
 
         const result = opt.filter(fn)
+        const isNone = result.isNone()
 
-        expect(result).toBeInstanceOf(None)
+        expect(result).toBeInstanceOf(Optional)
+        expect(isNone).toBe(true)
       })
     })
 
@@ -113,10 +121,12 @@ describe('Some<T>', () => {
         const fn = jest.fn().mockReturnValue(true)
 
         const result = opt.filter(fn)
+        const isSome = result.isSome()
         const internalValue = result.get()
 
-        expect(result).toBeInstanceOf(Some)
+        expect(result).toBeInstanceOf(Optional)
         expect(result).not.toBe(opt)
+        expect(isSome).toBe(true)
         expect(internalValue).toBe(value)
       })
     })

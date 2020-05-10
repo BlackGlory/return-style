@@ -2144,6 +2144,11 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
+iterable-operator@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.10.1.tgz#838569ab27e9553013e46c91fd886ce8aa184e1a"
+  integrity sha512-28bY449J/vLl2IpniJzwoPbFRRawupcSrlxStMsrP1QYTLpcaaUUlxMI+zTowzfwFxFh6dlsfomIBaihBDCKhQ==
+
 jest-changed-files@^25.5.0:
   version "25.5.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-25.5.0.tgz#141cc23567ceb3f534526f8614ba39421383634c"

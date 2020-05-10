@@ -12,8 +12,8 @@ export abstract class Optional<T> implements Iterable<T> {
   abstract isSome(): boolean
   abstract isNone(): boolean
 
-  abstract onSome(callback: (val: T) => void): this
-  abstract onNone(callback: () => void): this
+  abstract onSome(callback: (val: T) => void): Optional<T>
+  abstract onNone(callback: () => void): Optional<T>
 
   abstract orElse<U>(defaultValue: U): Optional<T | U>
   abstract map<U>(mapper: (val: T) => U): Optional<U>
@@ -22,7 +22,7 @@ export abstract class Optional<T> implements Iterable<T> {
   abstract get(): T
 }
 
-export class Some<T> extends Optional<T> {
+class Some<T> extends Optional<T> {
   #value: T
 
   constructor(value: T) {
@@ -44,11 +44,11 @@ export class Some<T> extends Optional<T> {
 
   onSome(callback: (val: T) => void) {
     callback(this.#value)
-    return this
+    return Optional.of(this.#value)
   }
 
   onNone() {
-    return this
+    return Optional.of(this.#value)
   }
 
   orElse() {
@@ -72,7 +72,7 @@ export class Some<T> extends Optional<T> {
   }
 }
 
-export class None extends Optional<never> {
+class None extends Optional<never> {
   * [Symbol.iterator]() {}
 
   isSome() {
@@ -84,12 +84,12 @@ export class None extends Optional<never> {
   }
 
   onSome(_: (val: never) => void) {
-    return this
+    return Optional.ofNone()
   }
 
   onNone(callback: () => void) {
     callback()
-    return this
+    return Optional.ofNone()
   }
 
   orElse<T>(defaultValue: T) {

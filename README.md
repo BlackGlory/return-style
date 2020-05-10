@@ -42,6 +42,32 @@ const [ret, err] = await getResultErrorAsync(fnAsync())
 const [ret] = await getResultErrorAsync(fnAsync())
 ```
 
+### [isSuccess, Result | Error]
+
+Return tuple (isSuccess, Result | Error)
+
+* `function getSuccess<X, T>(fn: () => T): [true, T] | [false, X]`
+* `function getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [false, X]>`
+
+```ts
+const [succ, ret] = getSuccess(() => fn())
+
+const [succ, ret] = await getSuccessAsync(fnAsync())
+```
+
+### [isFailure, Result | Error]
+
+Return tuple (isFailure, Result | Error)
+
+* `function getFailure<X, T>(fn: () => T): [false, T] | [true, X]`
+* `function getFailure<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>`
+
+```ts
+const [fail, ret] = getFailure(() => fn())
+
+const [fail, ret] = await getFailureAsync(fnAsync())
+```
+
 ### isSuccess
 
 Return true when returning, false when throwing.
@@ -118,22 +144,37 @@ test('divided by zero', () => {
 ### Result: Ok / Err
 
 * `function getResult<T, X>(fn: () => T): Result<T, X>`
-* `function getResultAsync<T, X>(promise: PromiseLike<T>): Promise<Result<T, X>>`
+* `function getResultAsync<T, X>(promise: PromiseLike<T>): AsyncResult<T, X>`
 
 ```ts
 interface Result<T, X> {
-  [Symbol.iterable](): Iterator<T>
+  [Symbol.iterator](): Iterator<T>
+
+  onOk(callback: (val: T) => void): Result<T, X>
+  onErr(callback: (err: X) => void): Result<T, X>
 
   isOk(): boolean
   isErr(): boolean
 
-  onOk(callback: (val: T) => void): this
-  onErr(callback: (err: X) => void): this
-
-  orElse<U>(defaultValue: U): Result<T | U, X>
+  orElse<U>(defaultValue: U): Result<T | U, never>
   map<U>(mapper: (val: T) => U): Result<U, X>
 
   get(): T
+}
+
+interface AsyncResult<T, X> {
+  [Symbol.asyncIterator](): AsyncIterator<T>
+
+  onOk(callback: (val: T) => void): AsyncResult<T, X>
+  onErr(callback: (err: X) => void): AsyncResult<T, X>
+
+  isOk(): Promise<boolean>
+  isErr(): Promise<boolean>
+
+  orElse<U>(defaultValue: U): AsyncResult<T | U, never>
+  map<U>(mapper: (val: T) => U): AsyncResult<U, X>
+
+  get(): Promise<T>
 }
 ```
 
@@ -141,23 +182,39 @@ interface Result<T, X> {
 
 * `function getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
 * `function getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
-* `function getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Option<T>>`
-* `function getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Option<T>>`
+* `function getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
+* `function getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
 
 ```ts
 interface Optional<T> {
-  [Symbol.iterable](): Iterator<T>
-
-  isSome(): boolean
-  isNone(): boolean
+  [Symbol.iterator](): Iterator<T>
 
   onSome(callback: (val: T) => void): this
   onNone(callback: () => void): this
 
-  orElse(defaultValue: U): Optional<T | U>
+  isSome(): boolean
+  isNone(): boolean
+
+  orElse<U>(defaultValue: U): Optional<T | U>
   map<U>(mapper: (val: T) => U): Optional<U>
   filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>
 
   get(): T
+}
+
+interface AsyncOptional<T> {
+  [Symbol.asyncIterator](): AsyncIterator<T>
+
+  onSome(callback: (val: T) => void): this
+  onNone(callback: () => void): this
+
+  isSome(): Promise<boolean>
+  isNone(): Promise<boolean>
+
+  orElse<U>(defaultValue: U): AsyncOptional<T | U>
+  map<U>(mapper: (val: T) => U): AsyncOptional<U>
+  filter<U extends T = T>(predicate: (val: T) => boolean): AsyncOptional<U>
+
+  get(): Promise<T>
 }
 ```

@@ -1,8 +1,8 @@
 import { getError } from '@src/functions/get-error'
-import { Optional, Some, None } from '@src/classes/optional'
+import { Optional } from '@src/classes/optional'
 
 describe('None', () => {
-  describe('[Symbol.iterable](): Iterator<T>', () => {
+  describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const opt = Optional.ofNone()
 
@@ -34,26 +34,28 @@ describe('None', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) => void): this', () => {
+  describe('onSome(callback: (val: T) => void): Optional<T>', () => {
     it('not invoke callback', () => {
       const opt = Optional.ofNone()
       const cb = jest.fn()
 
       const result = opt.onSome(cb)
 
-      expect(result).toBe(opt)
+      expect(result).toBeInstanceOf(Optional)
+      expect(result).not.toBe(opt)
       expect(cb).not.toBeCalled()
     })
   })
 
-  describe('onNone(callback: () => void): this', () => {
+  describe('onNone(callback: () => void): Optional<T>', () => {
     it('invoke callback', () => {
       const opt = Optional.ofNone()
       const cb = jest.fn()
 
       const result = opt.onNone(cb)
 
-      expect(result).toBe(opt)
+      expect(result).toBeInstanceOf(Optional)
+      expect(result).not.toBe(opt)
       expect(cb).toBeCalled()
     })
   })
@@ -64,9 +66,11 @@ describe('None', () => {
       const defaultValue = 'defaultValue'
 
       const result = opt.orElse(defaultValue)
+      const isSome = result.isSome()
       const internalValue = result.get()
 
-      expect(result).toBeInstanceOf(Some)
+      expect(result).toBeInstanceOf(Optional)
+      expect(isSome).toBe(true)
       expect(internalValue).toBe(defaultValue)
     })
   })
@@ -77,10 +81,12 @@ describe('None', () => {
       const fn = jest.fn()
 
       const result = opt.map(fn)
+      const isNone = result.isNone()
 
       expect(fn).not.toBeCalled()
-      expect(result).toBeInstanceOf(None)
+      expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
+      expect(isNone).toBe(true)
     })
   })
 
@@ -90,10 +96,12 @@ describe('None', () => {
       const fn = jest.fn()
 
       const result = opt.filter(fn)
+      const isNone = result.isNone()
 
       expect(fn).not.toBeCalled()
-      expect(result).toBeInstanceOf(None)
+      expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
+      expect(isNone).toBe(true)
     })
   })
 

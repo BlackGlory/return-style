@@ -1,30 +1,30 @@
-import { Some, None } from '@src/classes/optional'
+import { AsyncOptional } from '@src/classes/async-optional'
 import { getOptionalAsync, getOptionalAsyncPartial } from '@src/functions/get-optional-async'
 
 describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
-    it('return Promise<None>', async () => {
+    it('return AsyncOptional<never>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
       const result = getOptionalAsync(promise, allIsNone)
-      const proResult = await result
+      const isNone = await result.isNone()
 
-      expect(result).toBeInstanceOf(Promise)
-      expect(proResult).toBeInstanceOf(None)
+      expect(result).toBeInstanceOf(AsyncOptional)
+      expect(isNone).toBe(true)
     })
   })
 
   describe('isNone returned false', () => {
-    it('return Promise<Some>', async () => {
+    it('return AsyncOptional<T>', async () => {
       const promise = Promise.resolve()
       const allIsSome = () => false
 
       const result = getOptionalAsync(promise, allIsSome)
-      const proResult = await result
+      const isSome = await result.isSome()
 
-      expect(result).toBeInstanceOf(Promise)
-      expect(proResult).toBeInstanceOf(Some)
+      expect(result).toBeInstanceOf(AsyncOptional)
+      expect(isSome).toBe(true)
     })
   })
 })
@@ -36,10 +36,10 @@ describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Pro
       const allIsNone = () => true
 
       const result = getOptionalAsyncPartial(allIsNone)(promise)
-      const proResult = await result
+      const isNone = await result.isNone()
 
-      expect(result).toBeInstanceOf(Promise)
-      expect(proResult).toBeInstanceOf(None)
+      expect(result).toBeInstanceOf(AsyncOptional)
+      expect(isNone).toBe(true)
     })
   })
 
@@ -49,10 +49,10 @@ describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Pro
       const allIsSome = () => false
 
       const result = getOptionalAsyncPartial(allIsSome)(promise)
-      const proResult = await result
+      const isSome = await result.isSome()
 
-      expect(result).toBeInstanceOf(Promise)
-      expect(proResult).toBeInstanceOf(Some)
+      expect(result).toBeInstanceOf(AsyncOptional)
+      expect(isSome).toBe(true)
     })
   })
 })

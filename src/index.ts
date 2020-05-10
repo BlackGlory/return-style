@@ -4,6 +4,12 @@ export { getErrorResultAsync } from './functions/get-error-result-async'
 export { getResultError } from './functions/get-result-error'
 export { getResultErrorAsync } from './functions/get-result-error-async'
 
+export { getSuccess } from './functions/get-success'
+export { getSuccessAsync } from './functions/get-success-async'
+
+export { getFailure } from './functions/get-failure'
+export { getFailureAsync } from './functions/get-failure-async'
+
 export { isSuccess } from './functions/is-success'
 export { isSuccessAsync } from './functions/is-success-async'
 

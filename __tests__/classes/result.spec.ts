@@ -1,4 +1,4 @@
-import { Result, Ok, Err } from '@src/classes/result'
+import { Result } from '@src/classes/result'
 
 describe('Result<T, X>', () => {
   describe('of<T>(value: T): Result<T, never>', () => {
@@ -6,9 +6,10 @@ describe('Result<T, X>', () => {
       const value = 'value'
 
       const result = Result.of(value)
+      const isOk = result.isOk()
 
-      expect(result).toBeInstanceOf(Ok)
       expect(result).toBeInstanceOf(Result)
+      expect(isOk).toBe(true)
     })
   })
 
@@ -17,9 +18,10 @@ describe('Result<T, X>', () => {
       const error = 'error'
 
       const result = Result.ofErr(error)
+      const isErr = result.isErr()
 
-      expect(result).toBeInstanceOf(Err)
       expect(result).toBeInstanceOf(Result)
+      expect(isErr).toBe(true)
     })
   })
 })

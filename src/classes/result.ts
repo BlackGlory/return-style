@@ -12,16 +12,16 @@ export abstract class Result<T, X> implements Iterable<T> {
   abstract isOk(): boolean
   abstract isErr(): boolean
 
-  abstract onOk(callback: (val: T) => void): this
-  abstract onErr(callback: (err: X) => void): this
+  abstract onOk(callback: (val: T) => void): Result<T, X>
+  abstract onErr(callback: (err: X) => void): Result<T, X>
 
-  abstract orElse<U>(defaultValue: U): Result<T | U, X>
+  abstract orElse<U>(defaultValue: U): Result<T | U, never>
   abstract map<U>(mapper: (val: T) => U): Result<U, X>
 
   abstract get(): T
 }
 
-export class Ok<T> extends Result<T, never> {
+class Ok<T> extends Result<T, never> {
   #value: T
 
   constructor(value: T) {
@@ -43,11 +43,11 @@ export class Ok<T> extends Result<T, never> {
 
   onOk(callback: (val: T) => void) {
     callback(this.#value)
-    return this
+    return Result.of(this.#value)
   }
 
   onErr() {
-    return this
+    return Result.of(this.#value)
   }
 
   orElse() {
@@ -63,7 +63,7 @@ export class Ok<T> extends Result<T, never> {
   }
 }
 
-export class Err<X> extends Result<never, X> {
+class Err<X> extends Result<never, X> {
   #value: X
 
   constructor(err: X) {
@@ -82,12 +82,12 @@ export class Err<X> extends Result<never, X> {
   }
 
   onOk() {
-    return this
+    return Result.ofErr(this.#value)
   }
 
   onErr(callback: (err: X) => void) {
     callback(this.#value)
-    return this
+    return Result.ofErr(this.#value)
   }
 
   orElse<T>(defaultValue: T) {

@@ -1,7 +1,7 @@
-import { Result, Ok } from '@src/classes/result'
+import { Result } from '@src/classes/result'
 
 describe('Ok<T>', () => {
-  describe('[Symbol.iterable](): Iterator<T>', () => {
+  describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -36,7 +36,7 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) => void): this', () => {
+  describe('onOk(callback: (val: T) => void): Result<T, X>', () => {
     it('invoke callback', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -44,12 +44,13 @@ describe('Ok<T>', () => {
 
       const result = res.onOk(cb)
 
-      expect(result).toBe(res)
+      expect(result).toBeInstanceOf(Result)
+      expect(result).not.toBe(res)
       expect(cb).toBeCalledWith(value)
     })
   })
 
-  describe('onErr(callback: (err: X) => void): this', () => {
+  describe('onErr(callback: (err: X) => void): Result<T, X>', () => {
     it('not invoke callback', () => {
       const value = 'value'
       const res = Result.of(value)
@@ -57,7 +58,8 @@ describe('Ok<T>', () => {
 
       const result = res.onErr(cb)
 
-      expect(result).toBe(res)
+      expect(result).toBeInstanceOf(Result)
+      expect(result).not.toBe(res)
       expect(cb).not.toBeCalled()
     })
   })
@@ -69,10 +71,12 @@ describe('Ok<T>', () => {
       const res = Result.of(value)
 
       const result = res.orElse(defaultValue)
+      const isOk = result.isOk()
       const internalValue = result.get()
 
-      expect(result).toBeInstanceOf(Ok)
+      expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
+      expect(isOk).toBe(true)
       expect(internalValue).toBe(value)
     })
   })
@@ -85,10 +89,12 @@ describe('Ok<T>', () => {
       const fn = jest.fn().mockReturnValue(newValue)
 
       const result = res.map(fn)
+      const isOk = result.isOk()
       const internalValue = result.get()
 
-      expect(result).toBeInstanceOf(Ok)
+      expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
+      expect(isOk).toBe(true)
       expect(internalValue).toBe(newValue)
     })
   })
