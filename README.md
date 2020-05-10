@@ -60,7 +60,7 @@ const [succ, ret] = await getSuccessAsync(fnAsync())
 Return tuple (isFailure, Result | Error)
 
 * `function getFailure<X, T>(fn: () => T): [false, T] | [true, X]`
-* `function getFailure<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>`
+* `function getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>`
 
 ```ts
 const [fail, ret] = getFailure(() => fn())
