@@ -1,15 +1,14 @@
 import { Result } from '@src/classes/result'
+import '@test/matchers'
 
 describe('Ok<T>', () => {
   describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const value = 'value'
       const res = Result.of(value)
-
-      const isIter = isIterable(res)
       const result = [...res]
 
-      expect(isIter).toBe(true)
+      expect(res).toBeIterable()
       expect(result).toEqual([value])
     })
   })
@@ -110,7 +109,3 @@ describe('Ok<T>', () => {
     })
   })
 })
-
-function isIterable<T>(val: any): val is Iterable<T> {
-  return val !== null && typeof val[Symbol.iterator] === 'function'
-}

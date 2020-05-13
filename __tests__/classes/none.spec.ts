@@ -1,15 +1,14 @@
 import { getError } from '@src/functions/get-error'
 import { Optional } from '@src/classes/optional'
+import '@test/matchers'
 
 describe('None', () => {
   describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const opt = Optional.ofNone()
-
-      const isIter = isIterable(opt)
       const result = [...opt]
 
-      expect(isIter).toBe(true)
+      expect(opt).toBeIterable()
       expect(result).toEqual([])
     })
   })
@@ -115,7 +114,3 @@ describe('None', () => {
     })
   })
 })
-
-function isIterable<T>(val: any): val is Iterable<T> {
-  return val !== null && typeof val[Symbol.iterator] === 'function'
-}

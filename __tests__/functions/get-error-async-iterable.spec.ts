@@ -1,4 +1,5 @@
 import { getErrorAsyncIterable } from '@src/functions/get-error-async-iterable'
+import '@test/matchers'
 
 describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {
@@ -8,7 +9,7 @@ describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T 
       const result = getErrorAsyncIterable(iter)
       const err = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(err).toBeUndefined()
     })
   })
@@ -21,7 +22,7 @@ describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T 
       const result = getErrorAsyncIterable(iter)
       const err = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(err).toBe(customError)
     })
   })

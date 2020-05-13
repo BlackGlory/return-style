@@ -1,4 +1,5 @@
 import { getFailureAsync } from '@src/functions/get-failure-async'
+import '@test/matchers'
 
 describe('getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>', () => {
   describe('fn returned', () => {
@@ -9,7 +10,7 @@ describe('getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [
       const result = getFailureAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([false, value])
     })
   })
@@ -22,7 +23,7 @@ describe('getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [
       const result = getFailureAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([true, customError])
     })
   })

@@ -1,16 +1,16 @@
 import { getError } from '@src/functions/get-error'
 import { Result } from '@src/classes/result'
+import '@test/matchers'
 
 describe('Err<X>', () => {
   describe('[Symbol.iterator](): Iterator<T>', () => {
     it('return Iterator', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
 
-      const isIter = isIterable(res)
+      const res = Result.ofErr(error)
       const result = [...res]
 
-      expect(isIter).toBe(true)
+      expect(res).toBeIterable()
       expect(result).toEqual([])
     })
   })
@@ -109,7 +109,3 @@ describe('Err<X>', () => {
     })
   })
 })
-
-function isIterable<T>(val: any): val is Iterable<T> {
-  return val !== null && typeof val[Symbol.iterator] === 'function'
-}

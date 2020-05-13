@@ -1,4 +1,5 @@
 import { isFailureAsync } from '@src/functions/is-failure-async'
+import '@test/matchers'
 
 describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {
@@ -8,7 +9,7 @@ describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const result = isFailureAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(false)
     })
   })
@@ -20,7 +21,7 @@ describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const result = isFailureAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(true)
     })
   })

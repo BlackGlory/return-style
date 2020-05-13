@@ -1,17 +1,17 @@
 import { toArrayAsync } from 'iterable-operator'
 import { getErrorAsync } from '@src/functions/get-error-async'
 import { AsyncResult } from '@src/classes/async-result'
+import '@test/matchers'
 
 describe('AsyncErr<X>', () => {
   describe('[Symbol.asyncIterator](): AsyncIterator<T>', () => {
     it('return Iterator', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
 
-      const isIter = isAsyncIterable(res)
+      const res = AsyncResult.ofErr(error)
       const result = await toArrayAsync(res)
 
-      expect(isIter).toBe(true)
+      expect(res).toBeAsyncIterable()
       expect(result).toEqual([])
     })
   })
@@ -24,7 +24,7 @@ describe('AsyncErr<X>', () => {
       const result = res.isOk()
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(false)
     })
   })
@@ -37,7 +37,7 @@ describe('AsyncErr<X>', () => {
       const result = res.isErr()
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(true)
     })
   })
@@ -120,10 +120,6 @@ describe('AsyncErr<X>', () => {
     })
   })
 })
-
-function isAsyncIterable<T>(val: any): val is AsyncIterable<T> {
-  return val && typeof val[Symbol.asyncIterator] === 'function'
-}
 
 function runAllMicrotasks(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0))

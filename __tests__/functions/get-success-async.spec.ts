@@ -1,4 +1,5 @@
 import { getSuccessAsync } from '@src/functions/get-success-async'
+import '@test/matchers'
 
 describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [false, X]>', () => {
   describe('fn returned', () => {
@@ -9,7 +10,7 @@ describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [f
       const result = getSuccessAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([true, value])
     })
   })
@@ -22,7 +23,7 @@ describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [f
       const result = getSuccessAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([false, customError])
     })
   })

@@ -1,4 +1,5 @@
 import { getResultErrorAsync } from '@src/functions/get-result-error-async'
+import '@test/matchers'
 
 describe('getResultErrorAsync<X, T>(promise: PromiseLike<T>) -> Promise<[T, undefined] | [undefined, X]>', () => {
   describe('promise resolved', () => {
@@ -9,7 +10,7 @@ describe('getResultErrorAsync<X, T>(promise: PromiseLike<T>) -> Promise<[T, unde
       const result = getResultErrorAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([value, undefined])
     })
   })
@@ -22,7 +23,7 @@ describe('getResultErrorAsync<X, T>(promise: PromiseLike<T>) -> Promise<[T, unde
       const result = getResultErrorAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toEqual([undefined, customError])
     })
   })

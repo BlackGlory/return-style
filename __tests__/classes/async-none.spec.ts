@@ -1,16 +1,15 @@
 import { getErrorAsync } from '@src/functions/get-error-async'
 import { AsyncOptional } from '@src/classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
+import '@test/matchers'
 
 describe('AsyncNone', () => {
   describe('[Symbol.itrable](): Iterator<T>', () => {
     it('return Iterator', async () => {
       const opt = AsyncOptional.ofNone()
-
-      const isIter = isAsyncIterable(opt)
       const result = await toArrayAsync(opt)
 
-      expect(isIter).toBe(true)
+      expect(opt).toBeAsyncIterable()
       expect(result).toEqual([])
     })
   })
@@ -22,7 +21,7 @@ describe('AsyncNone', () => {
       const result = opt.isSome()
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(false)
     })
   })
@@ -34,7 +33,7 @@ describe('AsyncNone', () => {
       const result = opt.isNone()
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(true)
     })
   })
@@ -120,15 +119,11 @@ describe('AsyncNone', () => {
       const result = opt.get()
       const err = await getErrorAsync(result)
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(err).toBeInstanceOf(Error)
     })
   })
 })
-
-function isAsyncIterable<T>(val: any): val is AsyncIterable<T> {
-  return val && typeof val[Symbol.asyncIterator] === 'function'
-}
 
 function runAllMicrotasks(): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, 0))

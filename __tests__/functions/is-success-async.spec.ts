@@ -1,4 +1,5 @@
 import { isSuccessAsync } from '@src/functions/is-success-async'
+import '@test/matchers'
 
 describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {
@@ -8,7 +9,7 @@ describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const result = isSuccessAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(true)
     })
   })
@@ -20,7 +21,7 @@ describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const result = isSuccessAsync(promise)
       const proResult = await result
 
-      expect(result).toBeInstanceOf(Promise)
+      expect(result).toBePromise()
       expect(proResult).toBe(false)
     })
   })
