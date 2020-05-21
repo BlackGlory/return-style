@@ -1,8 +1,8 @@
-export function getSuccess<X, T>(fn: () => T): [true, T] | [false, X] {
+export function getSuccess<T>(fn: () => T): [true, T] | [false, undefined] {
   try {
     const result = fn()
     return [true, result]
   } catch (e) {
-    return [false, e]
+    return [false, void 0]
   }
 }

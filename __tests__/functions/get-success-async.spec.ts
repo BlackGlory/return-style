@@ -1,7 +1,7 @@
 import { getSuccessAsync } from '@src/functions/get-success-async'
 import '@test/matchers'
 
-describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [false, X]>', () => {
+describe('getSuccessAsync<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('fn returned', () => {
     it('return Promise<[true, T]>', async () => {
       const value = 'value'
@@ -16,7 +16,7 @@ describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [f
   })
 
   describe('fn throwed', () => {
-    it('return Promise<[false, X]>', async () => {
+    it('return Promise<[false, undefined]>', async () => {
       const customError = new Error('CustomError')
       const promise = Promise.reject(customError)
 
@@ -24,7 +24,7 @@ describe('getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [f
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toEqual([false, customError])
+      expect(proResult).toEqual([false, undefined])
     })
   })
 })

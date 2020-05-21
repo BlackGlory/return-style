@@ -34,13 +34,13 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   async *[Symbol.asyncIterator](): AsyncIterator<T> {
-    const [succ, ret] = await getSuccessAsync<X, T>(this.#promise)
+    const [succ, ret] = await getSuccessAsync<T>(this.#promise)
     if (succ) yield ret as T
   }
 
   onOk(callback: (val: T) => void): AsyncResult<T, X> {
     (async () => {
-      const [succ, ret] = await getSuccessAsync<X, T>(this.#promise)
+      const [succ, ret] = await getSuccessAsync<T>(this.#promise)
       if (succ) callback(ret as T)
     })()
     return new AsyncResult(this.#promise)
@@ -48,7 +48,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   onErr(callback: (err: X) => void): AsyncResult<T, X> {
     (async () => {
-      const [fail, err] = await getFailureAsync<X, T>(this.#promise)
+      const [fail, err] = await getFailureAsync<X>(this.#promise)
       if (fail) callback(err as X)
     })()
     return new AsyncResult(this.#promise)
@@ -74,9 +74,8 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   map<U>(mapper: (val: T) => U): AsyncResult<U, X> {
     return new AsyncResult((async () => {
-      const [fail, ret] = await getFailureAsync<X, T>(this.#promise)
-      if (fail) throw ret as X
-      return mapper(ret as T)
+      const result = await this.#promise
+      return mapper(result as T)
     })())
   }
 

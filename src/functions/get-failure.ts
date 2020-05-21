@@ -1,7 +1,7 @@
-export function getFailure<X, T>(fn: () => T): [false, T] | [true, X] {
+export function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined] {
   try {
-    const result = fn()
-    return [false, result]
+    fn()
+    return [false, void 0]
   } catch (e) {
     return [true, e]
   }

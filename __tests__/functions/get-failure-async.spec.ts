@@ -1,9 +1,9 @@
 import { getFailureAsync } from '@src/functions/get-failure-async'
 import '@test/matchers'
 
-describe('getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>', () => {
+describe('getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
   describe('fn returned', () => {
-    it('return Promise<[false, T]>', async () => {
+    it('return Promise<[false, undefined]>', async () => {
       const value = 'value'
       const promise = Promise.resolve(value)
 
@@ -11,7 +11,7 @@ describe('getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toEqual([false, value])
+      expect(proResult).toEqual([false, undefined])
     })
   })
 

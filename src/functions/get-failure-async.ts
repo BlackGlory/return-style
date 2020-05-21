@@ -1,7 +1,7 @@
-export async function getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]> {
+export async function getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]> {
   try {
-    const result = await promise
-    return [false, result]
+    await promise
+    return [false, void 0]
   } catch (e) {
     return [true, e]
   }

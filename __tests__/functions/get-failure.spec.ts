@@ -1,14 +1,14 @@
 import { getFailure } from '@src/functions/get-failure'
 
-describe('getFailure<X, T>(fn: () => T): [false, T] | [true, X]', () => {
+describe('getFailure<X>(fn: () => unknown): [true, X] | [false, undefined]', () => {
   describe('fn returned', () => {
-    it('return [false, T]', () => {
+    it('return [false, undefined]', () => {
       const value = 'value'
       const fn = () => value
 
       const result = getFailure(fn)
 
-      expect(result).toEqual([false, value])
+      expect(result).toEqual([false, undefined])
     })
   })
 

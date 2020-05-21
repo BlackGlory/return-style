@@ -42,12 +42,12 @@ const [ret, err] = await getResultErrorAsync(fnAsync())
 const [ret] = await getResultErrorAsync(fnAsync())
 ```
 
-### [isSuccess, Result | Error]
+### [isSuccess, Result | undefined]
 
-Return tuple (isSuccess, Result | Error)
+Return tuple (isSuccess, Result | undefined)
 
-* `function getSuccess<X, T>(fn: () => T): [true, T] | [false, X]`
-* `function getSuccessAsync<X, T>(promise: PromiseLike<T>): Promise<[true, T] | [false, X]>`
+* `function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]`
+* `function getSuccessAsync<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
 
 ```ts
 const [succ, ret] = getSuccess(() => fn())
@@ -55,12 +55,12 @@ const [succ, ret] = getSuccess(() => fn())
 const [succ, ret] = await getSuccessAsync(fnAsync())
 ```
 
-### [isFailure, Result | Error]
+### [isFailure, Error | undefined ]
 
-Return tuple (isFailure, Result | Error)
+Return tuple (isFailure, Error | undefined)
 
-* `function getFailure<X, T>(fn: () => T): [false, T] | [true, X]`
-* `function getFailureAsync<X, T>(promise: PromiseLike<T>): Promise<[false, T] | [true, X]>`
+* `function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined]`
+* `function getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
 
 ```ts
 const [fail, ret] = getFailure(() => fn())

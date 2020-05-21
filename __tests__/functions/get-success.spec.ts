@@ -1,6 +1,6 @@
 import { getSuccess } from '@src/functions/get-success'
 
-describe('getSuccess<X, T>(fn: () => T): [true, T] | [false, X]', () => {
+describe('getSuccess<T>(fn: () => T): [true, T] | [false, undefined]', () => {
   describe('fn returned', () => {
     it('return [true, T]', () => {
       const value = 'value'
@@ -13,13 +13,13 @@ describe('getSuccess<X, T>(fn: () => T): [true, T] | [false, X]', () => {
   })
 
   describe('fn throwed', () => {
-    it('return [false, X]', () => {
+    it('return [false, undefined]', () => {
       const customError = new Error('CustomError')
       const fn = () => { throw customError }
 
       const result = getSuccess(fn)
 
-      expect(result).toEqual([false, customError])
+      expect(result).toEqual([false, undefined])
     })
   })
 })
