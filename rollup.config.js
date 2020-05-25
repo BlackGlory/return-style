@@ -1,11 +1,22 @@
 import typescript from '@rollup/plugin-typescript'
+import { terser } from 'rollup-plugin-terser'
 
 function createOptions({ directory, target }) {
   return [
     {
       input: 'src/index.ts'
     , output: createOutput('index')
-    , plugins: createPlugins(target)
+    , plugins: [
+        typescript({ target })
+      ]
+    }
+  , {
+      input: 'src/index.ts'
+    , output: createMinification('index')
+    , plugins: [
+        typescript({ target })
+      , terser()
+      ]
     }
   ]
 
@@ -25,9 +36,19 @@ function createOptions({ directory, target }) {
     ]
   }
 
-  function createPlugins(target) {
+  function createMinification(name) {
     return [
-      typescript({ target })
+      {
+        file: `dist/${directory}/${name}.min.mjs`
+      , format: 'es'
+      , sourcemap: true
+      }
+    , {
+        file: `dist/${directory}/${name}.umd.min.js`
+      , format: 'umd'
+      , name: 'ReturnStyle'
+      , sourcemap: true
+      }
     ]
   }
 }
