@@ -147,7 +147,7 @@ test('divided by zero', () => {
 * `function getResultAsync<T, X>(promise: PromiseLike<T>): AsyncResult<T, X>`
 
 ```ts
-interface Result<T, X> {
+interface Result<T, X = any> {
   [Symbol.iterator](): Iterator<T>
 
   onOk(callback: (val: T) => void): Result<T, X>

@@ -1,4 +1,4 @@
-export abstract class Result<T, X> implements Iterable<T> {
+export abstract class Result<T, X = any> implements Iterable<T> {
   abstract [Symbol.iterator](): Iterator<T>
 
   static of<T>(value: T): Result<T, never> {
@@ -22,15 +22,16 @@ export abstract class Result<T, X> implements Iterable<T> {
 }
 
 class Ok<T> extends Result<T, never> {
-  #value: T
+  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
+  private _value: T
 
   constructor(value: T) {
     super()
-    this.#value = value
+    this._value = value
   }
 
   * [Symbol.iterator]() {
-    yield this.#value
+    yield this._value
   }
 
   isOk() {
@@ -42,33 +43,34 @@ class Ok<T> extends Result<T, never> {
   }
 
   onOk(callback: (val: T) => void) {
-    callback(this.#value)
-    return Result.of(this.#value)
+    callback(this._value)
+    return Result.of(this._value)
   }
 
   onErr() {
-    return Result.of(this.#value)
+    return Result.of(this._value)
   }
 
   orElse() {
-    return Result.of(this.#value)
+    return Result.of(this._value)
   }
 
   map<U>(mapper: (val: T) => U) {
-    return Result.of(mapper(this.#value))
+    return Result.of(mapper(this._value))
   }
 
   get() {
-    return this.#value
+    return this._value
   }
 }
 
 class Err<X> extends Result<never, X> {
-  #value: X
+  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
+  private _value: X
 
   constructor(err: X) {
     super()
-    this.#value = err
+    this._value = err
   }
 
   * [Symbol.iterator]() {}
@@ -82,12 +84,12 @@ class Err<X> extends Result<never, X> {
   }
 
   onOk() {
-    return Result.ofErr(this.#value)
+    return Result.ofErr(this._value)
   }
 
   onErr(callback: (err: X) => void) {
-    callback(this.#value)
-    return Result.ofErr(this.#value)
+    callback(this._value)
+    return Result.ofErr(this._value)
   }
 
   orElse<T>(defaultValue: T) {
@@ -95,10 +97,10 @@ class Err<X> extends Result<never, X> {
   }
 
   map() {
-    return Result.ofErr(this.#value)
+    return Result.ofErr(this._value)
   }
 
   get(): never {
-    throw this.#value
+    throw this._value
   }
 }

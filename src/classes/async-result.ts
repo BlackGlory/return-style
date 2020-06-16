@@ -27,45 +27,46 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     return new AsyncErr(error)
   }
 
-  #promise: PromiseLike<T>
+  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
+  private _promise: PromiseLike<T>
 
   constructor(promise: PromiseLike<T>) {
-    this.#promise = promise
+    this._promise = promise
   }
 
   async *[Symbol.asyncIterator](): AsyncIterator<T> {
-    const [succ, ret] = await getSuccessAsync<T>(this.#promise)
+    const [succ, ret] = await getSuccessAsync<T>(this._promise)
     if (succ) yield ret as T
   }
 
   onOk(callback: (val: T) => void): AsyncResult<T, X> {
     (async () => {
-      const [succ, ret] = await getSuccessAsync<T>(this.#promise)
+      const [succ, ret] = await getSuccessAsync<T>(this._promise)
       if (succ) callback(ret as T)
     })()
-    return new AsyncResult(this.#promise)
+    return new AsyncResult(this._promise)
   }
 
   onErr(callback: (err: X) => void): AsyncResult<T, X> {
     (async () => {
-      const [fail, err] = await getFailureAsync<X>(this.#promise)
+      const [fail, err] = await getFailureAsync<X>(this._promise)
       if (fail) callback(err as X)
     })()
-    return new AsyncResult(this.#promise)
+    return new AsyncResult(this._promise)
   }
 
   async isOk(): Promise<boolean> {
-    return await isSuccessAsync(this.#promise)
+    return await isSuccessAsync(this._promise)
   }
 
   async isErr(): Promise<boolean> {
-    return await isFailureAsync(this.#promise)
+    return await isFailureAsync(this._promise)
   }
 
   orElse<U>(defaultValue: U): AsyncResult<T | U, never> {
     return new AsyncResult((async () => {
       try {
-        return await this.#promise
+        return await this._promise
       } catch {
         return defaultValue
       }
@@ -74,13 +75,13 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   map<U>(mapper: (val: T) => U): AsyncResult<U, X> {
     return new AsyncResult((async () => {
-      const result = await this.#promise
+      const result = await this._promise
       return mapper(result as T)
     })())
   }
 
   async get(): Promise<T> {
-    return await this.#promise
+    return await this._promise
   }
 }
 
