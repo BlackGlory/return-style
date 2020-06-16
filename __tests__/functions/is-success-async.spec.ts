@@ -1,4 +1,5 @@
 import { isSuccessAsync } from '@src/functions/is-success-async'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
@@ -10,7 +11,7 @@ describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(true)
+      expect(proResult).toBeTrue()
     })
   })
 
@@ -22,7 +23,7 @@ describe('isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(false)
+      expect(proResult).toBeFalse()
     })
   })
 })

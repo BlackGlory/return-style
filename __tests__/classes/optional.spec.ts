@@ -1,4 +1,5 @@
 import { Optional } from '@src/classes/optional'
+import 'jest-extended'
 
 describe('Optional<T>', () => {
   describe('of<T>(value: T): Optional<T>', () => {
@@ -9,7 +10,7 @@ describe('Optional<T>', () => {
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 
@@ -19,7 +20,7 @@ describe('Optional<T>', () => {
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 })

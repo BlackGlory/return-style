@@ -1,4 +1,5 @@
 import { Optional } from '@src/classes/optional'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('Some<T>', () => {
@@ -20,7 +21,7 @@ describe('Some<T>', () => {
 
       const isSome = opt.isSome()
 
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 
@@ -31,7 +32,7 @@ describe('Some<T>', () => {
 
       const isNone = opt.isNone()
 
-      expect(isNone).toBe(false)
+      expect(isNone).toBeFalse()
     })
   })
 
@@ -75,7 +76,7 @@ describe('Some<T>', () => {
 
       expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
       expect(internalValue).toBe(value)
     })
   })
@@ -93,7 +94,7 @@ describe('Some<T>', () => {
 
       expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
       expect(internalValue).toBe(newValue)
     })
   })
@@ -109,7 +110,7 @@ describe('Some<T>', () => {
         const isNone = result.isNone()
 
         expect(result).toBeInstanceOf(Optional)
-        expect(isNone).toBe(true)
+        expect(isNone).toBeTrue()
       })
     })
 
@@ -125,7 +126,7 @@ describe('Some<T>', () => {
 
         expect(result).toBeInstanceOf(Optional)
         expect(result).not.toBe(opt)
-        expect(isSome).toBe(true)
+        expect(isSome).toBeTrue()
         expect(internalValue).toBe(value)
       })
     })

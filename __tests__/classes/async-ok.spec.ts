@@ -1,5 +1,6 @@
 import { toArrayAsync } from 'iterable-operator'
 import { AsyncResult } from '@src/classes/async-result'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncOk<T>', () => {
@@ -24,7 +25,7 @@ describe('AsyncOk<T>', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(true)
+      expect(proResult).toBeTrue()
     })
   })
 
@@ -37,7 +38,7 @@ describe('AsyncOk<T>', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(false)
+      expect(proResult).toBeFalse()
     })
   })
 
@@ -87,7 +88,7 @@ describe('AsyncOk<T>', () => {
 
       expect(result).toBeInstanceOf(AsyncResult)
       expect(result).not.toBe(res)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
       expect(internalValue).toBe(value)
     })
   })
@@ -105,7 +106,7 @@ describe('AsyncOk<T>', () => {
 
       expect(result).toBeInstanceOf(AsyncResult)
       expect(result).not.toBe(res)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
       expect(internalValue).toBe(newValue)
     })
   })

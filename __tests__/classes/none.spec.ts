@@ -1,5 +1,6 @@
 import { getError } from '@src/functions/get-error'
 import { Optional } from '@src/classes/optional'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('None', () => {
@@ -19,7 +20,7 @@ describe('None', () => {
 
       const result = opt.isSome()
 
-      expect(result).toBe(false)
+      expect(result).toBeFalse()
     })
   })
 
@@ -29,7 +30,7 @@ describe('None', () => {
 
       const result = opt.isNone()
 
-      expect(result).toBe(true)
+      expect(result).toBeTrue()
     })
   })
 
@@ -69,7 +70,7 @@ describe('None', () => {
       const internalValue = result.get()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
       expect(internalValue).toBe(defaultValue)
     })
   })
@@ -85,7 +86,7 @@ describe('None', () => {
       expect(fn).not.toBeCalled()
       expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 
@@ -100,7 +101,7 @@ describe('None', () => {
       expect(fn).not.toBeCalled()
       expect(result).toBeInstanceOf(Optional)
       expect(result).not.toBe(opt)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 

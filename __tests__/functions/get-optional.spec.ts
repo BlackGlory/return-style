@@ -1,5 +1,6 @@
 import { Optional } from '@src/classes/optional'
 import { getOptional, getOptionalPartial } from '@src/functions/get-optional'
+import 'jest-extended'
 
 describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>', () => {
   describe('isNone returned true', () => {
@@ -11,7 +12,7 @@ describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 
@@ -24,7 +25,7 @@ describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 })
@@ -39,7 +40,7 @@ describe('getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) 
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 
@@ -52,7 +53,7 @@ describe('getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) 
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 })

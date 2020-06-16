@@ -1,4 +1,5 @@
 import { Result } from '@src/classes/result'
+import 'jest-extended'
 
 describe('Result<T, X>', () => {
   describe('of<T>(value: T): Result<T, never>', () => {
@@ -9,7 +10,7 @@ describe('Result<T, X>', () => {
       const isOk = result.isOk()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
     })
   })
 
@@ -21,7 +22,7 @@ describe('Result<T, X>', () => {
       const isErr = result.isErr()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isErr).toBe(true)
+      expect(isErr).toBeTrue()
     })
   })
 })

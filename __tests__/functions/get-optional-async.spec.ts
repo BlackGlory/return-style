@@ -1,5 +1,6 @@
 import { AsyncOptional } from '@src/classes/async-optional'
 import { getOptionalAsync, getOptionalAsyncPartial } from '@src/functions/get-optional-async'
+import 'jest-extended'
 
 describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
@@ -11,7 +12,7 @@ describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boole
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 
@@ -24,7 +25,7 @@ describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boole
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 })
@@ -39,7 +40,7 @@ describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Pro
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
     })
   })
 
@@ -52,7 +53,7 @@ describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Pro
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
     })
   })
 })

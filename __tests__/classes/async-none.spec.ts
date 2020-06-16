@@ -1,6 +1,7 @@
 import { getErrorAsync } from '@src/functions/get-error-async'
 import { AsyncOptional } from '@src/classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncNone', () => {
@@ -22,7 +23,7 @@ describe('AsyncNone', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(false)
+      expect(proResult).toBeFalse()
     })
   })
 
@@ -34,7 +35,7 @@ describe('AsyncNone', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(true)
+      expect(proResult).toBeTrue()
     })
   })
 
@@ -92,7 +93,7 @@ describe('AsyncNone', () => {
 
       expect(fn).not.toBeCalled()
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
       expect(result).not.toBe(opt)
     })
   })
@@ -107,7 +108,7 @@ describe('AsyncNone', () => {
 
       expect(fn).not.toBeCalled()
       expect(result).toBeInstanceOf(AsyncOptional)
-      expect(isNone).toBe(true)
+      expect(isNone).toBeTrue()
       expect(result).not.toBe(opt)
     })
   })

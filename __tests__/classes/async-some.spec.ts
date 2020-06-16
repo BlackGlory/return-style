@@ -1,5 +1,6 @@
 import { AsyncOptional } from '@src/classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncSome<T>', () => {
@@ -24,7 +25,7 @@ describe('AsyncSome<T>', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(true)
+      expect(proResult).toBeTrue()
     })
   })
 
@@ -37,7 +38,7 @@ describe('AsyncSome<T>', () => {
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(false)
+      expect(proResult).toBeFalse()
     })
   })
 
@@ -87,7 +88,7 @@ describe('AsyncSome<T>', () => {
 
       expect(result).toBeInstanceOf(AsyncOptional)
       expect(result).not.toBe(opt)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
       expect(internalValue).toBe(value)
     })
   })
@@ -105,7 +106,7 @@ describe('AsyncSome<T>', () => {
 
       expect(result).toBeInstanceOf(AsyncOptional)
       expect(result).not.toBe(opt)
-      expect(isSome).toBe(true)
+      expect(isSome).toBeTrue()
       expect(internalValue).toBe(newValue)
     })
   })
@@ -121,7 +122,7 @@ describe('AsyncSome<T>', () => {
         const isNone = await result.isNone()
 
         expect(result).toBeInstanceOf(AsyncOptional)
-        expect(isNone).toBe(true)
+        expect(isNone).toBeTrue()
       })
     })
 
@@ -137,7 +138,7 @@ describe('AsyncSome<T>', () => {
 
         expect(result).toBeInstanceOf(AsyncOptional)
         expect(result).not.toBe(opt)
-        expect(isSome).toBe(true)
+        expect(isSome).toBeTrue()
         expect(internalValue).toBe(value)
       })
     })

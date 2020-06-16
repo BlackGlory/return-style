@@ -1,4 +1,5 @@
 import { isFailureAsync } from '@src/functions/is-failure-async'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
@@ -10,7 +11,7 @@ describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(false)
+      expect(proResult).toBeFalse()
     })
   })
 
@@ -22,7 +23,7 @@ describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
       const proResult = await result
 
       expect(result).toBePromise()
-      expect(proResult).toBe(true)
+      expect(proResult).toBeTrue()
     })
   })
 })

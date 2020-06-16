@@ -1,4 +1,5 @@
 import { isSuccess } from '@src/functions/is-success'
+import 'jest-extended'
 
 describe('isSuccess(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
@@ -7,7 +8,7 @@ describe('isSuccess(fn: () => unknown): boolean', () => {
 
       const result = isSuccess(fn)
 
-      expect(result).toBe(true)
+      expect(result).toBeTrue()
     })
   })
 
@@ -17,7 +18,7 @@ describe('isSuccess(fn: () => unknown): boolean', () => {
 
       const result = isSuccess(fn)
 
-      expect(result).toBe(false)
+      expect(result).toBeFalse()
     })
   })
 })

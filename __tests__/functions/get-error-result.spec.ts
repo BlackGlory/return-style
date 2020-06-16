@@ -6,7 +6,7 @@ describe('getErrorResult<X, T>(fn: () => T): [undefined, T] | [X, undefined]', (
       const value = 'value'
       const fn = () => value
 
-      const result = getErrorResult(fn)
+      const result = getErrorResult<string>(fn)
 
       expect(result).toEqual([undefined, value])
     })
@@ -17,7 +17,7 @@ describe('getErrorResult<X, T>(fn: () => T): [undefined, T] | [X, undefined]', (
       const customError = new Error('CustomError')
       const fn = () => { throw customError }
 
-      const result = getErrorResult(fn)
+      const result = getErrorResult<string>(fn)
 
       expect(result).toEqual([customError, undefined])
     })

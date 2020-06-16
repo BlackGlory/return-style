@@ -16,8 +16,8 @@ yarn add return-style
 
 Return tuple (Error, Result).
 
-* `function getErrorResult<X, T>(fn: () => T): [undefined, T] | [X, undefined]`
-* `function getErrorResultAsync<X, T>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+* `function getErrorResult<T, X = any>(fn: () => T): [undefined, T] | [X, undefined]`
+* `function getErrorResultAsync<X, T = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
 
 ```ts
 const [err, ret] = getErrorResult(() => fn())
@@ -31,8 +31,8 @@ const [err] = await getErrorResultAsync(fnAsync())
 
 Return tuple (Result, Error).
 
-* `function getResultError<X, T>(fn: () => T): [T, undefined] | [undefined, X]`
-* `function getResultErrorAsync<X, T>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+* `function getResultError<T, X = any>(fn: () => T): [T, undefined] | [undefined, X]`
+* `function getResultErrorAsync<T, X = any>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
 
 ```ts
 const [ret, err] = getResultError(() => fn())
@@ -143,11 +143,11 @@ test('divided by zero', () => {
 
 ### Result: Ok / Err
 
-* `function getResult<T, X>(fn: () => T): Result<T, X>`
-* `function getResultAsync<T, X>(promise: PromiseLike<T>): AsyncResult<T, X>`
+* `function getResult<T, X = any>(fn: () => T): Result<T, X>`
+* `function getResultAsync<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>`
 
 ```ts
-interface Result<T, X = any> {
+interface Result<T, X> {
   [Symbol.iterator](): Iterator<T>
 
   onOk(callback: (val: T) => void): Result<T, X>

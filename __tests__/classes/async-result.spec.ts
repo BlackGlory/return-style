@@ -1,4 +1,5 @@
 import { AsyncResult } from '@src/classes/async-result'
+import 'jest-extended'
 
 describe('AsyncResult<T, X>', () => {
   describe('of<T>(value: T): AsyncResult<T, never>', () => {
@@ -9,7 +10,7 @@ describe('AsyncResult<T, X>', () => {
       const isOk = await result.isOk()
 
       expect(result).toBeInstanceOf(AsyncResult)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
     })
   })
 
@@ -21,7 +22,7 @@ describe('AsyncResult<T, X>', () => {
       const isErr = await result.isErr()
 
       expect(result).toBeInstanceOf(AsyncResult)
-      expect(isErr).toBe(true)
+      expect(isErr).toBeTrue()
     })
   })
 })

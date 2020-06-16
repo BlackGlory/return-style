@@ -1,6 +1,6 @@
 {
   "name": "return-style",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Non-intrusively convert the return value of any function or promise into the style that the user needs.",
   "files": [
     "lib",
@@ -38,6 +38,7 @@
     "husky": "^4.2.5",
     "iterable-operator": "^0.10.3",
     "jest": "^26.0.1",
+    "jest-extended": "^0.11.5",
     "rollup": "^2.16.1",
     "rollup-plugin-terser": "^6.1.0",
     "ts-jest": "^26.1.0",

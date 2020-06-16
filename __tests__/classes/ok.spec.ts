@@ -1,4 +1,5 @@
 import { Result } from '@src/classes/result'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('Ok<T>', () => {
@@ -20,7 +21,7 @@ describe('Ok<T>', () => {
 
       const result = res.isOk()
 
-      expect(result).toBe(true)
+      expect(result).toBeTrue()
     })
   })
 
@@ -31,7 +32,7 @@ describe('Ok<T>', () => {
 
       const result = res.isErr()
 
-      expect(result).toBe(false)
+      expect(result).toBeFalse()
     })
   })
 
@@ -75,7 +76,7 @@ describe('Ok<T>', () => {
 
       expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
       expect(internalValue).toBe(value)
     })
   })
@@ -93,7 +94,7 @@ describe('Ok<T>', () => {
 
       expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
       expect(internalValue).toBe(newValue)
     })
   })

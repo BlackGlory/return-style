@@ -1,5 +1,6 @@
 import { getError } from '@src/functions/get-error'
 import { Result } from '@src/classes/result'
+import 'jest-extended'
 import '@test/matchers'
 
 describe('Err<X>', () => {
@@ -22,7 +23,7 @@ describe('Err<X>', () => {
 
       const result = res.isOk()
 
-      expect(result).toBe(false)
+      expect(result).toBeFalse()
     })
   })
 
@@ -33,7 +34,7 @@ describe('Err<X>', () => {
 
       const result = res.isErr()
 
-      expect(result).toBe(true)
+      expect(result).toBeTrue()
     })
   })
 
@@ -77,7 +78,7 @@ describe('Err<X>', () => {
 
       expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
-      expect(isOk).toBe(true)
+      expect(isOk).toBeTrue()
       expect(internalValue).toBe(defaultValue)
     })
   })
@@ -94,7 +95,7 @@ describe('Err<X>', () => {
 
       expect(result).toBeInstanceOf(Result)
       expect(result).not.toBe(res)
-      expect(isErr).toBe(true)
+      expect(isErr).toBeTrue()
     })
   })
 

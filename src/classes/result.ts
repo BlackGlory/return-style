@@ -1,4 +1,4 @@
-export abstract class Result<T, X = any> implements Iterable<T> {
+export abstract class Result<T, X> implements Iterable<T> {
   abstract [Symbol.iterator](): Iterator<T>
 
   static of<T>(value: T): Result<T, never> {

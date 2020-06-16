@@ -1,4 +1,5 @@
 import { isFailure } from '@src/functions/is-failure'
+import 'jest-extended'
 
 describe('isFailure(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
@@ -7,7 +8,7 @@ describe('isFailure(fn: () => unknown): boolean', () => {
 
       const result = isFailure(fn)
 
-      expect(result).toBe(false)
+      expect(result).toBeFalse()
     })
   })
 
@@ -17,7 +18,7 @@ describe('isFailure(fn: () => unknown): boolean', () => {
 
       const result = isFailure(fn)
 
-      expect(result).toBe(true)
+      expect(result).toBeTrue()
     })
   })
 })
