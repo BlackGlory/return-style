@@ -1,3 +1,15 @@
+/* eslint-disable */
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeIterable(): R
+      toBeAsyncIterable(): R
+      toBePromise(): R
+    }
+  }
+}
+/* eslint-enable */
+
 expect.extend({
   toBeIterable(received: unknown) {
     if (isIterable(received)) {
@@ -39,16 +51,6 @@ expect.extend({
     }
   }
 })
-
-declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeIterable(): R
-      toBeAsyncIterable(): R
-      toBePromise(): R
-    }
-  }
-}
 
 function isAsyncIterable<T>(val: any): val is AsyncIterable<T> {
   return val && typeof val[Symbol.asyncIterator] === 'function'
