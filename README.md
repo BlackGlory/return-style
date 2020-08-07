@@ -1,6 +1,6 @@
 # return-style
 
-Non-intrusively convert the return value of any function or promise into the style that the user needs.
+Non-intrusively convert the result of any function or promise to the user's desired style.
 
 ## Install
 
