@@ -20,6 +20,9 @@ test('exports', () => {
   , 'isFailure'
   , 'isFailureAsync'
 
+  , 'getResult'
+  , 'getResultAsync'
+
   , 'getError'
   , 'getErrorAsync'
   , 'getErrorAsyncIterable'

@@ -102,6 +102,23 @@ if (await isFailureAsync(fnAsync())) {
 }
 ```
 
+### getResult / getResultAsync
+
+* `function getResult<T>(fn: () => T): T | undefined`
+* `function getResultAsync<T>(promise: PromiseLike<T>): Promise<T | undefined>`
+
+```js
+const result = getResult(() => fn())
+if (result) {
+  ...
+}
+
+const result = await getResultAsync(fnAsync())
+if (result) {
+  ...
+}
+```
+
 ### getError / getErrorAsync / getErrorAsyncIterable
 
 Designed for testing, helping to achieve Arrange-Act-Assert pattern.

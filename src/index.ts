@@ -16,6 +16,9 @@ export { isSuccessAsync } from './functions/is-success-async'
 export { isFailure } from './functions/is-failure'
 export { isFailureAsync } from './functions/is-failure-async'
 
+export { getResult } from './functions/get-result'
+export { getResultAsync } from './functions/get-result-async'
+
 export { getError } from './functions/get-error'
 export { getErrorAsync } from './functions/get-error-async'
 export { getErrorAsyncIterable } from './functions/get-error-async-iterable'
