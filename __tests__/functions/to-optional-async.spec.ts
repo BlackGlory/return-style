@@ -1,14 +1,14 @@
 import { AsyncOptional } from '@src/classes/async-optional'
-import { getOptionalAsync, getOptionalAsyncPartial } from '@src/functions/get-optional-async'
+import { toOptionalAsync, toOptionalAsyncPartial } from '@src/functions/to-optional-async'
 import 'jest-extended'
 
-describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
+describe('toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return AsyncOptional<never>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
-      const result = getOptionalAsync(promise, allIsNone)
+      const result = toOptionalAsync(promise, allIsNone)
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -21,7 +21,7 @@ describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boole
       const promise = Promise.resolve()
       const allIsSome = () => false
 
-      const result = getOptionalAsync(promise, allIsSome)
+      const result = toOptionalAsync(promise, allIsSome)
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -30,13 +30,13 @@ describe('getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boole
   })
 })
 
-describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
+describe('toOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return Promise<None>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
-      const result = getOptionalAsyncPartial(allIsNone)(promise)
+      const result = toOptionalAsyncPartial(allIsNone)(promise)
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -49,7 +49,7 @@ describe('getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Pro
       const promise = Promise.resolve()
       const allIsSome = () => false
 
-      const result = getOptionalAsyncPartial(allIsSome)(promise)
+      const result = toOptionalAsyncPartial(allIsSome)(promise)
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)

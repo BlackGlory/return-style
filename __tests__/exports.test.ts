@@ -24,13 +24,13 @@ test('exports', () => {
   , 'getErrorAsync'
   , 'getErrorAsyncIterable'
 
-  , 'getResult'
-  , 'getResultAsync'
+  , 'toResult'
+  , 'toResultAsync'
 
-  , 'getOptional'
-  , 'getOptionalPartial'
-  , 'getOptionalAsync'
-  , 'getOptionalAsyncPartial'
+  , 'toOptional'
+  , 'toOptionalPartial'
+  , 'toOptionalAsync'
+  , 'toOptionalAsyncPartial'
   ].sort()
 
   const actualExports = Object.keys(target).sort()

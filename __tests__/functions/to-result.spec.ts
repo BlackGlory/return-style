@@ -1,13 +1,13 @@
 import { Result } from '@src/classes/result'
-import { getResult } from '@src/functions/get-result'
+import { toResult } from '@src/functions/to-result'
 import 'jest-extended'
 
-describe('getResult<T, X = any>(fn: () => T): Result<T, X>', () => {
+describe('toResult<T, X = any>(fn: () => T): Result<T, X>', () => {
   describe('fn throw error', () => {
     it('return Err', () => {
       const fn = () => { throw new Error() }
 
-      const result = getResult<boolean>(fn)
+      const result = toResult<boolean>(fn)
       const isErr = result.isErr()
 
       expect(result).toBeInstanceOf(Result)
@@ -19,7 +19,7 @@ describe('getResult<T, X = any>(fn: () => T): Result<T, X>', () => {
     it('return Ok', () => {
       const fn = () => true
 
-      const result = getResult<boolean>(fn)
+      const result = toResult<boolean>(fn)
       const isOk = result.isOk()
 
       expect(result).toBeInstanceOf(Result)

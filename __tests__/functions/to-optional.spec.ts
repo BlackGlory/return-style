@@ -1,14 +1,14 @@
 import { Optional } from '@src/classes/optional'
-import { getOptional, getOptionalPartial } from '@src/functions/get-optional'
+import { toOptional, toOptionalPartial } from '@src/functions/to-optional'
 import 'jest-extended'
 
-describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>', () => {
+describe('toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null
       const allIsNone = () => true
 
-      const result = getOptional(fn, allIsNone)
+      const result = toOptional(fn, allIsNone)
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)
@@ -21,7 +21,7 @@ describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional
       const fn = () => null
       const allIsSome = () => false
 
-      const result = getOptional(fn, allIsSome)
+      const result = toOptional(fn, allIsSome)
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)
@@ -30,13 +30,13 @@ describe('getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional
   })
 })
 
-describe('getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>', () => {
+describe('toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null
       const allIsNone = () => true
 
-      const result = getOptionalPartial(allIsNone)(fn)
+      const result = toOptionalPartial(allIsNone)(fn)
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)
@@ -49,7 +49,7 @@ describe('getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) 
       const fn = () => null
       const allIsSome = () => false
 
-      const result = getOptionalPartial(allIsSome)(fn)
+      const result = toOptionalPartial(allIsSome)(fn)
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)

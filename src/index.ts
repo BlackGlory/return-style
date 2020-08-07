@@ -20,8 +20,8 @@ export { getError } from './functions/get-error'
 export { getErrorAsync } from './functions/get-error-async'
 export { getErrorAsyncIterable } from './functions/get-error-async-iterable'
 
-export { getResult } from './functions/get-result'
-export { getResultAsync } from './functions/get-result-async'
+export { toResult } from './functions/to-result'
+export { toResultAsync } from './functions/to-result-async'
 
-export { getOptional, getOptionalPartial } from './functions/get-optional'
-export { getOptionalAsync, getOptionalAsyncPartial } from './functions/get-optional-async'
+export { toOptional, toOptionalPartial } from './functions/to-optional'
+export { toOptionalAsync, toOptionalAsyncPartial } from './functions/to-optional-async'

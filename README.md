@@ -143,8 +143,8 @@ test('divided by zero', () => {
 
 ### Result: Ok / Err
 
-* `function getResult<T, X = any>(fn: () => T): Result<T, X>`
-* `function getResultAsync<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>`
+* `function toResult<T, X = any>(fn: () => T): Result<T, X>`
+* `function toResultAsync<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>`
 
 ```ts
 interface Result<T, X> {
@@ -180,10 +180,10 @@ interface AsyncResult<T, X> {
 
 ### Optional: Some / None
 
-* `function getOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
-* `function getOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
-* `function getOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
-* `function getOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
+* `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
+* `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
+* `function toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
+* `function toOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
 
 ```ts
 interface Optional<T> {
