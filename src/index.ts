@@ -18,6 +18,7 @@ export { isFailureAsync } from './functions/is-failure-async'
 
 export { getResult } from './functions/get-result'
 export { getResultAsync } from './functions/get-result-async'
+export { getResultPromise } from './functions/get-result-promise'
 
 export { getError } from './functions/get-error'
 export { getErrorAsync } from './functions/get-error-async'

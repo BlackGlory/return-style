@@ -1,7 +1,7 @@
-export async function getResultAsync<T>(promise: PromiseLike<T>): Promise<T | undefined> {
+export async function getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined> {
   try {
-    return await promise
+    return await fn()
   } catch {
-    return
+    return undefined
   }
 }

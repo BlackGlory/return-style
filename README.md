@@ -105,7 +105,8 @@ if (await isFailureAsync(fnAsync())) {
 ### getResult / getResultAsync
 
 * `function getResult<T>(fn: () => T): T | undefined`
-* `function getResultAsync<T>(promise: PromiseLike<T>): Promise<T | undefined>`
+* `function getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>`
+* `function getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>`
 
 ```js
 const result = getResult(() => fn())
