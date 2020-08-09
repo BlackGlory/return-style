@@ -1,6 +1,6 @@
 {
   "name": "return-style",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Non-intrusively convert the result of any function or promise to the user's desired style.",
   "keywords": [
     "convert",
@@ -48,7 +48,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint && yarn test",
-       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
@@ -64,7 +64,7 @@
     "iterable-operator": "^0.11.0",
     "jest": "^26.2.2",
     "jest-extended": "^0.11.5",
-    "rollup": "^2.23.0",
+    "rollup": "^2.23.1",
     "rollup-plugin-terser": "^6.1.0",
     "ts-jest": "^26.1.4",
     "tscpaths": "^0.0.9",
