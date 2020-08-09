@@ -1,6 +1,6 @@
-export async function isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean> {
+export async function isFailureAsync(fn: () => Promise<unknown>): Promise<boolean> {
   try {
-    await promise
+    await fn()
     return false
   } catch {
     return true

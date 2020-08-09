@@ -2,12 +2,12 @@ import { isFailureAsync } from '@src/functions/is-failure-async'
 import 'jest-extended'
 import '@test/matchers'
 
-describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () => {
-  describe('promise resolved', () => {
+describe('isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () => {
+  describe('fn returned', () => {
     it('return Promise<false>', async () => {
-      const promise = Promise.resolve()
+      const fn = () => Promise.resolve()
 
-      const result = isFailureAsync(promise)
+      const result = isFailureAsync(fn)
       const proResult = await result
 
       expect(result).toBePromise()
@@ -15,15 +15,32 @@ describe('isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>', () =
     })
   })
 
-  describe('promise rejected', () => {
-    it('return Promise<true>', async () => {
-      const promise = Promise.reject()
+  describe('fn throwed', () => {
+    describe('sync', () => {
+      it('return Promise<true>', async () => {
+        const fn = () => {
+          throw new Error()
+          return Promise.reject()
+        }
 
-      const result = isFailureAsync(promise)
-      const proResult = await result
+        const result = isFailureAsync(fn)
+        const proResult = await result
 
-      expect(result).toBePromise()
-      expect(proResult).toBeTrue()
+        expect(result).toBePromise()
+        expect(proResult).toBeTrue()
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<true>', async () => {
+        const fn = () => Promise.reject()
+
+        const result = isFailureAsync(fn)
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toBeTrue()
+      })
     })
   })
 })

@@ -90,19 +90,24 @@ if (await isSuccessAsync(fnAsync())) {
 Return true when throwing, true when returning.
 
 * `function isFailure(fn: () => unknown): boolean`
-* `function isFailureAsync(promise: PromiseLike<unknown>): Promise<boolean>`
+* `function isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>`
+* `function isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>`
 
 ```ts
 if (isFailure(() => fn())) {
   ...
 }
 
-if (await isFailureAsync(fnAsync())) {
+if (await isFailureAsync(() => asyncFn())) {
+  ...
+}
+
+if (await isFailurePromise(promise)) {
   ...
 }
 ```
 
-### getResult / getResultAsync / getResultPromise
+### getResult
 
 * `function getResult<T>(fn: () => T): T | undefined`
 * `function getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>`
@@ -125,7 +130,7 @@ if (result) {
 }
 ```
 
-### getError / getErrorAsync / getErrorPromise / getErrorAsyncIterable
+### getError
 
 Designed for testing, helping to achieve Arrange-Act-Assert pattern.
 
