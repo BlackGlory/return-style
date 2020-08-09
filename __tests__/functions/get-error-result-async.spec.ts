@@ -1,13 +1,13 @@
 import { getErrorResultAsync } from '@src/functions/get-error-result-async'
 import '@test/matchers'
 
-describe('getErrorResultAsync<T, X = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>', () => {
-  describe('promise resolved', () => {
+describe('getErrorResultAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>', () => {
+  describe('fn returned', () => {
     it('return Promise<[undefined, T]>', async () => {
       const value = 'value'
-      const promise = Promise.resolve(value)
+      const fn = () => Promise.resolve(value)
 
-      const result = getErrorResultAsync<string>(promise)
+      const result = getErrorResultAsync<string>(fn)
       const proResult = await result
 
       expect(result).toBePromise()
@@ -15,16 +15,34 @@ describe('getErrorResultAsync<T, X = any>(promise: PromiseLike<T>): Promise<[und
     })
   })
 
-  describe('promise rejected', () => {
-    it('return Promise<[X, undefined]>', async () => {
-      const customError = new Error('CustomError')
-      const promise = Promise.reject(customError)
+  describe('fn throwed', () => {
+    describe('sync', () => {
+      it('return Promise<[X, undefined]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => {
+          throw customError
+          return Promise.reject(customError)
+        }
 
-      const result = getErrorResultAsync<string>(promise)
-      const proResult = await result
+        const result = getErrorResultAsync<string>(fn)
+        const proResult = await result
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([customError, undefined])
+        expect(result).toBePromise()
+        expect(proResult).toEqual([customError, undefined])
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<[X, undefined]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => Promise.reject(customError)
+
+        const result = getErrorResultAsync<string>(fn)
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toEqual([customError, undefined])
+      })
     })
   })
 })

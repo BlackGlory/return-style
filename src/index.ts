@@ -1,5 +1,6 @@
 export { getErrorResult } from './functions/get-error-result'
 export { getErrorResultAsync } from './functions/get-error-result-async'
+export { getErrorResultPromise } from './functions/get-error-result-promise'
 
 export { getResultError } from './functions/get-result-error'
 export { getResultErrorAsync } from './functions/get-result-error-async'

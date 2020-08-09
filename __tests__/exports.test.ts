@@ -4,6 +4,7 @@ test('exports', () => {
   const expectedExports: string[] = [
     'getErrorResult'
   , 'getErrorResultAsync'
+  , 'getErrorResultPromise'
 
   , 'getResultError'
   , 'getResultErrorAsync'

@@ -17,14 +17,18 @@ yarn add return-style
 Return tuple (Error, Result).
 
 * `function getErrorResult<T, X = any>(fn: () => T): [undefined, T] | [X, undefined]`
-* `function getErrorResultAsync<X, T = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+* `function getErrorResultAsync<X, T = any>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+* `function getErrorResultPromise<X, T = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
 
 ```ts
 const [err, ret] = getErrorResult(() => fn())
 const [err] = getErrorResult(() => fn())
 
-const [err, ret] = await getErrorResultAsync(fnAsync())
-const [err] = await getErrorResultAsync(fnAsync())
+const [err, ret] = await getErrorResultAsync(() => fnAsync())
+const [err] = await getErrorResultAsync(() => fnAsync())
+
+const [err, ret] = await getErrorResultAsync(promise)
+const [err] = await getErrorResultAsync(promise)
 ```
 
 ### [Result, Error]
