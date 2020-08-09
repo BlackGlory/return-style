@@ -7,6 +7,7 @@ test('exports', () => {
 
   , 'getResultError'
   , 'getResultErrorAsync'
+  , 'getResultErrorPromise'
 
   , 'getSuccess'
   , 'getSuccessAsync'

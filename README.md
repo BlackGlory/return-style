@@ -32,14 +32,18 @@ const [err] = await getErrorResultAsync(fnAsync())
 Return tuple (Result, Error).
 
 * `function getResultError<T, X = any>(fn: () => T): [T, undefined] | [undefined, X]`
-* `function getResultErrorAsync<T, X = any>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+* `function getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+* `function getResultErrorPromise<T, X = any>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
 
 ```ts
 const [ret, err] = getResultError(() => fn())
 const [ret] = getResultError(() => fn())
 
-const [ret, err] = await getResultErrorAsync(fnAsync())
-const [ret] = await getResultErrorAsync(fnAsync())
+const [ret, err] = await getResultErrorAsync(() => fn())
+const [ret] = await getResultErrorAsync(() => fn())
+
+const [ret, err] = await getResultErrorPromise(promise)
+const [ret] = await getResultErrorPromise(promise)
 ```
 
 ### [isSuccess, Result | undefined]

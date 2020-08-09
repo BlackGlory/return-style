@@ -3,6 +3,7 @@ export { getErrorResultAsync } from './functions/get-error-result-async'
 
 export { getResultError } from './functions/get-result-error'
 export { getResultErrorAsync } from './functions/get-result-error-async'
+export { getResultErrorPromise } from './functions/get-result-error-promise'
 
 export { getSuccess } from './functions/get-success'
 export { getSuccessAsync } from './functions/get-success-async'

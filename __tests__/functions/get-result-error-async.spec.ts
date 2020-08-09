@@ -1,11 +1,11 @@
 import { getResultErrorAsync } from '@src/functions/get-result-error-async'
 import '@test/matchers'
 
-describe('getResultErrorAsync<T, X = any>(promise: PromiseLike<T>) -> Promise<[T, undefined] | [undefined, X]>', () => {
-  describe('promise resolved', () => {
+describe('getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>', () => {
+  describe('fn returned', () => {
     it('return Promise<[T, undefined]>', async () => {
       const value = 'value'
-      const promise = Promise.resolve(value)
+      const promise = () => Promise.resolve(value)
 
       const result = getResultErrorAsync<string>(promise)
       const proResult = await result
@@ -15,16 +15,34 @@ describe('getResultErrorAsync<T, X = any>(promise: PromiseLike<T>) -> Promise<[T
     })
   })
 
-  describe('promise rejected', () => {
-    it('return Promise<[undefined, X]', async () => {
-      const customError = new Error('CustomError')
-      const promise = Promise.reject(customError)
+  describe('fn throwed', () => {
+    describe('sync', () => {
+      it('return Promise<[undefined, X]', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => {
+          throw customError
+          return Promise.reject()
+        }
 
-      const result = getResultErrorAsync<string>(promise)
-      const proResult = await result
+        const result = getResultErrorAsync<string>(fn)
+        const proResult = await result
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([undefined, customError])
+        expect(result).toBePromise()
+        expect(proResult).toEqual([undefined, customError])
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<[undefined, X]', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => Promise.reject(customError)
+
+        const result = getResultErrorAsync<string>(fn)
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toEqual([undefined, customError])
+      })
     })
   })
 })
