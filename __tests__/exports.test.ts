@@ -13,6 +13,7 @@ test('exports', () => {
 
   , 'getFailure'
   , 'getFailureAsync'
+  , 'getFailurePromise'
 
   , 'isSuccess'
   , 'isSuccessAsync'

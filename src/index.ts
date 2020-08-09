@@ -9,6 +9,7 @@ export { getSuccessAsync } from './functions/get-success-async'
 
 export { getFailure } from './functions/get-failure'
 export { getFailureAsync } from './functions/get-failure-async'
+export { getFailurePromise } from './functions/get-failure-promise'
 
 export { isSuccess } from './functions/is-success'
 export { isSuccessAsync } from './functions/is-success-async'

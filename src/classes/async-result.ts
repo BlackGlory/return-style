@@ -1,5 +1,5 @@
 import { getSuccessAsync } from '@src/functions/get-success-async'
-import { getFailureAsync } from '@src/functions/get-failure-async'
+import { getFailurePromise } from '@src/functions/get-failure-promise'
 import { isSuccessPromise } from '@src/functions/is-success-promise'
 import { isFailurePromise } from '@src/functions/is-failure-promise'
 
@@ -49,7 +49,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   onErr(callback: (err: X) => void): AsyncResult<T, X> {
     (async () => {
-      const [fail, err] = await getFailureAsync<X>(this._promise)
+      const [fail, err] = await getFailurePromise<X>(this._promise)
       if (fail) callback(err as X)
     })()
     return new AsyncResult(this._promise)

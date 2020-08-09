@@ -60,12 +60,15 @@ const [succ, ret] = await getSuccessAsync(fnAsync())
 Return tuple (isFailure, Error | undefined)
 
 * `function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined]`
-* `function getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
+* `function getFailureAsync<X>(fn: () => PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
+* `function getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
 
 ```ts
 const [fail, ret] = getFailure(() => fn())
 
-const [fail, ret] = await getFailureAsync(fnAsync())
+const [fail, ret] = await getFailureAsync(() => asyncFn())
+
+const [fail, ret] = await getFailurePromise(promise)
 ```
 
 ### isSuccess

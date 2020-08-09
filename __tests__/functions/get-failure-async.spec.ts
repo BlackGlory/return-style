@@ -1,13 +1,12 @@
 import { getFailureAsync } from '@src/functions/get-failure-async'
 import '@test/matchers'
 
-describe('getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
+describe('getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
   describe('fn returned', () => {
     it('return Promise<[false, undefined]>', async () => {
-      const value = 'value'
-      const promise = Promise.resolve(value)
+      const fn = () => Promise.resolve('value')
 
-      const result = getFailureAsync(promise)
+      const result = getFailureAsync(fn)
       const proResult = await result
 
       expect(result).toBePromise()
@@ -16,15 +15,33 @@ describe('getFailureAsync<X>(promise: PromiseLike<unknown>): Promise<[true, X] |
   })
 
   describe('fn throwed', () => {
-    it('return Promise<[true, X]>', async () => {
-      const customError = new Error('CustomError')
-      const promise = Promise.reject(customError)
+    describe('sync', () => {
+      it('return Promise<[true, X]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => {
+          throw customError
+          return Promise.reject(customError)
+        }
 
-      const result = getFailureAsync(promise)
-      const proResult = await result
+        const result = getFailureAsync(fn)
+        const proResult = await result
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([true, customError])
+        expect(result).toBePromise()
+        expect(proResult).toEqual([true, customError])
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<[true, X]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => Promise.reject(customError)
+
+        const result = getFailureAsync(fn)
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toEqual([true, customError])
+      })
     })
   })
 })
