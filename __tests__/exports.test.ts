@@ -37,6 +37,7 @@ test('exports', () => {
 
   , 'toResult'
   , 'toResultAsync'
+  , 'toResultPromise'
 
   , 'toOptional'
   , 'toOptionalPartial'
