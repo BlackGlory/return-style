@@ -1,14 +1,14 @@
 import { AsyncOptional } from '@src/classes/async-optional'
-import { toOptionalAsync, toOptionalAsyncPartial } from '@src/functions/to-optional-async'
+import { toOptionalPromise, toOptionalPromisePartial } from '@src/functions/to-optional-promise'
 import 'jest-extended'
 
-describe('toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
+describe('toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return AsyncOptional<never>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
-      const result = toOptionalAsync(promise, allIsNone)
+      const result = toOptionalPromise(promise, allIsNone)
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -21,7 +21,7 @@ describe('toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolea
       const promise = Promise.resolve()
       const allIsSome = () => false
 
-      const result = toOptionalAsync(promise, allIsSome)
+      const result = toOptionalPromise(promise, allIsSome)
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -30,13 +30,13 @@ describe('toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolea
   })
 })
 
-describe('toOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
+describe('toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
   describe('isNone returned true', () => {
     it('return Promise<None>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
-      const result = toOptionalAsyncPartial(allIsNone)(promise)
+      const result = toOptionalPromisePartial(allIsNone)(promise)
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -49,7 +49,7 @@ describe('toOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: Prom
       const promise = Promise.resolve()
       const allIsSome = () => false
 
-      const result = toOptionalAsyncPartial(allIsSome)(promise)
+      const result = toOptionalPromisePartial(allIsSome)(promise)
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)

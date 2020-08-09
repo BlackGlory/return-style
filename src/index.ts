@@ -36,4 +36,4 @@ export { toResultAsync } from './functions/to-result-async'
 export { toResultPromise } from './functions/to-result-promise'
 
 export { toOptional, toOptionalPartial } from './functions/to-optional'
-export { toOptionalAsync, toOptionalAsyncPartial } from './functions/to-optional-async'
+export { toOptionalPromise, toOptionalPromisePartial } from './functions/to-optional-promise'

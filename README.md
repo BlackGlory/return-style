@@ -231,8 +231,8 @@ interface AsyncResult<T, X> {
 
 * `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
 * `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
-* `function toOptionalAsync<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
-* `function toOptionalAsyncPartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
+* `function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
+* `function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
 
 ```ts
 interface Optional<T> {

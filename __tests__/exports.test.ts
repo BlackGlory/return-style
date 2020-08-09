@@ -41,8 +41,8 @@ test('exports', () => {
 
   , 'toOptional'
   , 'toOptionalPartial'
-  , 'toOptionalAsync'
-  , 'toOptionalAsyncPartial'
+  , 'toOptionalPromise'
+  , 'toOptionalPromisePartial'
   ].sort()
 
   const actualExports = Object.keys(target).sort()
