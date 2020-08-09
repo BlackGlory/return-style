@@ -1,6 +1,6 @@
-export async function isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean> {
+export async function isSuccessAsync(fn: () => PromiseLike<unknown>): Promise<boolean> {
   try {
-    await promise
+    await fn()
     return true
   } catch {
     return false

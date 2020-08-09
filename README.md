@@ -73,14 +73,19 @@ const [fail, ret] = await getFailureAsync(fnAsync())
 Return true when returning, false when throwing.
 
 * `function isSuccess(fn: () => unknown): boolean`
-* `function isSuccessAsync(promise: PromiseLike<unknown>): Promise<boolean>`
+* `function isSuccessAsync(fn: () => PromiseLike<unknown>: Promise<boolean>`
+* `function isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>`
 
 ```ts
 if (isSuccess(() => fn())) {
   ...
 }
 
-if (await isSuccessAsync(fnAsync())) {
+if (await isSuccessAsync(() => asyncFn())) {
+  ...
+}
+
+if (await isSuccessPromise(promise)) {
   ...
 }
 ```

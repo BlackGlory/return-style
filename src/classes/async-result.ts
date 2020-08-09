@@ -1,6 +1,6 @@
 import { getSuccessAsync } from '@src/functions/get-success-async'
 import { getFailureAsync } from '@src/functions/get-failure-async'
-import { isSuccessAsync } from '@src/functions/is-success-async'
+import { isSuccessPromise } from '@src/functions/is-success-promise'
 import { isFailurePromise } from '@src/functions/is-failure-promise'
 
 interface IAsyncResult<T, X> extends AsyncIterable<T> {
@@ -56,7 +56,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   async isOk(): Promise<boolean> {
-    return await isSuccessAsync(this._promise)
+    return await isSuccessPromise(this._promise)
   }
 
   async isErr(): Promise<boolean> {
