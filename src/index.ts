@@ -6,6 +6,7 @@ export { getResultErrorAsync } from './functions/get-result-error-async'
 
 export { getSuccess } from './functions/get-success'
 export { getSuccessAsync } from './functions/get-success-async'
+export { getSuccessPromise } from './functions/get-success-promise'
 
 export { getFailure } from './functions/get-failure'
 export { getFailureAsync } from './functions/get-failure-async'

@@ -1,13 +1,13 @@
 import { getSuccessAsync } from '@src/functions/get-success-async'
 import '@test/matchers'
 
-describe('getSuccessAsync<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
+describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('fn returned', () => {
     it('return Promise<[true, T]>', async () => {
       const value = 'value'
-      const promise = Promise.resolve(value)
+      const fn = () => Promise.resolve(value)
 
-      const result = getSuccessAsync(promise)
+      const result = getSuccessAsync(fn)
       const proResult = await result
 
       expect(result).toBePromise()
@@ -16,15 +16,33 @@ describe('getSuccessAsync<T>(promise: PromiseLike<T>): Promise<[true, T] | [fals
   })
 
   describe('fn throwed', () => {
-    it('return Promise<[false, undefined]>', async () => {
-      const customError = new Error('CustomError')
-      const promise = Promise.reject(customError)
+    describe('sync', () => {
+      it('return Promise<[false, undefined]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => {
+          throw customError
+          return Promise.reject()
+        }
 
-      const result = getSuccessAsync(promise)
-      const proResult = await result
+        const result = getSuccessAsync(fn)
+        const proResult = await result
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([false, undefined])
+        expect(result).toBePromise()
+        expect(proResult).toEqual([false, undefined])
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<[false, undefined]>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => Promise.reject(customError)
+
+        const result = getSuccessAsync(fn)
+        const proResult = await result
+
+        expect(result).toBePromise()
+        expect(proResult).toEqual([false, undefined])
+      })
     })
   })
 })

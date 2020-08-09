@@ -1,4 +1,4 @@
-import { getSuccessAsync } from '@src/functions/get-success-async'
+import { getSuccessPromise } from '@src/functions/get-success-promise'
 import { getFailurePromise } from '@src/functions/get-failure-promise'
 import { isSuccessPromise } from '@src/functions/is-success-promise'
 import { isFailurePromise } from '@src/functions/is-failure-promise'
@@ -35,13 +35,13 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   async *[Symbol.asyncIterator](): AsyncIterator<T> {
-    const [succ, ret] = await getSuccessAsync<T>(this._promise)
+    const [succ, ret] = await getSuccessPromise<T>(this._promise)
     if (succ) yield ret as T
   }
 
   onOk(callback: (val: T) => void): AsyncResult<T, X> {
     (async () => {
-      const [succ, ret] = await getSuccessAsync<T>(this._promise)
+      const [succ, ret] = await getSuccessPromise<T>(this._promise)
       if (succ) callback(ret as T)
     })()
     return new AsyncResult(this._promise)
