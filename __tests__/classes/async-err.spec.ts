@@ -1,5 +1,5 @@
 import { toArrayAsync } from 'iterable-operator'
-import { getErrorAsync } from '@src/functions/get-error-async'
+import { getErrorPromise } from '@src/functions/get-error-promise'
 import { AsyncResult } from '@src/classes/async-result'
 import 'jest-extended'
 import '@test/matchers'
@@ -115,7 +115,7 @@ describe('AsyncErr<X>', () => {
       const error = new Error('error')
       const res = AsyncResult.ofErr(error)
 
-      const result = await getErrorAsync(res.get())
+      const result = await getErrorPromise(res.get())
 
       expect(result).toBe(error)
     })

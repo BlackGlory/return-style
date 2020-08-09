@@ -1,4 +1,4 @@
-import { getErrorAsync } from '@src/functions/get-error-async'
+import { getErrorPromise } from '@src/functions/get-error-promise'
 import { AsyncOptional } from '@src/classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
 import 'jest-extended'
@@ -118,7 +118,7 @@ describe('AsyncNone', () => {
       const opt = AsyncOptional.ofNone()
 
       const result = opt.get()
-      const err = await getErrorAsync(result)
+      const err = await getErrorPromise(result)
 
       expect(result).toBePromise()
       expect(err).toBeInstanceOf(Error)

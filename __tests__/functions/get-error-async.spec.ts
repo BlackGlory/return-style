@@ -1,12 +1,12 @@
 import { getErrorAsync } from '@src/functions/get-error-async'
 import '@test/matchers'
 
-describe('getErrorAsync<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {
-  describe('promise resolved', () => {
+describe('getErrorAsync<T>(fn: () => PromiseLike<unknown>): Promise<T | undefined>', () => {
+  describe('fn returned', () => {
     it('return Promise<undefined>', async () => {
-      const promise = Promise.resolve('value')
+      const fn = () => Promise.resolve('value')
 
-      const result = getErrorAsync(promise)
+      const result = getErrorAsync(fn)
       const err = await result
 
       expect(result).toBePromise()
@@ -14,16 +14,34 @@ describe('getErrorAsync<T>(promise: PromiseLike<unknown>): Promise<T | undefined
     })
   })
 
-  describe('promise rejected', () => {
-    it('return Promise<T>', async () => {
-      const customError = new Error('CustomError')
-      const promise = Promise.reject(customError)
+  describe('fn throwed', () => {
+    describe('sync', () => {
+      it('return Promise<T>', async () => {
+        const customError = new Error('CusomtError')
+        const fn = () => {
+          throw customError
+          return Promise.resolve('value')
+        }
 
-      const result = getErrorAsync(promise)
-      const err = await result
+        const result = getErrorAsync(fn)
+        const err = await result
 
-      expect(result).toBePromise()
-      expect(err).toBe(customError)
+        expect(result).toBePromise()
+        expect(err).toBe(customError)
+      })
+    })
+
+    describe('async', () => {
+      it('return Promise<T>', async () => {
+        const customError = new Error('CustomError')
+        const fn = () => Promise.reject(customError)
+
+        const result = getErrorAsync(fn)
+        const err = await result
+
+        expect(result).toBePromise()
+        expect(err).toBe(customError)
+      })
     })
   })
 })

@@ -21,6 +21,7 @@ export { getResultAsync } from './functions/get-result-async'
 
 export { getError } from './functions/get-error'
 export { getErrorAsync } from './functions/get-error-async'
+export { getErrorPromise } from './functions/get-error-promise'
 export { getErrorAsyncIterable } from './functions/get-error-async-iterable'
 
 export { toResult } from './functions/to-result'
