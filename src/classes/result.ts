@@ -22,16 +22,15 @@ export abstract class Result<T, X> implements Iterable<T> {
 }
 
 class Ok<T> extends Result<T, never> {
-  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
-  private _value: T
+  #value: T
 
   constructor(value: T) {
     super()
-    this._value = value
+    this.#value = value
   }
 
   * [Symbol.iterator]() {
-    yield this._value
+    yield this.#value
   }
 
   isOk() {
@@ -43,34 +42,33 @@ class Ok<T> extends Result<T, never> {
   }
 
   onOk(callback: (val: T) => void) {
-    callback(this._value)
-    return Result.of(this._value)
+    callback(this.#value)
+    return Result.of(this.#value)
   }
 
   onErr() {
-    return Result.of(this._value)
+    return Result.of(this.#value)
   }
 
   orElse() {
-    return Result.of(this._value)
+    return Result.of(this.#value)
   }
 
   map<U>(mapper: (val: T) => U) {
-    return Result.of(mapper(this._value))
+    return Result.of(mapper(this.#value))
   }
 
   get() {
-    return this._value
+    return this.#value
   }
 }
 
 class Err<X> extends Result<never, X> {
-  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
-  private _value: X
+  #value: X
 
   constructor(err: X) {
     super()
-    this._value = err
+    this.#value = err
   }
 
   * [Symbol.iterator]() {}
@@ -84,12 +82,12 @@ class Err<X> extends Result<never, X> {
   }
 
   onOk() {
-    return Result.ofErr(this._value)
+    return Result.ofErr(this.#value)
   }
 
   onErr(callback: (err: X) => void) {
-    callback(this._value)
-    return Result.ofErr(this._value)
+    callback(this.#value)
+    return Result.ofErr(this.#value)
   }
 
   orElse<T>(defaultValue: T) {
@@ -97,10 +95,10 @@ class Err<X> extends Result<never, X> {
   }
 
   map() {
-    return Result.ofErr(this._value)
+    return Result.ofErr(this.#value)
   }
 
   get(): never {
-    throw this._value
+    throw this.#value
   }
 }

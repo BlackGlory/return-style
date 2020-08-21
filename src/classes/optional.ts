@@ -23,16 +23,15 @@ export abstract class Optional<T> implements Iterable<T> {
 }
 
 class Some<T> extends Optional<T> {
-  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
-  private _value: T
+  #value: T
 
   constructor(value: T) {
     super()
-    this._value = value
+    this.#value = value
   }
 
   *[Symbol.iterator]() {
-    yield this._value
+    yield this.#value
   }
 
   isSome() {
@@ -44,32 +43,32 @@ class Some<T> extends Optional<T> {
   }
 
   onSome(callback: (val: T) => void) {
-    callback(this._value)
-    return Optional.of(this._value)
+    callback(this.#value)
+    return Optional.of(this.#value)
   }
 
   onNone() {
-    return Optional.of(this._value)
+    return Optional.of(this.#value)
   }
 
   orElse() {
-    return Optional.of(this._value)
+    return Optional.of(this.#value)
   }
 
   map<U>(mapper: (val: T) => U) {
-    return Optional.of(mapper(this._value))
+    return Optional.of(mapper(this.#value))
   }
 
   filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U> {
-    if (predicate(this._value)) {
-      return Optional.of(this._value) as Optional<U>
+    if (predicate(this.#value)) {
+      return Optional.of(this.#value) as Optional<U>
     } else {
       return Optional.ofNone()
     }
   }
 
   get() {
-    return this._value
+    return this.#value
   }
 }
 

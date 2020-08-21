@@ -25,47 +25,46 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
     return new AsyncNone()
   }
 
-  // fuck tsc https://github.com/microsoft/TypeScript/issues/36841
-  private _promise: PromiseLike<T | typeof None>
+  #promise: PromiseLike<T | typeof None>
 
   constructor(promise: PromiseLike<T | typeof None>) {
-    this._promise = promise
+    this.#promise = promise
   }
 
   async *[Symbol.asyncIterator](): AsyncIterator<T> {
-    const result = await this._promise
+    const result = await this.#promise
     if (result !== None) yield result
   }
 
   onSome(callback: (val: T) => void): AsyncOptional<T> {
     (async () => {
-      const result = await this._promise
+      const result = await this.#promise
       if (result !== None) callback(result)
     })()
-    return new AsyncOptional(this._promise)
+    return new AsyncOptional(this.#promise)
   }
 
   onNone(callback: () => void): AsyncOptional<T> {
     (async () => {
-      const result = await this._promise
+      const result = await this.#promise
       if (result === None) callback()
     })()
-    return new AsyncOptional(this._promise)
+    return new AsyncOptional(this.#promise)
   }
 
   async isSome(): Promise<boolean> {
-    const result = await this._promise
+    const result = await this.#promise
     return result !== None
   }
 
   async isNone(): Promise<boolean> {
-    const result = await this._promise
+    const result = await this.#promise
     return result === None
   }
 
   orElse<U>(defaultValue: U): AsyncOptional<T | U> {
     return new AsyncOptional<T | U>((async () => {
-      const result = await this._promise
+      const result = await this.#promise
       if (result === None) return defaultValue
       return result
     })())
@@ -73,7 +72,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
 
   map<U>(mapper: (val: T) => U): AsyncOptional<U> {
     return new AsyncOptional<U>((async () => {
-      const result = await this._promise
+      const result = await this.#promise
       if (result === None) return None
       return mapper(result)
     })())
@@ -81,7 +80,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
 
   filter<U extends T = T>(predicate: (val: T) => boolean): AsyncOptional<U> {
     return new AsyncOptional<U>((async () => {
-      const result = await this._promise
+      const result = await this.#promise
       if (result === None) return None
       if (predicate(result)) return result as U
       return None
@@ -89,7 +88,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
   }
 
   async get(): Promise<T> {
-    const result = await this._promise
+    const result = await this.#promise
     if (result === None) throw new Error('Cannot get value from None')
     return result
   }
