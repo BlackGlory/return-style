@@ -1,6 +1,6 @@
-export abstract class Result<T, X> implements Iterable<T> {
-  abstract [Symbol.iterator](): Iterator<T>
+// Don't try to refactor it, You will lose to TypeScript.
 
+export abstract class Result<T, X> implements Iterable<T> {
   static of<T>(value: T): Result<T, never> {
     return new Ok(value)
   }
@@ -8,6 +8,8 @@ export abstract class Result<T, X> implements Iterable<T> {
   static ofErr<X>(error: X): Result<never, X> {
     return new Err(error)
   }
+
+  abstract [Symbol.iterator](): Iterator<T>
 
   abstract isOk(): boolean
   abstract isErr(): boolean

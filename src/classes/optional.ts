@@ -1,3 +1,5 @@
+// Don't try to refactor it, You will lose to TypeScript.
+
 export abstract class Optional<T> implements Iterable<T> {
   static of<T>(value: T): Optional<T> {
     return new Some(value)
