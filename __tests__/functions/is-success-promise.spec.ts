@@ -1,4 +1,4 @@
-import { isSuccessPromise } from '@src/functions/is-success-promise'
+import { isSuccessPromise } from '@functions/is-success-promise'
 import 'jest-extended'
 import '@test/matchers'
 

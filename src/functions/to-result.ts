@@ -1,10 +1,10 @@
-import { Result } from '@src/classes/result'
+import { Result, IResult } from '@classes/result'
 
-export function toResult<T, X = any>(fn: () => T): Result<T, X> {
+export function toResult<T, X = any>(fn: () => T): IResult<T, X> {
   try {
     const result = fn()
-    return Result.of(result)
+    return Result.Ok(result)
   } catch (e) {
-    return Result.ofErr(e)
+    return Result.Err(e)
   }
 }

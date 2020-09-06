@@ -1,12 +1,12 @@
-import { Optional } from '@src/classes/optional'
+import { Optional } from '@classes/optional'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('Some<T>', () => {
-  describe('[Symbol.iterator](): Iterator<T>', () => {
+  describe('[Symbol.iterator](): Iterator<T, void>', () => {
     it('return Iterator', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
       const result = [...opt]
 
       expect(opt).toBeIterable()
@@ -17,7 +17,7 @@ describe('Some<T>', () => {
   describe('isSome(): boolean', () => {
     it('return true', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
 
       const isSome = opt.isSome()
 
@@ -28,7 +28,7 @@ describe('Some<T>', () => {
   describe('isNone(): boolean', () => {
     it('return false', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
 
       const isNone = opt.isNone()
 
@@ -36,10 +36,10 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) => void): Optional<T>', () => {
+  describe('onSome(callback: (val: T) => void): IOptional<T>', () => {
     it('invoke callback', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
       const cb = jest.fn()
 
       const result = opt.onSome(cb)
@@ -50,10 +50,10 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('onNone(callback: () => void): Optional<T>', () => {
+  describe('onNone(callback: () => void): IOptional<T>', () => {
     it('not invoke callback', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
       const cb = jest.fn()
 
       const result = opt.onNone(cb)
@@ -64,11 +64,11 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): Optional<T | U>', () => {
+  describe('orElse<U>(defaultValue: U): IOptional<T | U>', () => {
     it('return a copy', () => {
       const value = 'value'
       const defaultValue = 0
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
 
       const result = opt.orElse(defaultValue)
       const isSome = result.isSome()
@@ -81,10 +81,10 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): Optional<U>', () => {
+  describe('map<U>(mapper: (val: T) => U): IOptional<U>', () => {
     it('return a Some', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -99,11 +99,11 @@ describe('Some<T>', () => {
     })
   })
 
-  describe('filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>', () => {
+  describe('filter<U extends T = T>(predicate: (val: T) => boolean): IOptional<U>', () => {
     describe('predicate return false', () => {
       it('return None', () => {
         const value = 'value'
-        const opt = Optional.of(value)
+        const opt = Optional.Some(value)
         const fn = jest.fn().mockReturnValue(false)
 
         const result = opt.filter(fn)
@@ -117,7 +117,7 @@ describe('Some<T>', () => {
     describe('predicate return true', () => {
       it('return a copy', () => {
         const value = 'value'
-        const opt = Optional.of(value)
+        const opt = Optional.Some(value)
         const fn = jest.fn().mockReturnValue(true)
 
         const result = opt.filter(fn)
@@ -135,7 +135,7 @@ describe('Some<T>', () => {
   describe('get(): T', () => {
     it('return T', () => {
       const value = 'value'
-      const opt = Optional.of(value)
+      const opt = Optional.Some(value)
 
       const result = opt.get()
 

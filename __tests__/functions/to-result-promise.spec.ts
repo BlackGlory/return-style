@@ -1,8 +1,8 @@
-import { AsyncResult } from '@src/classes/async-result'
-import { toResultPromise } from '@src/functions/to-result-promise'
+import { AsyncResult } from '@classes/async-result'
+import { toResultPromise } from '@functions/to-result-promise'
 import 'jest-extended'
 
-describe('toResultPromise<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>', () => {
+describe('toResultPromise<T, X = any>(promise: PromiseLike<T>): IAsyncResult<T, X>', () => {
   describe('promise rejected', () => {
     it('return Err', async () => {
       const promise = Promise.reject(new Error())

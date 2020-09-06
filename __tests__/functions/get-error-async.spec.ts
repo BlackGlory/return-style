@@ -1,4 +1,4 @@
-import { getErrorAsync } from '@src/functions/get-error-async'
+import { getErrorAsync } from '@functions/get-error-async'
 import '@test/matchers'
 
 describe('getErrorAsync<T>(fn: () => PromiseLike<unknown>): Promise<T | undefined>', () => {

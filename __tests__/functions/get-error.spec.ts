@@ -1,4 +1,4 @@
-import { getError } from '@src/functions/get-error'
+import { getError } from '@functions/get-error'
 
 describe('getError<T>(fn: (): unknown) -> T | undefined', () => {
   describe('fn returned', () => {

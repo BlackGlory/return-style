@@ -1,42 +1,46 @@
-// Don't try to refactor it, You will lose to TypeScript.
+export interface IOptional<T> extends Iterable<T> {
+  [Symbol.iterator](): Iterator<T, void>
 
-export abstract class Optional<T> implements Iterable<T> {
-  static of<T>(value: T): Optional<T> {
+  isSome(): boolean
+  isNone(): boolean
+
+  onSome(callback: (val: T) => void): IOptional<T>
+  onNone(callback: () => void): IOptional<T>
+
+  orElse<U>(defaultValue: U): IOptional<T | U>
+  map<U>(mapper: (val: T) => U): IOptional<U>
+  filter<U extends T = T>(predicate: (val: T) => boolean): IOptional<U>
+
+  get(): T
+}
+
+export abstract class Optional {
+  static Some<T>(value: T): IOptional<T> {
+    return Some.of(value)
+  }
+
+  static None(): IOptional<never> {
+    return None.of()
+  }
+}
+
+class Some<T> extends Optional implements IOptional<T> {
+  static of<T>(value: T): IOptional<T> {
     return new Some(value)
   }
 
-  static ofNone(): Optional<never> {
-    return new None()
-  }
-
-  abstract [Symbol.iterator](): Iterator<T>
-
-  abstract isSome(): boolean
-  abstract isNone(): boolean
-
-  abstract onSome(callback: (val: T) => void): Optional<T>
-  abstract onNone(callback: () => void): Optional<T>
-
-  abstract orElse<U>(defaultValue: U): Optional<T | U>
-  abstract map<U>(mapper: (val: T) => U): Optional<U>
-  abstract filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>
-
-  abstract get(): T
-}
-
-class Some<T> extends Optional<T> {
   #value: T
 
-  constructor(value: T) {
+  private constructor(value: T) {
     super()
     this.#value = value
   }
 
-  *[Symbol.iterator]() {
+  * [Symbol.iterator]() {
     yield this.#value
   }
 
-  isSome() {
+  isSome(): this is Some<T> {
     return true
   }
 
@@ -46,26 +50,26 @@ class Some<T> extends Optional<T> {
 
   onSome(callback: (val: T) => void) {
     callback(this.#value)
-    return Optional.of(this.#value)
+    return Some.of(this.#value)
   }
 
   onNone() {
-    return Optional.of(this.#value)
+    return Some.of(this.#value)
   }
 
   orElse() {
-    return Optional.of(this.#value)
+    return Some.of(this.#value)
   }
 
   map<U>(mapper: (val: T) => U) {
-    return Optional.of(mapper(this.#value))
+    return Some.of(mapper(this.#value))
   }
 
-  filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U> {
+  filter<U extends T = T>(predicate: (val: T) => boolean) {
     if (predicate(this.#value)) {
-      return Optional.of(this.#value) as Optional<U>
+      return Some.of(this.#value) as IOptional<U>
     } else {
-      return Optional.ofNone()
+      return None.of()
     }
   }
 
@@ -74,7 +78,15 @@ class Some<T> extends Optional<T> {
   }
 }
 
-class None extends Optional<never> {
+class None extends Optional implements IOptional<never> {
+  static of(): IOptional<never> {
+    return new None()
+  }
+
+  private constructor() {
+    super()
+  }
+
   * [Symbol.iterator]() {}
 
   isSome() {
@@ -85,25 +97,25 @@ class None extends Optional<never> {
     return true
   }
 
-  onSome(_: (val: never) => void) {
-    return Optional.ofNone()
+  onSome() {
+    return None.of()
   }
 
   onNone(callback: () => void) {
     callback()
-    return Optional.ofNone()
+    return None.of()
   }
 
   orElse<T>(defaultValue: T) {
-    return Optional.of(defaultValue)
+    return Some.of(defaultValue)
   }
 
   map() {
-    return Optional.ofNone()
+    return None.of()
   }
 
   filter() {
-    return Optional.ofNone()
+    return None.of()
   }
 
   get(): never {

@@ -1,12 +1,22 @@
-import { Result } from '@src/classes/result'
+import { Result } from '@classes/result'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('Ok<T>', () => {
-  describe('[Symbol.iterator](): Iterator<T>', () => {
+  describe('static of<T>(value: T): IResult<T>', () => {
+    it('return Result.Ok', () => {
+      const value = 'val'
+
+      const result = Result.Ok(value)
+
+      expect(result).toBeInstanceOf(Result)
+    })
+  })
+
+  describe('[Symbol.iterator](): Iterator<T, void>', () => {
     it('return Iterator', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
       const result = [...res]
 
       expect(res).toBeIterable()
@@ -17,7 +27,7 @@ describe('Ok<T>', () => {
   describe('isOk(): boolean', () => {
     it('return true', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
 
       const result = res.isOk()
 
@@ -28,7 +38,7 @@ describe('Ok<T>', () => {
   describe('isErr(): boolean', () => {
     it('return false', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
 
       const result = res.isErr()
 
@@ -36,10 +46,10 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) => void): Result<T, X>', () => {
+  describe('onOk(callback: (val: T) => void): IResult<T, never>', () => {
     it('invoke callback', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
       const cb = jest.fn()
 
       const result = res.onOk(cb)
@@ -50,10 +60,10 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) => void): Result<T, X>', () => {
+  describe('onErr(callback: (err: X) => void): IResult<T, never>', () => {
     it('not invoke callback', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
       const cb = jest.fn()
 
       const result = res.onErr(cb)
@@ -64,11 +74,11 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): Result<T | U, X>', () => {
+  describe('orElse<U>(defaultValue: U): IResult<T, never>', () => {
     it('return a copy', () => {
       const value = 'value'
       const defaultValue = 0
-      const res = Result.of(value)
+      const res = Result.Ok(value)
 
       const result = res.orElse(defaultValue)
       const isOk = result.isOk()
@@ -81,10 +91,10 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): Result<U, X>', () => {
+  describe('map<U>(mapper: (val: T) => U): IResult<U, never>', () => {
     it('return Ok', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -102,7 +112,7 @@ describe('Ok<T>', () => {
   describe('get(): T', () => {
     it('return T', () => {
       const value = 'value'
-      const res = Result.of(value)
+      const res = Result.Ok(value)
 
       const result = res.get()
 

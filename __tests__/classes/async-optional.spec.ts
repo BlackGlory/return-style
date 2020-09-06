@@ -1,12 +1,12 @@
-import { AsyncOptional } from '@src/classes/async-optional'
+import { AsyncOptional } from '@classes/async-optional'
 import 'jest-extended'
 
 describe('AsyncOptional<T>', () => {
-  describe('of<T>(value: T): AsyncOptional<T>', () => {
+  describe('Some<T>(value: T): IAsyncOptional<T>', () => {
     it('return Some', async () => {
       const value = 'value'
 
-      const result = AsyncOptional.of(value)
+      const result = AsyncOptional.Some(value)
       const isSome = await result.isSome()
 
       expect(result).toBeInstanceOf(AsyncOptional)
@@ -14,9 +14,9 @@ describe('AsyncOptional<T>', () => {
     })
   })
 
-  describe('ofNone(): AsyncOptional<never>', () => {
+  describe('None(): IAsyncOptional<never>', () => {
     it('return AsyncNone', async () => {
-      const result = AsyncOptional.ofNone()
+      const result = AsyncOptional.None()
       const isNone = await result.isNone()
 
       expect(result).toBeInstanceOf(AsyncOptional)

@@ -1,4 +1,4 @@
-import { isFailure } from '@src/functions/is-failure'
+import { isFailure } from '@functions/is-failure'
 import 'jest-extended'
 
 describe('isFailure(fn: () => unknown): boolean', () => {

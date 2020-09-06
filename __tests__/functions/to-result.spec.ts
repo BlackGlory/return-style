@@ -1,10 +1,10 @@
-import { Result } from '@src/classes/result'
-import { toResult } from '@src/functions/to-result'
+import { Result } from '@classes/result'
+import { toResult } from '@functions/to-result'
 import 'jest-extended'
 
-describe('toResult<T, X = any>(fn: () => T): Result<T, X>', () => {
+describe('toResult<T, X = any>(fn: () => T): IResult<T, X>', () => {
   describe('fn throw error', () => {
-    it('return Err', () => {
+    it('return Result.Err', () => {
       const fn = () => { throw new Error() }
 
       const result = toResult<boolean>(fn)
@@ -16,7 +16,7 @@ describe('toResult<T, X = any>(fn: () => T): Result<T, X>', () => {
   })
 
   describe('fn return result', () => {
-    it('return Ok', () => {
+    it('return Result.Ok', () => {
       const fn = () => true
 
       const result = toResult<boolean>(fn)

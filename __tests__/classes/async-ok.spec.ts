@@ -1,14 +1,14 @@
 import { toArrayAsync } from 'iterable-operator'
-import { AsyncResult } from '@src/classes/async-result'
+import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncOk<T>', () => {
-  describe('[Symbol.asyncIterator](): AsyncIterator<T>', () => {
+  describe('[Symbol.asyncIterator](): AsyncIterator<T, void>', () => {
     it('return AsyncIterator', async () => {
       const value = 'value'
 
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
       const result = await toArrayAsync(res)
 
       expect(res).toBeAsyncIterable()
@@ -19,7 +19,7 @@ describe('AsyncOk<T>', () => {
   describe('isOk(): Promise<boolean>', () => {
     it('return true', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
 
       const result = res.isOk()
       const proResult = await result
@@ -32,7 +32,7 @@ describe('AsyncOk<T>', () => {
   describe('isErr(): Promise<boolean>', () => {
     it('return false', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
 
       const result = res.isErr()
       const proResult = await result
@@ -42,10 +42,10 @@ describe('AsyncOk<T>', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) => void): AsyncResult<T, X>', () => {
+  describe('onOk(callback: (val: T) => void): IAsyncResult<T, X>', () => {
     it('invoke callback', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
       const cb = jest.fn()
 
       const result = res.onOk(cb)
@@ -61,10 +61,10 @@ describe('AsyncOk<T>', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) => void): AsyncResult<T, X>', () => {
+  describe('onErr(callback: (err: X) => void): IAsyncResult<T, X>', () => {
     it('not invoke callback', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
       const cb = jest.fn()
 
       const result = res.onErr(cb)
@@ -76,11 +76,11 @@ describe('AsyncOk<T>', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): Result<T | U, X>', () => {
+  describe('orElse<U>(defaultValue: U): IAsyncResult<T | U, X>', () => {
     it('return a copy', async () => {
       const value = 'value'
       const defaultValue = 0
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
 
       const result = res.orElse(defaultValue)
       const isOk = await result.isOk()
@@ -93,10 +93,10 @@ describe('AsyncOk<T>', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): AsyncResult<U, X>', () => {
+  describe('map<U>(mapper: (val: T) => U): IAsyncResult<U, X>', () => {
     it('return Ok', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -114,7 +114,7 @@ describe('AsyncOk<T>', () => {
   describe('get(): Promise<T>', () => {
     it('return T', async () => {
       const value = 'value'
-      const res = AsyncResult.of(value)
+      const res = AsyncResult.Ok(value)
 
       const result = res.get()
       const proResult = await result

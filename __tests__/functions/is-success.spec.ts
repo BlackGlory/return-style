@@ -1,4 +1,4 @@
-import { isSuccess } from '@src/functions/is-success'
+import { isSuccess } from '@functions/is-success'
 import 'jest-extended'
 
 describe('isSuccess(fn: () => unknown): boolean', () => {

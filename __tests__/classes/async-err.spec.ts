@@ -1,15 +1,15 @@
 import { toArrayAsync } from 'iterable-operator'
-import { getErrorPromise } from '@src/functions/get-error-promise'
-import { AsyncResult } from '@src/classes/async-result'
+import { getErrorPromise } from '@functions/get-error-promise'
+import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncErr<X>', () => {
-  describe('[Symbol.asyncIterator](): AsyncIterator<T>', () => {
+  describe('[Symbol.asyncIterator](): AsyncIterator<T, void>', () => {
     it('return Iterator', async () => {
       const error = new Error('error')
 
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
       const result = await toArrayAsync(res)
 
       expect(res).toBeAsyncIterable()
@@ -20,7 +20,7 @@ describe('AsyncErr<X>', () => {
   describe('isOk(): Promise<boolean>', () => {
     it('return false', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
 
       const result = res.isOk()
       const proResult = await result
@@ -33,7 +33,7 @@ describe('AsyncErr<X>', () => {
   describe('isErr(): Promise<boolean>', () => {
     it('return true', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
 
       const result = res.isErr()
       const proResult = await result
@@ -43,10 +43,10 @@ describe('AsyncErr<X>', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) => void): AsyncResult<T, X>', () => {
+  describe('onOk(callback: (val: T) => void): IAsyncResult<T, X>', () => {
     it('not invoke callback', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
       const cb = jest.fn()
 
       const result = res.onOk(cb)
@@ -58,10 +58,10 @@ describe('AsyncErr<X>', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) => void): AsyncResult<T, X>', () => {
+  describe('onErr(callback: (err: X) => void): IAsyncResult<T, X>', () => {
     it('invoke callback', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
       const cb = jest.fn()
 
       const result = res.onErr(cb)
@@ -77,11 +77,11 @@ describe('AsyncErr<X>', () => {
     })
   })
 
-  describe('orElse<U>(defaultVAlue: U): AsyncResult<T | U, X>', () => {
+  describe('orElse<U>(defaultVAlue: U): IAsyncResult<T | U, X>', () => {
     it('return Ok', async () => {
       const error = new Error('error')
       const defaultValue = 0
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
 
       const result = res.orElse(defaultValue)
       const isOk = await result.isOk()
@@ -94,10 +94,10 @@ describe('AsyncErr<X>', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): AsyncResult<U, X>', () => {
+  describe('map<U>(mapper: (val: T) => U): IAsyncResult<U, X>', () => {
     it('return a copy', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -113,7 +113,7 @@ describe('AsyncErr<X>', () => {
   describe('get(): T', () => {
     it('throw X', async () => {
       const error = new Error('error')
-      const res = AsyncResult.ofErr(error)
+      const res = AsyncResult.Err(error)
 
       const result = await getErrorPromise(res.get())
 

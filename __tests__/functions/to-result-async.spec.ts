@@ -1,8 +1,8 @@
-import { AsyncResult } from '@src/classes/async-result'
-import { toResultAsync } from '@src/functions/to-result-async'
+import { AsyncResult } from '@classes/async-result'
+import { toResultAsync } from '@functions/to-result-async'
 import 'jest-extended'
 
-describe('toResultAsync<T, X = any>(fn: () => PromiseLike<T>): AsyncResult<T, X>', () => {
+describe('toResultAsync<T, X = any>(fn: () => PromiseLike<T>): IAsyncResult<T, X>', () => {
   describe('fn returned', () => {
     it('return Ok', async () => {
       const fn = () => Promise.resolve(true)

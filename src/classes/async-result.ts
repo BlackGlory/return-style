@@ -1,10 +1,10 @@
-import { getSuccessPromise } from '@src/functions/get-success-promise'
-import { getFailurePromise } from '@src/functions/get-failure-promise'
-import { isSuccessPromise } from '@src/functions/is-success-promise'
-import { isFailurePromise } from '@src/functions/is-failure-promise'
+import { getSuccessPromise } from '@functions/get-success-promise'
+import { getFailurePromise } from '@functions/get-failure-promise'
+import { isSuccessPromise } from '@functions/is-success-promise'
+import { isFailurePromise } from '@functions/is-failure-promise'
 
-interface IAsyncResult<T, X> extends AsyncIterable<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T>
+export interface IAsyncResult<T, X> extends AsyncIterable<T> {
+  [Symbol.asyncIterator](): AsyncIterator<T, void>
 
   onOk(callback: (val: T) => void): IAsyncResult<T, X>
   onErr(callback: (err: X) => void): IAsyncResult<T, X>
@@ -19,12 +19,12 @@ interface IAsyncResult<T, X> extends AsyncIterable<T> {
 }
 
 export class AsyncResult<T, X> implements IAsyncResult<T, X> {
-  static of<T>(value: T): AsyncResult<T, never> {
-    return new AsyncOk(value)
+  static Ok<T>(value: T): IAsyncResult<T, never> {
+    return AsyncOk.of(value)
   }
 
-  static ofErr<X>(error: X): AsyncResult<never, X> {
-    return new AsyncErr(error)
+  static Err<T>(error: T): IAsyncResult<never, T> {
+    return AsyncErr.of(error)
   }
 
   #promise: PromiseLike<T>
@@ -33,12 +33,12 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     this.#promise = promise
   }
 
-  async *[Symbol.asyncIterator](): AsyncIterator<T> {
+  async *[Symbol.asyncIterator](): AsyncIterator<T, void> {
     const [succ, ret] = await getSuccessPromise<T>(this.#promise)
     if (succ) yield ret as T
   }
 
-  onOk(callback: (val: T) => void): AsyncResult<T, X> {
+  onOk(callback: (val: T) => void): IAsyncResult<T, X> {
     (async () => {
       const [succ, ret] = await getSuccessPromise<T>(this.#promise)
       if (succ) callback(ret as T)
@@ -46,7 +46,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     return new AsyncResult(this.#promise)
   }
 
-  onErr(callback: (err: X) => void): AsyncResult<T, X> {
+  onErr(callback: (err: X) => void): IAsyncResult<T, X> {
     (async () => {
       const [fail, err] = await getFailurePromise<X>(this.#promise)
       if (fail) callback(err as X)
@@ -62,7 +62,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     return await isFailurePromise(this.#promise)
   }
 
-  orElse<U>(defaultValue: U): AsyncResult<T | U, never> {
+  orElse<U>(defaultValue: U): IAsyncResult<T | U, never> {
     return new AsyncResult((async () => {
       try {
         return await this.#promise
@@ -72,7 +72,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     })())
   }
 
-  map<U>(mapper: (val: T) => U): AsyncResult<U, X> {
+  map<U>(mapper: (val: T) => U): IAsyncResult<U, X> {
     return new AsyncResult((async () => {
       const result = await this.#promise
       return mapper(result as T)
@@ -84,14 +84,22 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 }
 
-class AsyncOk<T> extends AsyncResult<T, never> {
-  constructor(value: T) {
+class AsyncOk<T> extends AsyncResult<T, never> implements IAsyncResult<T, never> {
+  static of<T>(value: T): IAsyncResult<T, never> {
+    return new AsyncOk(value)
+  }
+
+  private constructor(value: T) {
     super(Promise.resolve(value))
   }
 }
 
-class AsyncErr<X> extends AsyncResult<never, X> {
-  constructor(err: X) {
+class AsyncErr<T> extends AsyncResult<never, T> implements IAsyncResult<never, T> {
+  static of<T>(value: T): IAsyncResult<never, T> {
+    return new AsyncErr(value)
+  }
+
+  private constructor(err: T) {
     super(Promise.reject(err))
   }
 }

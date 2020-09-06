@@ -1,4 +1,4 @@
-import { getResultPromise } from '@src/functions/get-result-promise'
+import { getResultPromise } from '@functions/get-result-promise'
 import '@test/matchers'
 
 describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>', () => {

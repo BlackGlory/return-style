@@ -1,4 +1,4 @@
-import { getSuccessAsync } from '@src/functions/get-success-async'
+import { getSuccessAsync } from '@functions/get-success-async'
 import '@test/matchers'
 
 describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {

@@ -1,8 +1,8 @@
-import { Optional } from '@src/classes/optional'
-import { toOptional, toOptionalPartial } from '@src/functions/to-optional'
+import { Optional } from '@classes/optional'
+import { toOptional, toOptionalPartial } from '@functions/to-optional'
 import 'jest-extended'
 
-describe('toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>', () => {
+describe('toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): IOptional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null
@@ -30,7 +30,7 @@ describe('toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<
   })
 })
 
-describe('toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>', () => {
+describe('toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => IOptional<T>', () => {
   describe('isNone returned true', () => {
     it('return None', () => {
       const fn = () => null

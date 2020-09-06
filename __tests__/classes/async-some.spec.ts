@@ -1,4 +1,4 @@
-import { AsyncOptional } from '@src/classes/async-optional'
+import { AsyncOptional } from '@classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
 import 'jest-extended'
 import '@test/matchers'
@@ -8,7 +8,7 @@ describe('AsyncSome<T>', () => {
     it('return AsyncIterator', async () => {
       const value = 'value'
 
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
       const result = await toArrayAsync(opt)
 
       expect(opt).toBeAsyncIterable()
@@ -19,7 +19,7 @@ describe('AsyncSome<T>', () => {
   describe('isSome(): boolean', () => {
     it('return true', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
 
       const result = opt.isSome()
       const proResult = await result
@@ -32,7 +32,7 @@ describe('AsyncSome<T>', () => {
   describe('isNone(): boolean', () => {
     it('return false', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
 
       const result = opt.isNone()
       const proResult = await result
@@ -42,10 +42,10 @@ describe('AsyncSome<T>', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) => void): AsyncOptional<T>', () => {
+  describe('onSome(callback: (val: T) => void): IAsyncOptional<T>', () => {
     it('invokde callback', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
       const cb = jest.fn()
 
       const result = opt.onSome(cb)
@@ -61,10 +61,10 @@ describe('AsyncSome<T>', () => {
     })
   })
 
-  describe('onNone(callback: () => void): AsyncOptional<T>', () => {
+  describe('onNone(callback: () => void): IAsyncOptional<T>', () => {
     it('not invoke callback', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
       const cb = jest.fn()
 
       const result = opt.onNone(cb)
@@ -76,11 +76,11 @@ describe('AsyncSome<T>', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): AsyncOptional<T | U>', () => {
+  describe('orElse<U>(defaultValue: U): IAsyncOptional<T | U>', () => {
     it('return a copy', async () => {
       const value = 'value'
       const defaultValue = 0
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
 
       const result = opt.orElse(defaultValue)
       const isSome = await result.isSome()
@@ -93,10 +93,10 @@ describe('AsyncSome<T>', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): AsyncOptional<U>', () => {
+  describe('map<U>(mapper: (val: T) => U): IAsyncOptional<U>', () => {
     it('return a Some', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -111,11 +111,11 @@ describe('AsyncSome<T>', () => {
     })
   })
 
-  describe('filter<U extends T = T>(predicate: (val: T) => boolean): AsyncOptional<U>', () => {
+  describe('filter<U extends T = T>(predicate: (val: T) => boolean): IAsyncOptional<U>', () => {
     describe('predicate return false', () => {
       it('return None', async () => {
         const value = 'value'
-        const opt = AsyncOptional.of(value)
+        const opt = AsyncOptional.Some(value)
         const fn = jest.fn().mockReturnValue(false)
 
         const result = opt.filter(fn)
@@ -129,7 +129,7 @@ describe('AsyncSome<T>', () => {
     describe('predicate return true', () => {
       it('return a copy', async () => {
         const value = 'value'
-        const opt = AsyncOptional.of(value)
+        const opt = AsyncOptional.Some(value)
         const fn = jest.fn().mockReturnValue(true)
 
         const result = opt.filter(fn)
@@ -147,7 +147,7 @@ describe('AsyncSome<T>', () => {
   describe('get(): Promise<T>', () => {
     it('return Promise<T>', async () => {
       const value = 'value'
-      const opt = AsyncOptional.of(value)
+      const opt = AsyncOptional.Some(value)
 
       const result = opt.get()
       const proResult = await result

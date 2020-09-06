@@ -1,4 +1,4 @@
-import { getResultErrorAsync } from '@src/functions/get-result-error-async'
+import { getResultErrorAsync } from '@functions/get-result-error-async'
 import '@test/matchers'
 
 describe('getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>', () => {

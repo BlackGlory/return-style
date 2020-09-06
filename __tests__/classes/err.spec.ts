@@ -1,14 +1,24 @@
-import { getError } from '@src/functions/get-error'
-import { Result } from '@src/classes/result'
+import { getError } from '@functions/get-error'
+import { Result } from '@classes/result'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('Err<X>', () => {
-  describe('[Symbol.iterator](): Iterator<T>', () => {
+  describe('static of<T>(error: T): IResult<never, T>', () => {
+    it('return Err<T>', () => {
+      const error = 'err'
+
+      const result = Result.Err(error)
+
+      expect(result).toBeInstanceOf(Result)
+    })
+  })
+
+  describe('[Symbol.iterator](): Iterator<never, void>', () => {
     it('return Iterator', () => {
       const error = new Error('error')
 
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
       const result = [...res]
 
       expect(res).toBeIterable()
@@ -19,7 +29,7 @@ describe('Err<X>', () => {
   describe('isOk(): boolean', () => {
     it('return false', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
 
       const result = res.isOk()
 
@@ -30,7 +40,7 @@ describe('Err<X>', () => {
   describe('isErr(): boolean', () => {
     it('return true', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
 
       const result = res.isErr()
 
@@ -38,10 +48,10 @@ describe('Err<X>', () => {
     })
   })
 
-  describe('onOk(callback: (val: T) => void): Result<T, X>', () => {
+  describe('onOk(callback: (value: never) => void): IResult<never, T>', () => {
     it('not invoke callback', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
       const cb = jest.fn()
 
       const result = res.onOk(cb)
@@ -52,10 +62,10 @@ describe('Err<X>', () => {
     })
   })
 
-  describe('onErr(callback: (err: X) => void): Result<T, X>', () => {
-    it('invoke callbackl', () => {
+  describe('onErr(callback: (err: T) => void): IResult<never, T>', () => {
+    it('invoke callback', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
       const cb = jest.fn()
 
       const result = res.onErr(cb)
@@ -66,27 +76,26 @@ describe('Err<X>', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): Result<T | U, X>', () => {
+  describe('orElse<U>(defaultValue: U): IResult<T, never>', () => {
     it('return Ok', () => {
       const error = new Error('error')
       const defaultValue = 0
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
 
       const result = res.orElse(defaultValue)
       const isOk = result.isOk()
       const internalValue = result.get()
 
       expect(result).toBeInstanceOf(Result)
-      expect(result).not.toBe(res)
       expect(isOk).toBeTrue()
       expect(internalValue).toBe(defaultValue)
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): Result<U, X>', () => {
+  describe('map<U>(fn: (val: never) => U): IResult<never, T>', () => {
     it('return a copy', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
       const newValue = 0
       const fn = jest.fn().mockReturnValue(newValue)
 
@@ -99,10 +108,10 @@ describe('Err<X>', () => {
     })
   })
 
-  describe('get(): T', () => {
-    it('throw X', () => {
+  describe('get(): never', () => {
+    it('throw T', () => {
       const error = new Error('error')
-      const res = Result.ofErr(error)
+      const res = Result.Err(error)
 
       const result = getError(() => res.get())
 

@@ -1,4 +1,4 @@
-import { isFailurePromise } from '@src/functions/is-failure-promise'
+import { isFailurePromise } from '@functions/is-failure-promise'
 import 'jest-extended'
 import '@test/matchers'
 

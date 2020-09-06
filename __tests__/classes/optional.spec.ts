@@ -1,12 +1,12 @@
-import { Optional } from '@src/classes/optional'
+import { Optional } from '@classes/optional'
 import 'jest-extended'
 
 describe('Optional<T>', () => {
-  describe('of<T>(value: T): Optional<T>', () => {
+  describe('Some<T>(value: T): IOptional<T>', () => {
     it('return Some', () => {
       const value = 'value'
 
-      const result = Optional.of(value)
+      const result = Optional.Some(value)
       const isSome = result.isSome()
 
       expect(result).toBeInstanceOf(Optional)
@@ -14,9 +14,9 @@ describe('Optional<T>', () => {
     })
   })
 
-  describe('ofNone(): Optional<never>', () => {
+  describe('None(): IOptional<never>', () => {
     it('return None', () => {
-      const result = Optional.ofNone()
+      const result = Optional.None()
       const isNone = result.isNone()
 
       expect(result).toBeInstanceOf(Optional)

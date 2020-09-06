@@ -1,4 +1,4 @@
-import { getResult } from '@src/functions/get-result'
+import { getResult } from '@functions/get-result'
 
 describe('getResult<T>(fn: () => T): T | undefined', () => {
   describe('fn returned', () => {

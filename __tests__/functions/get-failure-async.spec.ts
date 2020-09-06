@@ -1,4 +1,4 @@
-import { getFailureAsync } from '@src/functions/get-failure-async'
+import { getFailureAsync } from '@functions/get-failure-async'
 import '@test/matchers'
 
 describe('getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {

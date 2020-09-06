@@ -1,4 +1,4 @@
-import { isSuccessAsync } from '@src/functions/is-success-async'
+import { isSuccessAsync } from '@functions/is-success-async'
 import 'jest-extended'
 import '@test/matchers'
 

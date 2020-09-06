@@ -1,7 +1,7 @@
-export const None = Symbol()
+export const Nil = Symbol()
 
-interface IAsyncOptional<T> extends AsyncIterable<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T>
+export interface IAsyncOptional<T> extends AsyncIterable<T> {
+  [Symbol.asyncIterator](): AsyncIterator<T, void>
 
   onSome(callback: (val: T) => void): IAsyncOptional<T>
   onNone(callback: () => void): IAsyncOptional<T>
@@ -17,91 +17,99 @@ interface IAsyncOptional<T> extends AsyncIterable<T> {
 }
 
 export class AsyncOptional<T> implements IAsyncOptional<T> {
-  static of<T>(value: T): AsyncOptional<T> {
-    return new AsyncSome(value)
+  static Some<T>(value: T): IAsyncOptional<T> {
+    return AsyncSome.of(value)
   }
 
-  static ofNone(): AsyncOptional<never> {
-    return new AsyncNone()
+  static None(): IAsyncOptional<never> {
+    return AsyncNone.of()
   }
 
-  #promise: PromiseLike<T | typeof None>
+  #promise: PromiseLike<T | typeof Nil>
 
-  constructor(promise: PromiseLike<T | typeof None>) {
+  constructor(promise: PromiseLike<T | typeof Nil>) {
     this.#promise = promise
   }
 
-  async *[Symbol.asyncIterator](): AsyncIterator<T> {
+  async *[Symbol.asyncIterator](): AsyncIterator<T, void> {
     const result = await this.#promise
-    if (result !== None) yield result
+    if (result !== Nil) yield result
   }
 
-  onSome(callback: (val: T) => void): AsyncOptional<T> {
+  onSome(callback: (val: T) => void): IAsyncOptional<T> {
     (async () => {
       const result = await this.#promise
-      if (result !== None) callback(result)
+      if (result !== Nil) callback(result)
     })()
     return new AsyncOptional(this.#promise)
   }
 
-  onNone(callback: () => void): AsyncOptional<T> {
+  onNone(callback: () => void): IAsyncOptional<T> {
     (async () => {
       const result = await this.#promise
-      if (result === None) callback()
+      if (result === Nil) callback()
     })()
     return new AsyncOptional(this.#promise)
   }
 
   async isSome(): Promise<boolean> {
     const result = await this.#promise
-    return result !== None
+    return result !== Nil
   }
 
   async isNone(): Promise<boolean> {
     const result = await this.#promise
-    return result === None
+    return result === Nil
   }
 
-  orElse<U>(defaultValue: U): AsyncOptional<T | U> {
+  orElse<U>(defaultValue: U): IAsyncOptional<T | U> {
     return new AsyncOptional<T | U>((async () => {
       const result = await this.#promise
-      if (result === None) return defaultValue
+      if (result === Nil) return defaultValue
       return result
     })())
   }
 
-  map<U>(mapper: (val: T) => U): AsyncOptional<U> {
+  map<U>(mapper: (val: T) => U): IAsyncOptional<U> {
     return new AsyncOptional<U>((async () => {
       const result = await this.#promise
-      if (result === None) return None
+      if (result === Nil) return Nil
       return mapper(result)
     })())
   }
 
-  filter<U extends T = T>(predicate: (val: T) => boolean): AsyncOptional<U> {
+  filter<U extends T = T>(predicate: (val: T) => boolean): IAsyncOptional<U> {
     return new AsyncOptional<U>((async () => {
       const result = await this.#promise
-      if (result === None) return None
+      if (result === Nil) return Nil
       if (predicate(result)) return result as U
-      return None
+      return Nil
     })())
   }
 
   async get(): Promise<T> {
     const result = await this.#promise
-    if (result === None) throw new Error('Cannot get value from None')
+    if (result === Nil) throw new Error('Cannot get value from None')
     return result
   }
 }
 
-class AsyncNone extends AsyncOptional<never> {
-  constructor() {
-    super(Promise.resolve(None))
+class AsyncNone extends AsyncOptional<never> implements IAsyncOptional<never> {
+  static of(): IAsyncOptional<never> {
+    return new AsyncNone()
+  }
+
+  private constructor() {
+    super(Promise.resolve(Nil))
   }
 }
 
-class AsyncSome<T> extends AsyncOptional<T> {
-  constructor(value: T) {
+class AsyncSome<T> extends AsyncOptional<T> implements IAsyncOptional<T> {
+  static of<T>(value: T): IAsyncOptional<T> {
+    return new AsyncSome(value)
+  }
+
+  private constructor(value: T) {
     super(Promise.resolve(value))
   }
 }

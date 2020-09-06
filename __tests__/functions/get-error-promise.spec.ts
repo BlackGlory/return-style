@@ -1,4 +1,4 @@
-import { getErrorPromise } from '@src/functions/get-error-promise'
+import { getErrorPromise } from '@functions/get-error-promise'
 import '@test/matchers'
 
 describe('getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {

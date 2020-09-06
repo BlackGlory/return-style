@@ -189,7 +189,7 @@ test('divided by zero', () => {
 })
 ```
 
-### Result: Ok / Err
+### Result<T, X> = Ok<T> | Err<X>
 
 * `function toResult<T, X = any>(fn: () => T): Result<T, X>`
 * `function toResultAsync<T, X = any>(fn: () => PromiseLike<T>): AsyncResult<T, X>`
@@ -197,7 +197,7 @@ test('divided by zero', () => {
 
 ```ts
 interface Result<T, X> {
-  [Symbol.iterator](): Iterator<T>
+  [Symbol.iterator](): Iterator<T, void>
 
   onOk(callback: (val: T) => void): Result<T, X>
   onErr(callback: (err: X) => void): Result<T, X>
@@ -212,7 +212,7 @@ interface Result<T, X> {
 }
 
 interface AsyncResult<T, X> {
-  [Symbol.asyncIterator](): AsyncIterator<T>
+  [Symbol.asyncIterator](): AsyncIterator<T, void>
 
   onOk(callback: (val: T) => void): AsyncResult<T, X>
   onErr(callback: (err: X) => void): AsyncResult<T, X>
@@ -227,16 +227,16 @@ interface AsyncResult<T, X> {
 }
 ```
 
-### Optional: Some / None
+### Optional<T> = Some<T> | None
 
-* `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Option<T>`
-* `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Option<T>`
+* `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>`
+* `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>`
 * `function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
 * `function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
 
 ```ts
 interface Optional<T> {
-  [Symbol.iterator](): Iterator<T>
+  [Symbol.iterator](): Iterator<T, void>
 
   onSome(callback: (val: T) => void): this
   onNone(callback: () => void): this
@@ -252,7 +252,7 @@ interface Optional<T> {
 }
 
 interface AsyncOptional<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T>
+  [Symbol.asyncIterator](): AsyncIterator<T, void>
 
   onSome(callback: (val: T) => void): this
   onNone(callback: () => void): this

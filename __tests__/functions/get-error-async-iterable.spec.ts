@@ -1,4 +1,4 @@
-import { getErrorAsyncIterable } from '@src/functions/get-error-async-iterable'
+import { getErrorAsyncIterable } from '@functions/get-error-async-iterable'
 import '@test/matchers'
 
 describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>', () => {

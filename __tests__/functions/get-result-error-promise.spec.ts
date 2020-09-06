@@ -1,4 +1,4 @@
-import { getResultErrorPromise } from '@src/functions/get-result-error-promise'
+import { getResultErrorPromise } from '@functions/get-result-error-promise'
 import '@test/matchers'
 
 describe('getResultErrorPromise<T, X = any>(promise: PromiseLike<T>) -> Promise<[T, undefined] | [undefined, X]>', () => {

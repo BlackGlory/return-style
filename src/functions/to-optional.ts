@@ -1,14 +1,14 @@
-import { Optional } from '@src/classes/optional'
+import { Optional, IOptional } from '@classes/optional'
 
-export function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T) => Optional<T> {
+export function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T) => IOptional<T> {
   return (fn: () => T) => toOptional(fn, isNone)
 }
 
-export function toOptional<T>(fn: () => T, isNone: (val: T) => boolean): Optional<T> {
+export function toOptional<T>(fn: () => T, isNone: (val: T) => boolean): IOptional<T> {
   const result = fn()
   if (isNone(result)) {
-    return Optional.ofNone()
+    return Optional.None()
   } else {
-    return Optional.of(result)
+    return Optional.Some(result)
   }
 }

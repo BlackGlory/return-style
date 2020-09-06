@@ -1,4 +1,4 @@
-import { isFailureAsync } from '@src/functions/is-failure-async'
+import { isFailureAsync } from '@functions/is-failure-async'
 import 'jest-extended'
 import '@test/matchers'
 

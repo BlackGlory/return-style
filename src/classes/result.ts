@@ -1,32 +1,36 @@
-// Don't try to refactor it, You will lose to TypeScript.
+export interface IResult<T, X> extends Iterable<T> {
+  [Symbol.iterator](): Iterator<T, void>
 
-export abstract class Result<T, X> implements Iterable<T> {
-  static of<T>(value: T): Result<T, never> {
+  isOk(): boolean
+  isErr(): boolean
+
+  onOk(callback: (val: T) => void): IResult<T, X>
+  onErr(callback: (err: X) => void): IResult<T, X>
+
+  orElse<U>(defaultValue: U): IResult<T, never> | IResult<U, never>
+  map<U>(mapper: (val: T) => U): IResult<U, X>
+
+  get(): T
+}
+
+export abstract class Result {
+  static Ok<T>(value: T): IResult<T, never> {
+    return Ok.of(value)
+  }
+
+  static Err<T>(error: T): IResult<never, T> {
+    return Err.of(error)
+  }
+}
+
+class Ok<T> extends Result implements IResult<T, never> {
+  static of<T>(value: T): IResult<T, never> {
     return new Ok(value)
   }
 
-  static ofErr<X>(error: X): Result<never, X> {
-    return new Err(error)
-  }
-
-  abstract [Symbol.iterator](): Iterator<T>
-
-  abstract isOk(): boolean
-  abstract isErr(): boolean
-
-  abstract onOk(callback: (val: T) => void): Result<T, X>
-  abstract onErr(callback: (err: X) => void): Result<T, X>
-
-  abstract orElse<U>(defaultValue: U): Result<T | U, never>
-  abstract map<U>(mapper: (val: T) => U): Result<U, X>
-
-  abstract get(): T
-}
-
-class Ok<T> extends Result<T, never> {
   #value: T
 
-  constructor(value: T) {
+  private constructor(value: T) {
     super()
     this.#value = value
   }
@@ -45,35 +49,39 @@ class Ok<T> extends Result<T, never> {
 
   onOk(callback: (val: T) => void) {
     callback(this.#value)
-    return Result.of(this.#value)
+    return Ok.of(this.#value)
   }
 
   onErr() {
-    return Result.of(this.#value)
+    return Ok.of(this.#value)
   }
 
   orElse() {
-    return Result.of(this.#value)
+    return Ok.of(this.#value)
   }
 
-  map<U>(mapper: (val: T) => U) {
-    return Result.of(mapper(this.#value))
+  map<U>(fn: (val: T) => U) {
+    return Ok.of(fn(this.#value))
   }
 
-  get() {
+  get(): T {
     return this.#value
   }
 }
 
-class Err<X> extends Result<never, X> {
-  #value: X
+class Err<T> extends Result implements IResult<never, T> {
+  static of<T>(error: T): IResult<never, T> {
+    return new Err(error)
+  }
 
-  constructor(err: X) {
+  #value: T
+
+  private constructor(err: T) {
     super()
     this.#value = err
   }
 
-  * [Symbol.iterator]() {}
+  * [Symbol.iterator](): Iterator<never, void> {}
 
   isOk() {
     return false
@@ -83,21 +91,21 @@ class Err<X> extends Result<never, X> {
     return true
   }
 
-  onOk() {
-    return Result.ofErr(this.#value)
+  onOk(): IResult<never, T> {
+    return Err.of(this.#value)
   }
 
-  onErr(callback: (err: X) => void) {
+  onErr(callback: (err: T) => void) {
     callback(this.#value)
-    return Result.ofErr(this.#value)
+    return Err.of(this.#value)
   }
 
-  orElse<T>(defaultValue: T) {
-    return Result.of(defaultValue)
+  orElse<U>(defaultValue: U) {
+    return Ok.of(defaultValue)
   }
 
-  map() {
-    return Result.ofErr(this.#value)
+  map(): IResult<never, T> {
+    return Err.of(this.#value)
   }
 
   get(): never {

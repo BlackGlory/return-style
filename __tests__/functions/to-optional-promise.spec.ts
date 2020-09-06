@@ -1,10 +1,10 @@
-import { AsyncOptional } from '@src/classes/async-optional'
-import { toOptionalPromise, toOptionalPromisePartial } from '@src/functions/to-optional-promise'
+import { AsyncOptional } from '@classes/async-optional'
+import { toOptionalPromise, toOptionalPromisePartial } from '@functions/to-optional-promise'
 import 'jest-extended'
 
-describe('toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<Optional<T>>', () => {
+describe('toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): Promise<IOptional<T>>', () => {
   describe('isNone returned true', () => {
-    it('return AsyncOptional<never>', async () => {
+    it('return IAsyncOptional<never>', async () => {
       const promise = Promise.resolve()
       const allIsNone = () => true
 
@@ -17,7 +17,7 @@ describe('toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => bool
   })
 
   describe('isNone returned false', () => {
-    it('return AsyncOptional<T>', async () => {
+    it('return IAsyncOptional<T>', async () => {
       const promise = Promise.resolve()
       const allIsSome = () => false
 
@@ -30,7 +30,7 @@ describe('toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => bool
   })
 })
 
-describe('toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<Optional<T>>', () => {
+describe('toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => Promise<IOptional<T>>', () => {
   describe('isNone returned true', () => {
     it('return Promise<None>', async () => {
       const promise = Promise.resolve()

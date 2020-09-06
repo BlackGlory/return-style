@@ -1,13 +1,13 @@
-import { getErrorPromise } from '@src/functions/get-error-promise'
-import { AsyncOptional } from '@src/classes/async-optional'
+import { getErrorPromise } from '@functions/get-error-promise'
+import { AsyncOptional } from '@classes/async-optional'
 import { toArrayAsync } from 'iterable-operator'
 import 'jest-extended'
 import '@test/matchers'
 
 describe('AsyncNone', () => {
-  describe('[Symbol.itrable](): Iterator<T>', () => {
+  describe('[Symbol.itrable](): Iterator<T, void>', () => {
     it('return Iterator', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const result = await toArrayAsync(opt)
 
       expect(opt).toBeAsyncIterable()
@@ -17,7 +17,7 @@ describe('AsyncNone', () => {
 
   describe('isSome(): Promise<boolean>', () => {
     it('return Promise<false>', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
 
       const result = opt.isSome()
       const proResult = await result
@@ -29,7 +29,7 @@ describe('AsyncNone', () => {
 
   describe('isNone(): Promise<boolean>', () => {
     it('return Promise<true>', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
 
       const result = opt.isNone()
       const proResult = await result
@@ -39,9 +39,9 @@ describe('AsyncNone', () => {
     })
   })
 
-  describe('onSome(callback: (val: T) => void): AsyncOptional<T>', () => {
+  describe('onSome(callback: (val: T) => void): IAsyncOptional<T>', () => {
     it('not invoke callback', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const cb = jest.fn()
 
       const result = opt.onSome(cb)
@@ -53,9 +53,9 @@ describe('AsyncNone', () => {
     })
   })
 
-  describe('onNone(callback: () => void): AsyncOptional<T>', () => {
+  describe('onNone(callback: () => void): IAsyncOptional<T>', () => {
     it('invoke callback', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const cb = jest.fn()
 
       const result = opt.onNone(cb)
@@ -70,9 +70,9 @@ describe('AsyncNone', () => {
     })
   })
 
-  describe('orElse<U>(defaultValue: U): AsyncOptional<T | U>', () => {
+  describe('orElse<U>(defaultValue: U): IAsyncOptional<T | U>', () => {
     it('return a AsyncSome', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const defaultValue = 'defaultValue'
 
       const result = opt.orElse(defaultValue)
@@ -83,9 +83,9 @@ describe('AsyncNone', () => {
     })
   })
 
-  describe('map<U>(mapper: (val: T) => U): AsyncOptional<U>', () => {
+  describe('map<U>(mapper: (val: T) => U): IAsyncOptional<U>', () => {
     it('return a copy', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const fn = jest.fn()
 
       const result = opt.map(fn)
@@ -98,9 +98,9 @@ describe('AsyncNone', () => {
     })
   })
 
-  describe('filter<U extends T = T>(predicate: (val: T) => boolean): AsyncOptional<U>', () => {
+  describe('filter<U extends T = T>(predicate: (val: T) => boolean): IAsyncOptional<U>', () => {
     it('return a copy', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
       const fn = jest.fn()
 
       const result = opt.filter(fn)
@@ -115,7 +115,7 @@ describe('AsyncNone', () => {
 
   describe('get(): Promise<T>', () => {
     it('throw error', async () => {
-      const opt = AsyncOptional.ofNone()
+      const opt = AsyncOptional.None()
 
       const result = opt.get()
       const err = await getErrorPromise(result)
