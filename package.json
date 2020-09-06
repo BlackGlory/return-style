@@ -1,6 +1,6 @@
 {
   "name": "return-style",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Non-intrusively convert the result of any function or promise to the user's desired style.",
   "keywords": [
     "convert",
