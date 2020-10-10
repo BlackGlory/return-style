@@ -2,7 +2,7 @@ import { toArrayAsync } from 'iterable-operator'
 import { getErrorPromise } from '@functions/get-error-promise'
 import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('AsyncErr<X>', () => {
   describe('[Symbol.asyncIterator](): AsyncIterator<T, void>', () => {

@@ -1,5 +1,5 @@
 import { getFailureAsync } from '@functions/get-failure-async'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
   describe('fn returned', () => {

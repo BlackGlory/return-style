@@ -1,5 +1,5 @@
 import { getResultPromise } from '@functions/get-result-promise'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>', () => {
   describe('fn returned', () => {

@@ -1,6 +1,6 @@
 import { Result } from '@classes/result'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('Ok<T>', () => {
   describe('static of<T>(value: T): IResult<T>', () => {

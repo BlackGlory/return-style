@@ -1,6 +1,6 @@
 import { isSuccessAsync } from '@functions/is-success-async'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('isSuccessAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () => {
   describe('fn returned', () => {

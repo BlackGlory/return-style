@@ -1,6 +1,6 @@
 import { isFailurePromise } from '@functions/is-failure-promise'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {

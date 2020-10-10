@@ -1,5 +1,5 @@
 import { getSuccessPromise } from '@functions/get-success-promise'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('promise resolved', () => {

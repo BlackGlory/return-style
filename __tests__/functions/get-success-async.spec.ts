@@ -1,5 +1,5 @@
 import { getSuccessAsync } from '@functions/get-success-async'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('fn returned', () => {

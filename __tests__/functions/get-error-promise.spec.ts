@@ -1,5 +1,5 @@
 import { getErrorPromise } from '@functions/get-error-promise'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {

@@ -1,6 +1,6 @@
 import { isSuccessPromise } from '@functions/is-success-promise'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {

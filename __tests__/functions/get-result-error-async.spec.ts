@@ -1,5 +1,5 @@
 import { getResultErrorAsync } from '@functions/get-result-error-async'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>', () => {
   describe('fn returned', () => {

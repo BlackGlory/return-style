@@ -1,7 +1,7 @@
 import { toArrayAsync } from 'iterable-operator'
 import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('AsyncOk<T>', () => {
   describe('[Symbol.asyncIterator](): AsyncIterator<T, void>', () => {

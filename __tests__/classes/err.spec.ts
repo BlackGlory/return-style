@@ -1,7 +1,7 @@
 import { getError } from '@functions/get-error'
 import { Result } from '@classes/result'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('Err<X>', () => {
   describe('static of<T>(error: T): IResult<never, T>', () => {

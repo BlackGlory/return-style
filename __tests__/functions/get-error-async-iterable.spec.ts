@@ -1,5 +1,5 @@
 import { getErrorAsyncIterable } from '@functions/get-error-async-iterable'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {

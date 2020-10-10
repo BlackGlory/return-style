@@ -1,7 +1,7 @@
 import { getError } from '@functions/get-error'
 import { Optional } from '@classes/optional'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('None', () => {
   describe('[Symbol.iterator](): Iterator<T, void>', () => {

@@ -1,6 +1,6 @@
 import { Optional } from '@classes/optional'
 import 'jest-extended'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('Some<T>', () => {
   describe('[Symbol.iterator](): Iterator<T, void>', () => {
