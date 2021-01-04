@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.1](https://github.com/BlackGlory/return-style/compare/v0.11.0...v0.11.1) (2021-01-04)
+
+
+### Features
+
+* add PromiseLike interface for AsyncResult and AsyncOptional ([c74ce37](https://github.com/BlackGlory/return-style/commit/c74ce377aec5e738a1b9bdc98f43c1337868b85c))
+
 ## [0.11.0](https://github.com/BlackGlory/return-style/compare/v0.10.1...v0.11.0) (2021-01-04)
 
 
