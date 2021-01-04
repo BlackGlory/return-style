@@ -1,6 +1,8 @@
+import { IOptional, Optional } from './optional'
+
 export const Nil = Symbol()
 
-export interface IAsyncOptional<T> {
+export interface IAsyncOptional<T> extends PromiseLike<IOptional<T>> {
   onSome(callback: (val: T) => void): IAsyncOptional<T>
   onNone(callback: () => void): IAsyncOptional<T>
 
@@ -25,7 +27,17 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
 
   #promise: PromiseLike<T | typeof Nil>
 
-  constructor(promise: PromiseLike<T | typeof Nil>) {
+  get then() {
+    const promise = this.#promise.then(x =>
+      x === Nil
+      ? Optional.None()
+      : Optional.Some(x)
+    ) as PromiseLike<IOptional<T>>
+
+    return promise.then.bind(promise)
+  }
+
+  protected constructor(promise: PromiseLike<T | typeof Nil>) {
     this.#promise = promise
   }
 

@@ -1,8 +1,20 @@
+import { Result } from '@classes/result'
 import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncOk<T>', () => {
+  it('is PromiseLike<Ok<T>>', async () => {
+    const value = 'value'
+    const res = AsyncResult.Ok(value)
+
+    const result = await res
+
+    expect(res).toBePromiseLike()
+    expect(result).toBeInstanceOf(Result)
+    expect(result.isOk()).toBeTrue()
+  })
+
   describe('isOk(): Promise<boolean>', () => {
     it('return true', async () => {
       const value = 'value'

@@ -1,8 +1,20 @@
+import { Optional } from '@classes/optional'
 import { AsyncOptional } from '@classes/async-optional'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncSome<T>', () => {
+  it('is PromiseLike<Some<T>>', async () => {
+    const value = 'value'
+    const opt = AsyncOptional.Some(value)
+
+    const result = await opt
+
+    expect(opt).toBePromiseLike()
+    expect(result).toBeInstanceOf(Optional)
+    expect(result.isSome()).toBeTrue()
+  })
+
   describe('isSome(): boolean', () => {
     it('return true', async () => {
       const value = 'value'

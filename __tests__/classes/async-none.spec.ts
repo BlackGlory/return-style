@@ -1,9 +1,20 @@
+import { Optional } from '@classes/optional'
 import { getErrorPromise } from '@functions/get-error-promise'
 import { AsyncOptional } from '@classes/async-optional'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncNone', () => {
+  it('is PromiseLike<None>', async () => {
+    const opt = AsyncOptional.None()
+
+    const result = await opt
+
+    expect(opt).toBePromiseLike()
+    expect(result).toBeInstanceOf(Optional)
+    expect(result.isNone()).toBeTrue()
+  })
+
   describe('isSome(): Promise<boolean>', () => {
     it('return Promise<false>', async () => {
       const opt = AsyncOptional.None()

@@ -1,9 +1,21 @@
 import { getErrorPromise } from '@functions/get-error-promise'
+import { Result } from '@classes/result'
 import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncErr<X>', () => {
+  it('is PromiseLike<Err<X>>', async () => {
+    const error = new Error('error')
+    const res = AsyncResult.Err(error)
+
+    const result = await res
+
+    expect(res).toBePromiseLike()
+    expect(result).toBeInstanceOf(Result)
+    expect(result.isErr()).toBeTrue()
+  })
+
   describe('isOk(): Promise<boolean>', () => {
     it('return false', async () => {
       const error = new Error('error')

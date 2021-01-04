@@ -218,7 +218,7 @@ interface Result<T, X> {
   get(): T
 }
 
-interface AsyncResult<T, X> {
+interface AsyncResult<T, X> extends PromiseLike<Result<T, X>> {
   onOk(callback: (val: T) => void): AsyncResult<T, X>
   onErr(callback: (err: X) => void): AsyncResult<T, X>
 
@@ -254,7 +254,7 @@ interface Optional<T> {
   get(): T
 }
 
-interface AsyncOptional<T> {
+interface AsyncOptional<T> extends PromiseLike<Optional<T>> {
   onSome(callback: (val: T) => void): AsyncOptional<T>
   onNone(callback: () => void): AsyncOptional<T>
 

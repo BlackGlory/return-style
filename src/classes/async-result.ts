@@ -1,9 +1,10 @@
+import { IResult, Result } from './result'
 import { getSuccessPromise } from '@functions/get-success-promise'
 import { getFailurePromise } from '@functions/get-failure-promise'
 import { isSuccessPromise } from '@functions/is-success-promise'
 import { isFailurePromise } from '@functions/is-failure-promise'
 
-export interface IAsyncResult<T, X> {
+export interface IAsyncResult<T, X> extends PromiseLike<IResult<T, X>> {
   onOk(callback: (val: T) => void): IAsyncResult<T, X>
   onErr(callback: (err: X) => void): IAsyncResult<T, X>
 
@@ -27,7 +28,16 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   #promise: PromiseLike<T>
 
-  constructor(promise: PromiseLike<T>) {
+  get then() {
+    const promise = this.#promise.then(
+      x => Result.Ok(x)
+    , x => Result.Err(x)
+    ) as PromiseLike<IResult<T, X>>
+
+    return promise.then.bind(promise)
+  }
+
+  protected constructor(promise: PromiseLike<T>) {
     this.#promise = promise
   }
 
