@@ -42,7 +42,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
   }
 
   onSome(callback: (val: T) => void): IAsyncOptional<T> {
-    (async () => {
+    ;(async () => {
       const result = await this.#promise
       if (result !== Nil) callback(result)
     })()
@@ -50,7 +50,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
   }
 
   onNone(callback: () => void): IAsyncOptional<T> {
-    (async () => {
+    ;(async () => {
       const result = await this.#promise
       if (result === Nil) callback()
     })()

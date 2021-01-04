@@ -42,7 +42,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   onOk(callback: (val: T) => void): IAsyncResult<T, X> {
-    (async () => {
+    ;(async () => {
       const [succ, ret] = await getSuccessPromise<T>(this.#promise)
       if (succ) callback(ret as T)
     })()
@@ -50,7 +50,7 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   onErr(callback: (err: X) => void): IAsyncResult<T, X> {
-    (async () => {
+    ;(async () => {
       const [fail, err] = await getFailurePromise<X>(this.#promise)
       if (fail) callback(err as X)
     })()

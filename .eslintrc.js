@@ -9,8 +9,9 @@ module.exports = {
   , 'plugin:@typescript-eslint/recommended'
   ]
 , rules: {
-    '@typescript-eslint/no-empty-function': 'off'
-  , 'require-yield': 'off'
+    'require-yield': 'off'
   , 'no-empty': 'off'
+  , '@typescript-eslint/no-empty-function': 'off'
+  , '@typescript-eslint/no-extra-semi': 'off'
   }
 }
