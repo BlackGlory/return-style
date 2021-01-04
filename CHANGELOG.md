@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.2](https://github.com/BlackGlory/return-style/compare/v0.11.1...v0.11.2) (2021-01-04)
+
+
+### Bug Fixes
+
+* build ([4ce48ec](https://github.com/BlackGlory/return-style/commit/4ce48ecaaadef37e55f6338ec00e8bca7fe8ffca))
+
 ### [0.11.1](https://github.com/BlackGlory/return-style/compare/v0.11.0...v0.11.1) (2021-01-04)
 
 
