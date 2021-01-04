@@ -286,7 +286,7 @@
     fs-extra "^9.0.1"
     jest-diff "^26.6.2"
 
-"@blackglory/types@^0.1.11", "@blackglory/types@^0.1.7":
+"@blackglory/types@^0.1.7":
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.1.12.tgz#6d9b4d9ca5fced941c94890e4b33c696fc709595"
   integrity sha512-hjjX9bltppnl8bg67aie8D3h+grKmrjGyu5I/SDq3HVgARUgFjugw2Ax6MdxsIdIaBUtASVeslkHOs3Rf8W70g==
@@ -294,13 +294,13 @@
     "@types/node" "^14.14.14"
     ajv "^7.0.1"
 
-"@blackglory/types@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.1.tgz#58722098a3f0e9fbce88179df718a14cc7755c50"
-  integrity sha512-7kbbr3mAWKSDtumKRkjkNlFDZwmgUItXubpArjYBBlUdMFw6m4247gxVwOiHTqGMV5vmOIgEXr8Ox/qqy13GIg==
+"@blackglory/types@^0.2.3", "@blackglory/types@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.2.4.tgz#5eb4c7c53a9ad7d60ceb6b036ae64c18486aefdd"
+  integrity sha512-bHadZ24Jn4Fjbl61gb58LbMyAWgHbIF9y+fbfLVGcwGlNrOA9rOtjgFLVd4icRzfCFgZCTr8LXcu5IHBf702ug==
   dependencies:
-    "@types/node" "^14.14.14"
-    ajv "^7.0.1"
+    "@types/node" "^14.14.19"
+    ajv "^7.0.3"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -1074,7 +1074,7 @@ ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^7.0.1, ajv@^7.0.2:
+ajv@^7.0.1, ajv@^7.0.2, ajv@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.0.3.tgz#13ae747eff125cafb230ac504b2406cf371eece2"
   integrity sha512-R50QRlXSxqXcQP5SvKUrw8VZeypvo12i2IX0EeR5PiZ7bEKeHWgzgo264LDadUsCU42lTJVhFikTqJwNeH34gQ==
@@ -3281,12 +3281,12 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-iterable-operator@^0.12.4:
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.12.4.tgz#41769636c270229b795efe71acfdbec848ba908f"
-  integrity sha512-+PxAlNThHLW0/VPHhiSpJ1WblYG8GUuQDij09bUSCKrvlSzvJnwziI9fd4xoFdNpzNmEDNcIAAta2SS/Sa5k9g==
+iterable-operator@^0.12.6:
+  version "0.12.6"
+  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.12.6.tgz#379fb8bcf2c5c5393e4875fd3ec746d661a0638e"
+  integrity sha512-okVBH8KYdpx4nWbERve+OOOJjrrGY88mP/jxyYlYZ9thHs2UE7S3k2/Tszovs7CGv2vVVmlBBZSN2KDM7mkTzA==
   dependencies:
-    "@blackglory/types" "^0.1.11"
+    "@blackglory/types" "^0.2.3"
 
 jest-changed-files@^26.6.2:
   version "26.6.2"
