@@ -1,5 +1,8 @@
 import typescript from '@rollup/plugin-typescript'
 import { terser } from 'rollup-plugin-terser'
+import analyze from 'rollup-plugin-analyzer'
+
+const UMD_NAME = 'ReturnStyle'
 
 function createOptions({ directory, target }) {
   return [
@@ -8,6 +11,7 @@ function createOptions({ directory, target }) {
     , output: createOutput('index')
     , plugins: [
         typescript({ target })
+      , analyze({ summaryOnly: true })
       ]
     }
   , {
@@ -30,7 +34,7 @@ function createOptions({ directory, target }) {
     , {
         file: `dist/${directory}/${name}.umd.js`
       , format: 'umd'
-      , name: 'ReturnStyle'
+      , name: UMD_NAME
       , sourcemap: true
       }
     ]
@@ -46,7 +50,7 @@ function createOptions({ directory, target }) {
     , {
         file: `dist/${directory}/${name}.umd.min.js`
       , format: 'umd'
-      , name: 'ReturnStyle'
+      , name: UMD_NAME
       , sourcemap: true
       }
     ]
