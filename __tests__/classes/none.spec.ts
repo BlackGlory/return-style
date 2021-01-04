@@ -4,16 +4,6 @@ import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('None', () => {
-  describe('[Symbol.iterator](): Iterator<T, void>', () => {
-    it('return Iterator', () => {
-      const opt = Optional.None()
-      const result = [...opt]
-
-      expect(opt).toBeIterable()
-      expect(result).toEqual([])
-    })
-  })
-
   describe('isSome(): boolean', () => {
     it('return false', () => {
       const opt = Optional.None()

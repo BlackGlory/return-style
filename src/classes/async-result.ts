@@ -3,9 +3,7 @@ import { getFailurePromise } from '@functions/get-failure-promise'
 import { isSuccessPromise } from '@functions/is-success-promise'
 import { isFailurePromise } from '@functions/is-failure-promise'
 
-export interface IAsyncResult<T, X> extends AsyncIterable<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T, void>
-
+export interface IAsyncResult<T, X> {
   onOk(callback: (val: T) => void): IAsyncResult<T, X>
   onErr(callback: (err: X) => void): IAsyncResult<T, X>
 
@@ -31,11 +29,6 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
 
   constructor(promise: PromiseLike<T>) {
     this.#promise = promise
-  }
-
-  async *[Symbol.asyncIterator](): AsyncIterator<T, void> {
-    const [succ, ret] = await getSuccessPromise<T>(this.#promise)
-    if (succ) yield ret as T
   }
 
   onOk(callback: (val: T) => void): IAsyncResult<T, X> {

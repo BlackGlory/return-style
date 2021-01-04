@@ -1,20 +1,9 @@
 import { getErrorPromise } from '@functions/get-error-promise'
 import { AsyncOptional } from '@classes/async-optional'
-import { toArrayAsync } from 'iterable-operator'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncNone', () => {
-  describe('[Symbol.itrable](): Iterator<T, void>', () => {
-    it('return Iterator', async () => {
-      const opt = AsyncOptional.None()
-      const result = await toArrayAsync(opt)
-
-      expect(opt).toBeAsyncIterable()
-      expect(result).toEqual([])
-    })
-  })
-
   describe('isSome(): Promise<boolean>', () => {
     it('return Promise<false>', async () => {
       const opt = AsyncOptional.None()

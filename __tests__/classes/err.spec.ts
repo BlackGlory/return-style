@@ -14,18 +14,6 @@ describe('Err<X>', () => {
     })
   })
 
-  describe('[Symbol.iterator](): Iterator<never, void>', () => {
-    it('return Iterator', () => {
-      const error = new Error('error')
-
-      const res = Result.Err(error)
-      const result = [...res]
-
-      expect(res).toBeIterable()
-      expect(result).toEqual([])
-    })
-  })
-
   describe('isOk(): boolean', () => {
     it('return false', () => {
       const error = new Error('error')

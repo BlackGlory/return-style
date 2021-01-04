@@ -3,17 +3,6 @@ import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('Some<T>', () => {
-  describe('[Symbol.iterator](): Iterator<T, void>', () => {
-    it('return Iterator', () => {
-      const value = 'value'
-      const opt = Optional.Some(value)
-      const result = [...opt]
-
-      expect(opt).toBeIterable()
-      expect(result).toEqual([value])
-    })
-  })
-
   describe('isSome(): boolean', () => {
     it('return true', () => {
       const value = 'value'

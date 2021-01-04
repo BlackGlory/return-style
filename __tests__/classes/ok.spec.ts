@@ -13,17 +13,6 @@ describe('Ok<T>', () => {
     })
   })
 
-  describe('[Symbol.iterator](): Iterator<T, void>', () => {
-    it('return Iterator', () => {
-      const value = 'value'
-      const res = Result.Ok(value)
-      const result = [...res]
-
-      expect(res).toBeIterable()
-      expect(result).toEqual([value])
-    })
-  })
-
   describe('isOk(): boolean', () => {
     it('return true', () => {
       const value = 'value'

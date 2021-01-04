@@ -1,22 +1,9 @@
-import { toArrayAsync } from 'iterable-operator'
 import { getErrorPromise } from '@functions/get-error-promise'
 import { AsyncResult } from '@classes/async-result'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncErr<X>', () => {
-  describe('[Symbol.asyncIterator](): AsyncIterator<T, void>', () => {
-    it('return Iterator', async () => {
-      const error = new Error('error')
-
-      const res = AsyncResult.Err(error)
-      const result = await toArrayAsync(res)
-
-      expect(res).toBeAsyncIterable()
-      expect(result).toEqual([])
-    })
-  })
-
   describe('isOk(): Promise<boolean>', () => {
     it('return false', async () => {
       const error = new Error('error')

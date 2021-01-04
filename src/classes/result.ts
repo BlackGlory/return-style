@@ -1,6 +1,4 @@
-export interface IResult<T, X> extends Iterable<T> {
-  [Symbol.iterator](): Iterator<T, void>
-
+export interface IResult<T, X> {
   isOk(): boolean
   isErr(): boolean
 
@@ -33,10 +31,6 @@ class Ok<T> extends Result implements IResult<T, never> {
   private constructor(value: T) {
     super()
     this.#value = value
-  }
-
-  * [Symbol.iterator]() {
-    yield this.#value
   }
 
   isOk() {
@@ -80,8 +74,6 @@ class Err<T> extends Result implements IResult<never, T> {
     super()
     this.#value = err
   }
-
-  * [Symbol.iterator](): Iterator<never, void> {}
 
   isOk() {
     return false

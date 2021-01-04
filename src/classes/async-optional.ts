@@ -1,8 +1,6 @@
 export const Nil = Symbol()
 
-export interface IAsyncOptional<T> extends AsyncIterable<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T, void>
-
+export interface IAsyncOptional<T> {
   onSome(callback: (val: T) => void): IAsyncOptional<T>
   onNone(callback: () => void): IAsyncOptional<T>
 
@@ -29,11 +27,6 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
 
   constructor(promise: PromiseLike<T | typeof Nil>) {
     this.#promise = promise
-  }
-
-  async *[Symbol.asyncIterator](): AsyncIterator<T, void> {
-    const result = await this.#promise
-    if (result !== Nil) yield result
   }
 
   onSome(callback: (val: T) => void): IAsyncOptional<T> {

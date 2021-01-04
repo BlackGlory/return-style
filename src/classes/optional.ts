@@ -1,6 +1,4 @@
-export interface IOptional<T> extends Iterable<T> {
-  [Symbol.iterator](): Iterator<T, void>
-
+export interface IOptional<T> {
   isSome(): boolean
   isNone(): boolean
 
@@ -34,10 +32,6 @@ class Some<T> extends Optional implements IOptional<T> {
   private constructor(value: T) {
     super()
     this.#value = value
-  }
-
-  * [Symbol.iterator]() {
-    yield this.#value
   }
 
   isSome(): this is Some<T> {
@@ -86,8 +80,6 @@ class None extends Optional implements IOptional<never> {
   private constructor() {
     super()
   }
-
-  * [Symbol.iterator]() {}
 
   isSome() {
     return false

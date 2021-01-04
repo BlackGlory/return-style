@@ -1,21 +1,8 @@
 import { AsyncOptional } from '@classes/async-optional'
-import { toArrayAsync } from 'iterable-operator'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
 describe('AsyncSome<T>', () => {
-  describe('[Symbol.asyncIterator](): AsyncIterator<T>', () => {
-    it('return AsyncIterator', async () => {
-      const value = 'value'
-
-      const opt = AsyncOptional.Some(value)
-      const result = await toArrayAsync(opt)
-
-      expect(opt).toBeAsyncIterable()
-      expect(result).toEqual([value])
-    })
-  })
-
   describe('isSome(): boolean', () => {
     it('return true', async () => {
       const value = 'value'

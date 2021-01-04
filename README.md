@@ -206,8 +206,6 @@ const [fail, ret] = await getFailurePromise(promise)
 
 ```ts
 interface Result<T, X> {
-  [Symbol.iterator](): Iterator<T, void>
-
   onOk(callback: (val: T) => void): Result<T, X>
   onErr(callback: (err: X) => void): Result<T, X>
 
@@ -221,8 +219,6 @@ interface Result<T, X> {
 }
 
 interface AsyncResult<T, X> {
-  [Symbol.asyncIterator](): AsyncIterator<T, void>
-
   onOk(callback: (val: T) => void): AsyncResult<T, X>
   onErr(callback: (err: X) => void): AsyncResult<T, X>
 
@@ -245,8 +241,6 @@ interface AsyncResult<T, X> {
 
 ```ts
 interface Optional<T> {
-  [Symbol.iterator](): Iterator<T, void>
-
   onSome(callback: (val: T) => void): Optional<T>
   onNone(callback: () => void): Optional<T>
 
@@ -261,8 +255,6 @@ interface Optional<T> {
 }
 
 interface AsyncOptional<T> {
-  [Symbol.asyncIterator](): AsyncIterator<T, void>
-
   onSome(callback: (val: T) => void): AsyncOptional<T>
   onNone(callback: () => void): AsyncOptional<T>
 
