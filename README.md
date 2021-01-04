@@ -126,7 +126,7 @@ test('divided by zero', () => {
 
 Since modern JavaScript does not advocate repeated declarations of variables (`var`), this style can sometimes be difficult to use.
 
-### [Error, Result]
+#### [Error, Result]
 
 Return tuple (Error, Result).
 
@@ -145,7 +145,7 @@ const [err, ret] = await getErrorResultAsync(promise)
 const [err] = await getErrorResultAsync(promise)
 ```
 
-### [Result, Error]
+#### [Result, Error]
 
 Return tuple (Result, Error).
 
@@ -164,7 +164,7 @@ const [ret, err] = await getResultErrorPromise(promise)
 const [ret] = await getResultErrorPromise(promise)
 ```
 
-### [isSuccess, Result | undefined]
+#### [isSuccess, Result | undefined]
 
 Return tuple (isSuccess, Result | undefined)
 
@@ -180,7 +180,7 @@ const [succ, ret] = await getSuccessAsync(() => asyncFn())
 const [succ, ret] = await getSuccessPromise(promise)
 ```
 
-### [isFailure, Error | undefined ]
+#### [isFailure, Error | undefined ]
 
 Return tuple (isFailure, Error | undefined)
 
