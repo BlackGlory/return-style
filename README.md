@@ -12,83 +12,16 @@ yarn add return-style
 
 ## API
 
-### [Error, Result]
-
-Return tuple (Error, Result).
-
-* `function getErrorResult<T, X = any>(fn: () => T): [undefined, T] | [X, undefined]`
-* `function getErrorResultAsync<X, T = any>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
-* `function getErrorResultPromise<X, T = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
-
-```ts
-const [err, ret] = getErrorResult(() => fn())
-const [err] = getErrorResult(() => fn())
-
-const [err, ret] = await getErrorResultAsync(() => fnAsync())
-const [err] = await getErrorResultAsync(() => fnAsync())
-
-const [err, ret] = await getErrorResultAsync(promise)
-const [err] = await getErrorResultAsync(promise)
-```
-
-### [Result, Error]
-
-Return tuple (Result, Error).
-
-* `function getResultError<T, X = any>(fn: () => T): [T, undefined] | [undefined, X]`
-* `function getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
-* `function getResultErrorPromise<T, X = any>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
-
-```ts
-const [ret, err] = getResultError(() => fn())
-const [ret] = getResultError(() => fn())
-
-const [ret, err] = await getResultErrorAsync(() => fn())
-const [ret] = await getResultErrorAsync(() => fn())
-
-const [ret, err] = await getResultErrorPromise(promise)
-const [ret] = await getResultErrorPromise(promise)
-```
-
-### [isSuccess, Result | undefined]
-
-Return tuple (isSuccess, Result | undefined)
-
-* `function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]`
-* `function getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
-* `function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
-
-```ts
-const [succ, ret] = getSuccess(() => fn())
-
-const [succ, ret] = await getSuccessAsync(() => asyncFn())
-
-const [succ, ret] = await getSuccessPromise(promise)
-```
-
-### [isFailure, Error | undefined ]
-
-Return tuple (isFailure, Error | undefined)
-
-* `function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined]`
-* `function getFailureAsync<X>(fn: () => PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
-* `function getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
-
-```ts
-const [fail, ret] = getFailure(() => fn())
-
-const [fail, ret] = await getFailureAsync(() => asyncFn())
-
-const [fail, ret] = await getFailurePromise(promise)
-```
+All functions whose names are suffixed with `Async` can handle synchronous errors.
+If you only need to catch asynchronous errors, use functions with the suffix `Promise`.
 
 ### isSuccess
 
 Return true when returning, false when throwing.
 
-* `function isSuccess(fn: () => unknown): boolean`
-* `function isSuccessAsync(fn: () => PromiseLike<unknown>: Promise<boolean>`
-* `function isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>`
+- `function isSuccess(fn: () => unknown): boolean`
+- `function isSuccessAsync(fn: () => PromiseLike<unknown>: Promise<boolean>`
+- `function isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>`
 
 ```ts
 if (isSuccess(() => fn())) {
@@ -108,9 +41,9 @@ if (await isSuccessPromise(promise)) {
 
 Return true when throwing, true when returning.
 
-* `function isFailure(fn: () => unknown): boolean`
-* `function isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>`
-* `function isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>`
+- `function isFailure(fn: () => unknown): boolean`
+- `function isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>`
+- `function isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>`
 
 ```ts
 if (isFailure(() => fn())) {
@@ -128,9 +61,9 @@ if (await isFailurePromise(promise)) {
 
 ### getResult
 
-* `function getResult<T>(fn: () => T): T | undefined`
-* `function getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>`
-* `function getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>`
+- `function getResult<T>(fn: () => T): T | undefined`
+- `function getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>`
+- `function getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>`
 
 ```js
 const result = getResult(() => fn())
@@ -153,10 +86,10 @@ if (result) {
 
 Designed for testing, helping to achieve Arrange-Act-Assert pattern.
 
-* `function getError<T>(fn: () => unknown): T | undefined`
-* `function getErrorAsync<T>(fn: () => PromiseLike<unknown>): Promise<T | undefined>`
-* `function getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>`
-* `function getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>`
+- `function getError<T>(fn: () => unknown): T | undefined`
+- `function getErrorAsync<T>(fn: () => PromiseLike<unknown>): Promise<T | undefined>`
+- `function getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>`
+- `function getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>`
 
 ```js
 // BAD: try...catch
@@ -189,11 +122,87 @@ test('divided by zero', () => {
 })
 ```
 
-### Result<T, X> = Ok<T> | Err<X>
+### Tuple / Go-like
 
-* `function toResult<T, X = any>(fn: () => T): Result<T, X>`
-* `function toResultAsync<T, X = any>(fn: () => PromiseLike<T>): AsyncResult<T, X>`
-* `function toResultPromise<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>`
+Since modern JavaScript does not advocate repeated declarations of variables (`var`), this style can sometimes be difficult to use.
+
+### [Error, Result]
+
+Return tuple (Error, Result).
+
+- `function getErrorResult<T, X = any>(fn: () => T): [undefined, T] | [X, undefined]`
+- `function getErrorResultAsync<X, T = any>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+- `function getErrorResultPromise<X, T = any>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+
+```ts
+const [err, ret] = getErrorResult(() => fn())
+const [err] = getErrorResult(() => fn())
+
+const [err, ret] = await getErrorResultAsync(() => fnAsync())
+const [err] = await getErrorResultAsync(() => fnAsync())
+
+const [err, ret] = await getErrorResultAsync(promise)
+const [err] = await getErrorResultAsync(promise)
+```
+
+### [Result, Error]
+
+Return tuple (Result, Error).
+
+- `function getResultError<T, X = any>(fn: () => T): [T, undefined] | [undefined, X]`
+- `function getResultErrorAsync<T, X = any>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+- `function getResultErrorPromise<T, X = any>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+
+```ts
+const [ret, err] = getResultError(() => fn())
+const [ret] = getResultError(() => fn())
+
+const [ret, err] = await getResultErrorAsync(() => fn())
+const [ret] = await getResultErrorAsync(() => fn())
+
+const [ret, err] = await getResultErrorPromise(promise)
+const [ret] = await getResultErrorPromise(promise)
+```
+
+### [isSuccess, Result | undefined]
+
+Return tuple (isSuccess, Result | undefined)
+
+- `function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]`
+- `function getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
+- `function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
+
+```ts
+const [succ, ret] = getSuccess(() => fn())
+
+const [succ, ret] = await getSuccessAsync(() => asyncFn())
+
+const [succ, ret] = await getSuccessPromise(promise)
+```
+
+### [isFailure, Error | undefined ]
+
+Return tuple (isFailure, Error | undefined)
+
+- `function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined]`
+- `function getFailureAsync<X>(fn: () => PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
+- `function getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
+
+```ts
+const [fail, ret] = getFailure(() => fn())
+
+const [fail, ret] = await getFailureAsync(() => asyncFn())
+
+const [fail, ret] = await getFailurePromise(promise)
+```
+
+### ADT / Rust-like / Haskell-like
+
+#### Result<T, X> = Ok<T> | Err<X>
+
+- `function toResult<T, X = any>(fn: () => T): Result<T, X>`
+- `function toResultAsync<T, X = any>(fn: () => PromiseLike<T>): AsyncResult<T, X>`
+- `function toResultPromise<T, X = any>(promise: PromiseLike<T>): AsyncResult<T, X>`
 
 ```ts
 interface Result<T, X> {
@@ -227,19 +236,19 @@ interface AsyncResult<T, X> {
 }
 ```
 
-### Optional<T> = Some<T> | None
+#### Optional<T> = Some<T> | None
 
-* `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>`
-* `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>`
-* `function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
-* `function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
+- `function toOptional<T>(fn: () => T | U, isNone: (val: T) => boolean): Optional<T>`
+- `function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T | U) => Optional<T>`
+- `function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): AsyncOptional<T>`
+- `function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => AsyncOptional<T>`
 
 ```ts
 interface Optional<T> {
   [Symbol.iterator](): Iterator<T, void>
 
-  onSome(callback: (val: T) => void): this
-  onNone(callback: () => void): this
+  onSome(callback: (val: T) => void): Optional<T>
+  onNone(callback: () => void): Optional<T>
 
   isSome(): boolean
   isNone(): boolean
@@ -254,8 +263,8 @@ interface Optional<T> {
 interface AsyncOptional<T> {
   [Symbol.asyncIterator](): AsyncIterator<T, void>
 
-  onSome(callback: (val: T) => void): this
-  onNone(callback: () => void): this
+  onSome(callback: (val: T) => void): AsyncOptional<T>
+  onNone(callback: () => void): AsyncOptional<T>
 
   isSome(): Promise<boolean>
   isNone(): Promise<boolean>
