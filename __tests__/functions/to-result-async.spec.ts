@@ -1,11 +1,12 @@
 import { AsyncResult } from '@classes/async-result'
 import { toResultAsync } from '@functions/to-result-async'
 import 'jest-extended'
+import '@blackglory/jest-matchers'
 
 describe('toResultAsync<T, X = any>(fn: () => PromiseLike<T>): IAsyncResult<T, X>', () => {
   describe('fn returned', () => {
     it('return Ok', async () => {
-      const fn = () => Promise.resolve(true)
+      const fn = jest.fn().mockResolvedValue(true)
 
       const result = toResultAsync<boolean>(fn)
       const isOk = await result.isOk()
@@ -33,7 +34,7 @@ describe('toResultAsync<T, X = any>(fn: () => PromiseLike<T>): IAsyncResult<T, X
 
     describe('async', () => {
       it('return Err', async () => {
-        const fn = () => Promise.reject(new Error())
+        const fn = jest.fn().mockRejectedValue(new Error())
 
         const result = toResultAsync<boolean>(fn)
         const isErr = await result.isErr()
