@@ -37,7 +37,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
     return promise.then.bind(promise)
   }
 
-  protected constructor(promise: PromiseLike<T | typeof Nil>) {
+  constructor(promise: PromiseLike<T | typeof Nil>) {
     this.#promise = promise
   }
 
