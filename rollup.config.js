@@ -4,13 +4,28 @@ import analyze from 'rollup-plugin-analyzer'
 
 const UMD_NAME = 'ReturnStyle'
 
+export default [
+  ...createOptions({
+    directory: 'es2015'
+  , target: 'ES2015'
+  })
+, ...createOptions({
+    directory: 'es2018'
+  , target: 'ES2018'
+  })
+]
+
 function createOptions({ directory, target }) {
+  const commonPlugins = [
+  , typescript({ target })
+  ]
+
   return [
     {
       input: 'src/index.ts'
     , output: createOutput('index')
     , plugins: [
-        typescript({ target })
+        ...commonPlugins
       , analyze({ summaryOnly: true })
       ]
     }
@@ -18,7 +33,7 @@ function createOptions({ directory, target }) {
       input: 'src/index.ts'
     , output: createMinification('index')
     , plugins: [
-        typescript({ target })
+        ...commonPlugins
       , terser()
       ]
     }
@@ -56,14 +71,3 @@ function createOptions({ directory, target }) {
     ]
   }
 }
-
-export default [
-  ...createOptions({
-    directory: 'es2015'
-  , target: 'ES2015'
-  })
-, ...createOptions({
-    directory: 'es2018'
-  , target: 'ES2018'
-  })
-]
