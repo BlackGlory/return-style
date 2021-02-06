@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.12.0](https://github.com/BlackGlory/return-style/compare/v0.11.6...v0.12.0) (2021-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* function signatures changed
+
+### Features
+
+* modify function signatures ([e0a9711](https://github.com/BlackGlory/return-style/commit/e0a9711475d15a5c12661d1f0fff6fa8de4e1c68))
+
 ### [0.11.6](https://github.com/BlackGlory/return-style/compare/v0.11.5...v0.11.6) (2021-02-03)
 
 ### [0.11.5](https://github.com/BlackGlory/return-style/compare/v0.11.4...v0.11.5) (2021-02-02)
