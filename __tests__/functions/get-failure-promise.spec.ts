@@ -1,7 +1,7 @@
 import { getFailurePromise } from '@functions/get-failure-promise'
 import '@blackglory/jest-matchers'
 
-describe('getFailurePromise<X>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
+describe('getFailurePromise<X = Error>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>', () => {
   describe('promise resolved', () => {
     it('return Promise<[false, undefined]>', async () => {
       const value = 'value'

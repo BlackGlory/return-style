@@ -2,7 +2,7 @@ import { Result } from '@classes/result'
 import { toResult } from '@functions/to-result'
 import 'jest-extended'
 
-describe('toResult<T, X = any>(fn: () => T): IResult<T, X>', () => {
+describe('toResult<X = Error, T = unknown>(fn: () => T): IResult<T, X>', () => {
   describe('fn throw error', () => {
     it('return Result.Err', () => {
       const fn = () => { throw new Error() }

@@ -1,6 +1,6 @@
 import { Optional, IOptional } from '@classes/optional'
 
-export function toOptionalPartial<T = unknown>(isNone: (val: T) => boolean): (fn: () => T) => IOptional<T> {
+export function toOptionalPartial<T>(isNone: (val: T) => boolean): (fn: () => T) => IOptional<T> {
   return (fn: () => T) => toOptional(fn, isNone)
 }
 

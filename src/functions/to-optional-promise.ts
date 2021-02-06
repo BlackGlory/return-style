@@ -1,6 +1,6 @@
 import { AsyncOptional, IAsyncOptional, Nil } from '@classes/async-optional'
 
-export function toOptionalPromisePartial<T = unknown>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => IAsyncOptional<T> {
+export function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => IAsyncOptional<T> {
   return (promise: PromiseLike<T>) => toOptionalPromise(promise, isNone)
 }
 

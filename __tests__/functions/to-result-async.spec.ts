@@ -3,7 +3,7 @@ import { toResultAsync } from '@functions/to-result-async'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
-describe('toResultAsync<T, X = any>(fn: () => PromiseLike<T>): IAsyncResult<T, X>', () => {
+describe('toResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): IAsyncResult<T, X>', () => {
   describe('fn returned', () => {
     it('return Ok', async () => {
       const fn = jest.fn().mockResolvedValue(true)

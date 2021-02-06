@@ -168,9 +168,9 @@ const [ret] = await getResultErrorPromise(promise)
 
 Return tuple (isSuccess, Result | undefined)
 
-- `function getSuccess<T = unknown>(fn: () => T): [true, T] | [false, undefined]`
-- `function getSuccessAsync<T = unknown>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
-- `function getSuccessPromise<T = unknown>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
+- `function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]`
+- `function getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
+- `function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
 
 ```ts
 const [succ, ret] = getSuccess(() => fn())
