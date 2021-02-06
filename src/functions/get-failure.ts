@@ -1,4 +1,4 @@
-export function getFailure<X>(fn: () => unknown): [true, X] | [false, undefined] {
+export function getFailure<X = Error>(fn: () => unknown): [true, X] | [false, undefined] {
   try {
     fn()
     return [false, void 0]

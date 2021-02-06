@@ -1,4 +1,4 @@
-export function getSuccess<T>(fn: () => T): [true, T] | [false, undefined] {
+export function getSuccess<T = unknown>(fn: () => T): [true, T] | [false, undefined] {
   try {
     const result = fn()
     return [true, result]

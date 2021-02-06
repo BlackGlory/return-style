@@ -1,4 +1,4 @@
-export function getErrorResult<T, X = any>(fn: () => T): [undefined, T] | [X, undefined] {
+export function getErrorResult<X = Error, T = unknown>(fn: () => T): [undefined, T] | [X, undefined] {
   try {
     const result = fn()
     return [void 0, result]

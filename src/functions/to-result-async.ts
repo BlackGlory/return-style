@@ -1,6 +1,6 @@
 import { AsyncResult, IAsyncResult } from '@classes/async-result'
 
-export function toResultAsync<T, X = any>(fn: () => PromiseLike<T>): IAsyncResult<T, X> {
+export function toResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): IAsyncResult<T, X> {
   try {
     const result = fn()
     return new AsyncResult(result)

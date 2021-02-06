@@ -1,4 +1,4 @@
-export async function getErrorAsync<T = Error>(fn: () => PromiseLike<unknown>): Promise<T | undefined> {
+export async function getErrorAsync<X = Error>(fn: () => PromiseLike<unknown>): Promise<X | undefined> {
   try {
     await fn()
   } catch (err) {
