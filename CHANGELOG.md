@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.1](https://github.com/BlackGlory/return-style/compare/v0.12.0...v0.12.1) (2021-02-10)
+
+
+### Features
+
+* add toOptionalAsync ([c39d7ba](https://github.com/BlackGlory/return-style/commit/c39d7ba070d22463addf23de4115e4ef5f2a62a9))
+* support return sync value ([c6cc270](https://github.com/BlackGlory/return-style/commit/c6cc27074d4c4e0fb980bdc58049b557156cf14b))
+
 ## [0.12.0](https://github.com/BlackGlory/return-style/compare/v0.11.6...v0.12.0) (2021-02-06)
 
 
