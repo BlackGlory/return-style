@@ -41,6 +41,8 @@ test('exports', () => {
 
   , 'toOptional'
   , 'toOptionalPartial'
+  , 'toOptionalAsync'
+  , 'toOptionalAsyncPartial'
   , 'toOptionalPromise'
   , 'toOptionalPromisePartial'
   ].sort()
