@@ -37,8 +37,8 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
     return promise.then.bind(promise)
   }
 
-  constructor(promise: PromiseLike<T>) {
-    this.#promise = promise
+  constructor(promise: PromiseLike<T> | T) {
+    this.#promise = Promise.resolve(promise)
   }
 
   onOk(callback: (val: T) => void): IAsyncResult<T, X> {

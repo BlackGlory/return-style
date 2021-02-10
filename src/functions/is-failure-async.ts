@@ -1,4 +1,4 @@
-export async function isFailureAsync(fn: () => Promise<unknown>): Promise<boolean> {
+export async function isFailureAsync(fn: () => Promise<unknown> | unknown): Promise<boolean> {
   try {
     await fn()
     return false

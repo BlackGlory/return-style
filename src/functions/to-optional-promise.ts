@@ -4,7 +4,7 @@ export function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promi
   return (promise: PromiseLike<T>) => toOptionalPromise(promise, isNone)
 }
 
-export function toOptionalPromise<T = unknown>(promise: PromiseLike<T>, isNone: (val: T) => boolean): IAsyncOptional<T> {
+export function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): IAsyncOptional<T> {
   return new AsyncOptional<T>((async () => {
     const result = await promise
     if (isNone(result)) return Nil
