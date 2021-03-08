@@ -1,3 +1,4 @@
+import { go } from '@blackglory/go'
 import { IResult, Result } from './result'
 import { getSuccessPromise } from '@functions/get-success-promise'
 import { getFailurePromise } from '@functions/get-failure-promise'
@@ -42,18 +43,20 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   onOk(callback: (val: T) => void): IAsyncResult<T, X> {
-    ;(async () => {
+    go(async () => {
       const [succ, ret] = await getSuccessPromise<T>(this.#promise)
       if (succ) callback(ret as T)
-    })()
+    })
+
     return new AsyncResult(this.#promise)
   }
 
   onErr(callback: (err: X) => void): IAsyncResult<T, X> {
-    ;(async () => {
+    go(async () => {
       const [fail, err] = await getFailurePromise<X>(this.#promise)
       if (fail) callback(err as X)
-    })()
+    })
+
     return new AsyncResult(this.#promise)
   }
 
@@ -66,20 +69,24 @@ export class AsyncResult<T, X> implements IAsyncResult<T, X> {
   }
 
   orElse<U>(defaultValue: U): IAsyncResult<T | U, never> {
-    return new AsyncResult((async () => {
+    const promise = go(async () => {
       try {
         return await this.#promise
       } catch {
         return defaultValue
       }
-    })())
+    })
+
+    return new AsyncResult(promise)
   }
 
   map<U>(mapper: (val: T) => U): IAsyncResult<U, X> {
-    return new AsyncResult((async () => {
+    const promise = go(async () => {
       const result = await this.#promise
       return mapper(result as T)
-    })())
+    })
+
+    return new AsyncResult(promise)
   }
 
   async get(): Promise<T> {

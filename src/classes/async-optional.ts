@@ -1,3 +1,4 @@
+import { go } from '@blackglory/go'
 import { IOptional, Optional } from './optional'
 
 export const Nil = Symbol()
@@ -42,18 +43,20 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
   }
 
   onSome(callback: (val: T) => void): IAsyncOptional<T> {
-    ;(async () => {
+    go(async () => {
       const result = await this.#promise
       if (result !== Nil) callback(result)
-    })()
+    })
+
     return new AsyncOptional(this.#promise)
   }
 
   onNone(callback: () => void): IAsyncOptional<T> {
-    ;(async () => {
+    go(async () => {
       const result = await this.#promise
       if (result === Nil) callback()
-    })()
+    })
+
     return new AsyncOptional(this.#promise)
   }
 
@@ -68,28 +71,34 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
   }
 
   orElse<U>(defaultValue: U): IAsyncOptional<T | U> {
-    return new AsyncOptional<T | U>((async () => {
+    const promise = go(async () => {
       const result = await this.#promise
       if (result === Nil) return defaultValue
       return result
-    })())
+    })
+
+    return new AsyncOptional<T | U>(promise)
   }
 
   map<U>(mapper: (val: T) => U): IAsyncOptional<U> {
-    return new AsyncOptional<U>((async () => {
+    const promise = go(async () => {
       const result = await this.#promise
       if (result === Nil) return Nil
       return mapper(result)
-    })())
+    })
+
+    return new AsyncOptional<U>(promise)
   }
 
   filter<U extends T = T>(predicate: (val: T) => boolean): IAsyncOptional<U> {
-    return new AsyncOptional<U>((async () => {
+    const promise = go(async () => {
       const result = await this.#promise
       if (result === Nil) return Nil
       if (predicate(result)) return result as U
       return Nil
-    })())
+    })
+
+    return new AsyncOptional<U>(promise)
   }
 
   async get(): Promise<T> {

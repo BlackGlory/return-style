@@ -1,3 +1,4 @@
+import { go } from '@blackglory/go'
 import { AsyncOptional, IAsyncOptional, Nil } from '@classes/async-optional'
 
 export function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promise: PromiseLike<T>) => IAsyncOptional<T> {
@@ -5,9 +6,9 @@ export function toOptionalPromisePartial<T>(isNone: (val: T) => boolean): (promi
 }
 
 export function toOptionalPromise<T>(promise: PromiseLike<T>, isNone: (val: T) => boolean): IAsyncOptional<T> {
-  return new AsyncOptional<T>((async () => {
+  return new AsyncOptional<T>(go(async () => {
     const result = await promise
     if (isNone(result)) return Nil
     return result
-  })())
+  }))
 }
