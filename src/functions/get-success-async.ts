@@ -1,4 +1,4 @@
-export async function getSuccessAsync<T>(fn: () => PromiseLike<T> | T): Promise<[true, T] | [false, undefined]> {
+export async function getSuccessAsync<T>(fn: () => PromiseLike<T> | T): Promise<[succeeded: true, result: T] | [succeeded: false, result: undefined]> {
   try {
     const result = await fn()
     return [true, result]
