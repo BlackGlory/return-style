@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.12.3](https://github.com/BlackGlory/return-style/compare/v0.12.2...v0.12.3) (2021-03-20)
+
+
+### Features
+
+* improve tuple results ([ff67948](https://github.com/BlackGlory/return-style/commit/ff6794850a5935aea237f01b921855c0429c5106))
+
 ### [0.12.2](https://github.com/BlackGlory/return-style/compare/v0.12.1...v0.12.2) (2021-02-25)
 
 ### [0.12.1](https://github.com/BlackGlory/return-style/compare/v0.12.0...v0.12.1) (2021-02-10)
