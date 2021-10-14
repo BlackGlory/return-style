@@ -4,7 +4,7 @@ export function toResult<X = Error, T = unknown>(fn: () => T): IResult<T, X> {
   try {
     const result = fn()
     return Result.Ok(result)
-  } catch (e) {
+  } catch (e: any) {
     return Result.Err(e)
   }
 }

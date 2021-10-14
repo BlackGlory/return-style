@@ -2,7 +2,7 @@ export function getResultError<X = Error, T = unknown>(fn: () => T): [result: T,
   try {
     const result = fn()
     return [result, void 0]
-  } catch (e) {
+  } catch (e: any) {
     return [void 0, e]
   }
 }
