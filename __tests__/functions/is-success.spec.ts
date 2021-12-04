@@ -1,10 +1,11 @@
 import { isSuccess } from '@functions/is-success'
 import 'jest-extended'
+import { pass } from '@blackglory/pass'
 
 describe('isSuccess(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
     it('return true', () => {
-      const fn = () => {}
+      const fn = pass
 
       const result = isSuccess(fn)
 

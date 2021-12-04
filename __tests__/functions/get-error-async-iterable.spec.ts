@@ -1,11 +1,14 @@
 import { go } from '@blackglory/go'
 import { getErrorAsyncIterable } from '@functions/get-error-async-iterable'
 import '@blackglory/jest-matchers'
+import { pass } from '@blackglory/pass'
 
 describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {
     it('return Promise<undefined>', async () => {
-      const iter = go(async function* () {})
+      const iter = go(async function* () {
+        pass()
+      })
 
       const result = getErrorAsyncIterable(iter)
       const err = await result
@@ -18,7 +21,9 @@ describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T 
   describe('promise rejected', () => {
     it('return Promise<T>', async () => {
       const customError = new Error('CustomError')
-      const iter = go(async function* () { throw customError })
+      const iter = go(async function* () {
+        throw customError
+      })
 
       const result = getErrorAsyncIterable(iter)
       const err = await result

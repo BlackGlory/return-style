@@ -1,10 +1,11 @@
 import { isFailure } from '@functions/is-failure'
 import 'jest-extended'
+import { pass } from '@blackglory/pass'
 
 describe('isFailure(fn: () => unknown): boolean', () => {
   describe('fn returned', () => {
     it('return false', () => {
-      const fn = () => {}
+      const fn = pass
 
       const result = isFailure(fn)
 

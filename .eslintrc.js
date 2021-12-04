@@ -10,8 +10,6 @@ module.exports = {
   ]
 , rules: {
     'require-yield': 'off'
-  , 'no-empty': 'off'
-  , '@typescript-eslint/no-empty-function': 'off'
   , '@typescript-eslint/no-extra-semi': 'off'
   }
 }
