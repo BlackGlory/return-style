@@ -94,7 +94,7 @@ export class AsyncOptional<T> implements IAsyncOptional<T> {
     const promise = go(async () => {
       const result = await this.#promise
       if (result === Nil) return Nil
-      if (predicate(result)) return result as U
+      if (predicate(result)) return result as unknown as U
       return Nil
     })
 
