@@ -1,5 +1,7 @@
+import { Awaitable } from '@blackglory/prelude'
+
 export async function getResultErrorAsync<X = Error, T = unknown>(
-  fn: () => PromiseLike<T> | T
+  fn: () => Awaitable<T>
 ): Promise<[result: T, error: undefined] | [result: undefined, error: X]> {
   try {
     const result = await fn()

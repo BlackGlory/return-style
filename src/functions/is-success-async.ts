@@ -1,4 +1,6 @@
-export async function isSuccessAsync(fn: () => PromiseLike<unknown> | unknown): Promise<boolean> {
+import { Awaitable } from '@blackglory/prelude'
+
+export async function isSuccessAsync(fn: () => Awaitable<unknown>): Promise<boolean> {
   try {
     await fn()
     return true

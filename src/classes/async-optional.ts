@@ -1,4 +1,4 @@
-import { go } from '@blackglory/go'
+import { go } from '@blackglory/prelude'
 import { IOptional, Optional } from './optional'
 
 export const Nil = Symbol()

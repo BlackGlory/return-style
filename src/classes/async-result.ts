@@ -1,4 +1,4 @@
-import { go } from '@blackglory/go'
+import { go } from '@blackglory/prelude'
 import { IResult, Result } from './result'
 import { getSuccessPromise } from '@functions/get-success-promise'
 import { getFailurePromise } from '@functions/get-failure-promise'

@@ -1,4 +1,6 @@
-export async function isFailureAsync(fn: () => Promise<unknown> | unknown): Promise<boolean> {
+import { Awaitable } from '@blackglory/prelude'
+
+export async function isFailureAsync(fn: () => Awaitable<unknown>): Promise<boolean> {
   try {
     await fn()
     return false

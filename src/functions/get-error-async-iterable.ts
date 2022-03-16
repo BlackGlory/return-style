@@ -1,4 +1,4 @@
-import { pass } from '@blackglory/pass'
+import { pass } from '@blackglory/prelude'
 
 export async function getErrorAsyncIterable<X = Error>(
   iterable: AsyncIterable<unknown>

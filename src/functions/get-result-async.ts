@@ -1,4 +1,6 @@
-export async function getResultAsync<T>(fn: () => PromiseLike<T> | T): Promise<T | undefined> {
+import { Awaitable } from '@blackglory/prelude'
+
+export async function getResultAsync<T>(fn: () => Awaitable<T>): Promise<T | undefined> {
   try {
     return await fn()
   } catch {
