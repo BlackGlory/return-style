@@ -1,7 +1,12 @@
-import { AsyncResult, IAsyncResult } from '@classes/async-result'
+import { Result } from '@classes/result'
 
-export function toResultPromise<X = Error, T = unknown>(
+export async function toResultPromise<E = Error, T = unknown>(
   promise: PromiseLike<T>
-): IAsyncResult<T, X> {
-  return new AsyncResult<T, X>(promise)
+): Promise<Result<T, E>> {
+  try {
+    const result = await promise
+    return Result.Ok(result)
+  } catch (err) {
+    return Result.Err(err as E)
+  }
 }

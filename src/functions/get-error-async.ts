@@ -1,8 +1,8 @@
 import { Awaitable } from '@blackglory/prelude'
 
-export async function getErrorAsync<X = Error>(
+export async function getErrorAsync<E = Error>(
   fn: () => Awaitable<unknown>
-): Promise<X | undefined> {
+): Promise<E | undefined> {
   try {
     await fn()
   } catch (err: any) {

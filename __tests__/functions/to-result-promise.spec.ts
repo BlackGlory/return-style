@@ -1,16 +1,16 @@
-import { AsyncResult } from '@classes/async-result'
+import { Result } from '@classes/result'
 import { toResultPromise } from '@functions/to-result-promise'
 import 'jest-extended'
 
-describe('toResultPromise<X = Error, T = unknown>(promise: PromiseLike<T>): IAsyncResult<T, X>', () => {
+describe('toResultPromise', () => {
   describe('promise rejected', () => {
     it('return Err', async () => {
       const promise = Promise.reject(new Error())
 
-      const result = toResultPromise<boolean>(promise)
-      const isErr = await result.isErr()
+      const result = await toResultPromise(promise)
+      const isErr = result.isErr()
 
-      expect(result).toBeInstanceOf(AsyncResult)
+      expect(result).toBeInstanceOf(Result)
       expect(isErr).toBeTrue()
     })
   })
@@ -19,10 +19,10 @@ describe('toResultPromise<X = Error, T = unknown>(promise: PromiseLike<T>): IAsy
     it('return Ok', async () => {
       const promise = Promise.resolve(true)
 
-      const result = toResultPromise<boolean>(promise)
-      const isOk = await result.isOk()
+      const result = await toResultPromise(promise)
+      const isOk = result.isOk()
 
-      expect(result).toBeInstanceOf(AsyncResult)
+      expect(result).toBeInstanceOf(Result)
       expect(isOk).toBeTrue()
     })
   })

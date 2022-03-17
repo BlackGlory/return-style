@@ -1,6 +1,6 @@
-import { Result, IResult } from '@classes/result'
+import { Result } from '@classes/result'
 
-export function toResult<X = Error, T = unknown>(fn: () => T): IResult<T, X> {
+export function toResult<E = Error, T = unknown>(fn: () => T): Result<T, E> {
   try {
     const result = fn()
     return Result.Ok(result)

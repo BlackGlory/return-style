@@ -35,16 +35,15 @@ test('exports', () => {
   , 'getErrorPromise'
   , 'getErrorAsyncIterable'
 
+  , 'Result'
   , 'toResult'
   , 'toResultAsync'
   , 'toResultPromise'
 
-  , 'toOptional'
-  , 'toOptionalPartial'
-  , 'toOptionalAsync'
-  , 'toOptionalAsyncPartial'
-  , 'toOptionalPromise'
-  , 'toOptionalPromisePartial'
+  , 'Option'
+  , 'toOption'
+  , 'toOptionAsync'
+  , 'toOptionPromise'
   ].sort()
 
   const actualExports = Object.keys(target).sort()

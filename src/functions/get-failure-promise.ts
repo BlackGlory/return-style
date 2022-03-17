@@ -1,6 +1,6 @@
-export async function getFailurePromise<X = Error>(
+export async function getFailurePromise<E = Error>(
   promise: PromiseLike<unknown>
-): Promise<[failed: true, error: X] | [failed: false, error: undefined]> {
+): Promise<[failed: true, error: E] | [failed: false, error: undefined]> {
   try {
     await promise
     return [false, void 0]

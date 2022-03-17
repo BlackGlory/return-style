@@ -1,8 +1,8 @@
 import { Awaitable } from '@blackglory/prelude'
 
-export async function getFailureAsync<X = Error>(
+export async function getFailureAsync<E = Error>(
   fn: () => Awaitable<unknown>
-): Promise<[failed: true, error: X] | [failed: false, error: undefined]> {
+): Promise<[failed: true, error: E] | [failed: false, error: undefined]> {
   try {
     await fn()
     return [false, void 0]

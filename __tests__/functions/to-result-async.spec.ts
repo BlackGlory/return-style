@@ -1,18 +1,32 @@
-import { AsyncResult } from '@classes/async-result'
+import { Result } from '@classes/result'
 import { toResultAsync } from '@functions/to-result-async'
 import 'jest-extended'
 import '@blackglory/jest-matchers'
 
-describe('toResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): IAsyncResult<T, X>', () => {
+describe('toResultAsync', () => {
   describe('fn returned', () => {
-    it('return Ok', async () => {
-      const fn = jest.fn().mockResolvedValue(true)
+    describe('sync', () => {
+      it('return Ok', async () => {
+        const fn = jest.fn().mockReturnValue(true)
 
-      const result = toResultAsync<boolean>(fn)
-      const isOk = await result.isOk()
+        const result = await toResultAsync(fn)
+        const isOk = result.isOk()
 
-      expect(result).toBeInstanceOf(AsyncResult)
-      expect(isOk).toBeTrue()
+        expect(result).toBeInstanceOf(Result)
+        expect(isOk).toBeTrue()
+      })
+    })
+
+    describe('async', () => {
+      it('return Ok', async () => {
+        const fn = jest.fn().mockResolvedValue(true)
+
+        const result = await toResultAsync(fn)
+        const isOk = result.isOk()
+
+        expect(result).toBeInstanceOf(Result)
+        expect(isOk).toBeTrue()
+      })
     })
   })
 
@@ -21,13 +35,12 @@ describe('toResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): IAsyn
       it('return Err', async () => {
         const fn = () => {
           throw new Error()
-          return Promise.resolve(true)
         }
 
-        const result = toResultAsync<boolean>(fn)
-        const isErr = await result.isErr()
+        const result = await toResultAsync(fn)
+        const isErr = result.isErr()
 
-        expect(result).toBeInstanceOf(AsyncResult)
+        expect(result).toBeInstanceOf(Result)
         expect(isErr).toBeTrue()
       })
     })
@@ -36,10 +49,10 @@ describe('toResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): IAsyn
       it('return Err', async () => {
         const fn = jest.fn().mockRejectedValue(new Error())
 
-        const result = toResultAsync<boolean>(fn)
-        const isErr = await result.isErr()
+        const result = await toResultAsync(fn)
+        const isErr = result.isErr()
 
-        expect(result).toBeInstanceOf(AsyncResult)
+        expect(result).toBeInstanceOf(Result)
         expect(isErr).toBeTrue()
       })
     })

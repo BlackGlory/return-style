@@ -1,6 +1,6 @@
-export async function getErrorResultPromise<X = Error, T = unknown>(
+export async function getErrorResultPromise<E = Error, T = unknown>(
   promise: PromiseLike<T>
-): Promise<[error: undefined, result: T] | [error: X, result: undefined]> {
+): Promise<[error: undefined, result: T] | [error: E, result: undefined]> {
   try {
     const result = await promise
     return [void 0, result]

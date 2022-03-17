@@ -13,11 +13,13 @@ All functions whose names are suffixed with `Async` can handle synchronous error
 If you only need to catch asynchronous errors, use functions with the suffix `Promise`.
 
 ### isSuccess
-Return true when returning, false when throwing.
+```ts
+function isSuccess(fn: () => unknown): boolean
+function isSuccessAsync(fn: () => Awaitable<unknown>): Promise<boolean>
+function isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>
+```
 
-- `function isSuccess(fn: () => unknown): boolean`
-- `function isSuccessAsync(fn: () => Awaitable<unknown>): Promise<boolean>`
-- `function isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>`
+Return true when returning, false when throwing.
 
 ```ts
 if (isSuccess(() => fn())) {
@@ -34,11 +36,13 @@ if (await isSuccessPromise(promise)) {
 ```
 
 ### isFailure
-Return true when throwing, true when returning.
+```ts
+function isFailure(fn: () => unknown): boolean
+function isFailureAsync(fn: () => Awaitable<unknown>): Promise<boolean>
+function isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>
+```
 
-- `function isFailure(fn: () => unknown): boolean`
-- `function isFailureAsync(fn: () => Awaitable<unknown>): Promise<boolean>`
-- `function isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>`
+Return true when throwing, true when returning.
 
 ```ts
 if (isFailure(() => fn())) {
@@ -55,9 +59,11 @@ if (await isFailurePromise(promise)) {
 ```
 
 ### getResult
-- `function getResult<T>(fn: () => T): T | undefined`
-- `function getResultAsync<T>(fn: () => Awaitable<T>): Promise<T | undefined>`
-- `function getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>`
+```ts
+function getResult<T>(fn: () => T): T | undefined
+function getResultAsync<T>(fn: () => Awaitable<T>): Promise<T | undefined>
+function getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>
+```
 
 ```js
 const result = getResult(() => fn())
@@ -77,12 +83,14 @@ if (result) {
 ```
 
 ### getError
-Designed for testing, helping to achieve Arrange-Act-Assert pattern.
+```ts
+function getError<E>(fn: () => unknown): E | undefined
+function getErrorAsync<E>(fn: () => Awaitable<unknown>): Promise<E | undefined>
+function getErrorPromise<E>(promise: PromiseLike<unknown>): Promise<E | undefined>
+function getErrorAsyncIterable<E>(iterable: AsyncIterable<unknown>): Promise<E | undefined>
+```
 
-- `function getError<X>(fn: () => unknown): X | undefined`
-- `function getErrorAsync<X>(fn: () => Awaitable<unknown>): Promise<X | undefined>`
-- `function getErrorPromise<X>(promise: PromiseLike<unknown>): Promise<X | undefined>`
-- `function getErrorAsyncIterable<X>(iterable: AsyncIterable<unknown>): Promise<X | undefined>`
+Designed for testing, helping to achieve Arrange-Act-Assert pattern.
 
 ```js
 // BAD: try...catch
@@ -119,11 +127,14 @@ test('divided by zero', () => {
 Since modern JavaScript does not advocate repeated declarations of variables (`var`), this style can sometimes be difficult to use.
 
 #### [Error, Result]
-Return tuple (Error, Result).
+```ts
+function getErrorResult<E = Error, T = unknown>(fn: () => T): [undefined, T] | [E, undefined]
+function getErrorResultAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[undefined, T] | [E, undefined]>
+function getErrorResultPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<[undefined, T] | [E, undefined]>
 
-- `function getErrorResult<X = Error, T = unknown>(fn: () => T): [undefined, T] | [X, undefined]`
-- `function getErrorResultAsync<X = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[undefined, T] | [X, undefined]>`
-- `function getErrorResultPromise<X = Error, T = unknown>(promise: PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>`
+```
+
+Return tuple (Error, Result).
 
 ```ts
 const [err, ret] = getErrorResult(() => fn())
@@ -137,11 +148,13 @@ const [err] = await getErrorResultAsync(promise)
 ```
 
 #### [Result, Error]
-Return tuple (Result, Error).
+```ts
+function getResultError<E = Error, T = unknown>(fn: () => T): [T, undefined] | [undefined, E]
+function getResultErrorAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[T, undefined] | [undefined, E]>
+function getResultErrorPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, E]>
+```
 
-- `function getResultError<X = Error, T = unknown>(fn: () => T): [T, undefined] | [undefined, X]`
-- `function getResultErrorAsync<X = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[T, undefined] | [undefined, X]>`
-- `function getResultErrorPromise<X = Error, T = unknown>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>`
+Return tuple (Result, Error).
 
 ```ts
 const [ret, err] = getResultError(() => fn())
@@ -155,11 +168,13 @@ const [ret] = await getResultErrorPromise(promise)
 ```
 
 #### [isSuccess, Result | undefined]
-Return tuple (isSuccess, Result | undefined)
+```ts
+function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]
+function getSuccessAsync<T>(fn: () => Awaitable<T>): Promise<[true, T] | [false, undefined]>
+function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>
+```
 
-- `function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]`
-- `function getSuccessAsync<T>(fn: () => Awaitable<T>): Promise<[true, T] | [false, undefined]>`
-- `function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>`
+Return tuple (isSuccess, Result | undefined)
 
 ```ts
 const [succ, ret] = getSuccess(() => fn())
@@ -170,11 +185,13 @@ const [succ, ret] = await getSuccessPromise(promise)
 ```
 
 #### [isFailure, Error | undefined ]
-Return tuple (isFailure, Error | undefined)
+```ts
+function getFailure<E = Error>(fn: () => unknown): [true, E] | [false, undefined]
+function getFailureAsync<E = Error>(fn: () => Awaitable<unknown>): Promise<[true, E] | [false, undefined]>
+function getFailurePromise<E = Error>(promise: PromiseLike<unknown>): Promise<[true, E] | [false, undefined]>
+```
 
-- `function getFailure<X = Error>(fn: () => unknown): [true, X] | [false, undefined]`
-- `function getFailureAsync<X = Error>(fn: () => Awaitable<unknown>): Promise<[true, X] | [false, undefined]>`
-- `function getFailurePromise<X = Error>(promise: PromiseLike<unknown>): Promise<[true, X] | [false, undefined]>`
+Return tuple (isFailure, Error | undefined)
 
 ```ts
 const [fail, ret] = getFailure(() => fn())
@@ -185,51 +202,95 @@ const [fail, ret] = await getFailurePromise(promise)
 ```
 
 ### ADT / Rust-like / Haskell-like
-#### Result<T, X> = Ok<T> | Err<X>
-- `function toResult<X = Error, T = unknown>(fn: () => T): Result<T, X>`
-- `function toResultAsync<X = Error, T = unknown>(fn: () => Awaitable<T>): Promise<Result<T, X>>`
-- `function toResultPromise<X = Error, T = unknown>(promise: PromiseLike<T>): Promise<Result<T, X>>`
+#### Result<T, E> = Ok<T> | Err<E>
+```ts
+function toResult<E = Error, T = unknown>(fn: () => T): Result<T, E>
+function toResultAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<Result<T, E>>
+function toResultPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<Result<T, E>>
+```
+
+`Result` is designed according to Rust's enumeration of the same name,
+please refer to the relevant documentation.
 
 ```ts
-class Result<T, X> {
-  static Ok(val: T) => Result<T, never>
-  static Err(err: X) => Result<never, E>
-
-  onOk(callback: (val: T) => void): Result<T, X>
-  onErr(callback: (err: X) => void): Result<T, X>
+class Result<T, E> {
+  static Ok(val: T) => Result<T, E>
+  static Err(err: E) => Result<never, E>
 
   isOk(): boolean
   isErr(): boolean
 
-  orElse<U>(defaultValue: U): Result<T | U, never>
-  map<U>(mapper: (val: T) => U): Result<U, X>
+  map<U>(mapper: (val: T) => U): Result<U, E>
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Result<U, E>
+  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): Result<U, E>
+  mapErr<U>(mapper: (err: E) => U): Result<T, U>
 
-  toOption
-
+  /**
+   * @throws {E}
+   */
   unwrap(): T
+
+  unwrapOr<U>(defaultValue: U): T | U
+  unwrapOrElse<U>(createDefaultValue: (err: E) => U): T | U
+
+  /**
+   * @throws {Error}
+   */
+  unwrapErr(): E
+
+  /**
+   * @throws {Error}
+   */
+  expect(message: string): T
+
+  /**
+   * @throws {Error}
+   */
+  expectErr(message: string): E
+
+  ok(): Option<T>
+  err(): Option<E>
 }
 ```
 
 #### Option<T> = Some<T> | None
-- `function toOption<T>(fn: () => T): Optional<T>`
-- `function toOptionAsync<T>(fn: () => Awaitable<T>): Promise<Optional<T>>`
-- `function toOptionPromise<T>(promise: PromiseLike<T>): Promise<Optional<T>>`
+```ts
+function toOption<T>(fn: () => T): Option<T>
+function toOptionAsync<T>(fn: () => Awaitable<T>): Promise<Option<T>>
+function toOptionPromise<T>(promise: PromiseLike<T>): Promise<Option<T>>
+```
+
+`Option` is designed according to Rust's enumeration of the same name,
+please refer to the relevant documentation.
 
 ```ts
 class Option<T> {
-  static Some(val: T) => Option<T>
-  static None() => Option<never>
-
-  onSome(callback: (val: T) => void): Option<T>
-  onNone(callback: () => void): Option<T>
+  static Some<T>(val: T) => Option<T>
+  static None<T>() => Option<T>
 
   isSome(): boolean
   isNone(): boolean
 
-  orElse<U>(defaultValue: U): Option<T | U>
   map<U>(mapper: (val: T) => U): Option<U>
-  filter<U extends T = T>(predicate: (val: T) => boolean): Optional<U>
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Option<U>
+  mapOrElse<U>(createDefaultValue: () => U, mapper: (val: T) => U): Option<U>
 
+  filter<U extends T = T>(predicate: (val: T) => boolean): Option<U>
+
+  /**
+   * @throws {Error} 
+   */
   unwrap(): T
+
+  unwrapOr<U>(defaultValue: U): T | U
+  unwrapOrElse<U>(createDefaultValue: () => U): T | U
+
+  /**
+   * @throws {Error}
+   */
+  expect(message: string): T
+
+  okOr<E>(err: E): Result<T, E>
+  okOrElse<E>(createErr: () => E): Result<T, E>
 }
 ```

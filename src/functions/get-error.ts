@@ -1,4 +1,4 @@
-export function getError<X = Error>(fn: () => unknown): X | undefined {
+export function getError<E = Error>(fn: () => unknown): E | undefined {
   try {
     fn()
   } catch (syncError: any) {

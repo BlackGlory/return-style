@@ -1,106 +1,145 @@
-export interface IResult<T, X> {
-  isOk(): boolean
-  isErr(): boolean
+import { Option } from './option'
 
-  onOk(callback: (val: T) => void): IResult<T, X>
-  onErr(callback: (err: X) => void): IResult<T, X>
-
-  orElse<U>(defaultValue: U): IResult<T, never> | IResult<U, never>
-  map<U>(mapper: (val: T) => U): IResult<U, X>
-
-  get(): T
+enum ResultType {
+  Ok
+, Err
 }
 
-export abstract class Result {
-  static Ok<T>(value: T): IResult<T, never> {
-    return Ok.of(value)
+export class Result<T, E> {
+  private value?: T
+  private error?: E
+
+  private constructor(type: ResultType.Ok, value: T)
+  private constructor(type: ResultType.Err, error: E)
+  private constructor(private type: ResultType, valueOrError: T | E) {
+    if (type === ResultType.Ok) {
+      this.value = valueOrError as T
+    } else {
+      this.error = valueOrError as E
+    }
   }
 
-  static Err<T>(error: T): IResult<never, T> {
-    return Err.of(error)
-  }
-}
-
-class Ok<T> extends Result implements IResult<T, never> {
-  static of<T>(value: T): IResult<T, never> {
-    return new Ok(value)
+  static Ok<T, E>(value: T): Result<T, E> {
+    return new Result(ResultType.Ok, value)
   }
 
-  #value: T
-
-  private constructor(value: T) {
-    super()
-    this.#value = value
+  static Err<T, E>(error: E): Result<T, E> {
+    return new Result(ResultType.Err, error)
   }
 
   isOk() {
-    return true
+    return this.type === ResultType.Ok
   }
 
   isErr() {
-    return false
+    return this.type === ResultType.Err
   }
 
-  onOk(callback: (val: T) => void) {
-    callback(this.#value)
-    return Ok.of(this.#value)
+  map<U>(mapper: (val: T) => U): Result<U, E> {
+    if (this.isOk()) {
+      return Result.Ok(mapper(this.value!))
+    } else {
+      return Result.Err(this.error!)
+    }
   }
 
-  onErr() {
-    return Ok.of(this.#value)
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Result<U, E> {
+    if (this.isOk()) {
+      return Result.Ok(mapper(this.value!))
+    } else {
+      return Result.Ok(defaultValue)
+    }
   }
 
-  orElse() {
-    return Ok.of(this.#value)
+  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): Result<U, E> {
+    if (this.isOk()) {
+      return Result.Ok(mapper(this.value!))
+    } else {
+      return Result.Ok(createDefaultValue(this.error!))
+    }
   }
 
-  map<U>(fn: (val: T) => U) {
-    return Ok.of(fn(this.#value))
+  mapErr<U>(mapper: (err: E) => U): Result<T, U> {
+    if (this.isOk()) {
+      return Result.Ok(this.value!)
+    } else {
+      return Result.Err(mapper(this.error!))
+    }
   }
 
-  get(): T {
-    return this.#value
-  }
-}
-
-class Err<T> extends Result implements IResult<never, T> {
-  static of<T>(error: T): IResult<never, T> {
-    return new Err(error)
-  }
-
-  #value: T
-
-  private constructor(err: T) {
-    super()
-    this.#value = err
+  /**
+   * @throws {E}
+   */
+  unwrap(): T {
+    if (this.isOk()) {
+      return this.value!
+    } else {
+      throw this.error!
+    }
   }
 
-  isOk() {
-    return false
+  unwrapOr<U>(defaultValue: U): T | U {
+    if (this.isOk()) {
+      return this.value!
+    } else {
+      return defaultValue
+    }
   }
 
-  isErr() {
-    return true
+  unwrapOrElse<U>(createDefaultValue: (err: E) => U): T | U {
+    if (this.isOk()) {
+      return this.value!
+    } else {
+      return createDefaultValue(this.error!)
+    }
   }
 
-  onOk(): IResult<never, T> {
-    return Err.of(this.#value)
+  /**
+   * @throws {Error}
+   */
+  unwrapErr(): E {
+    if (this.isErr()) {
+      return this.error!
+    } else {
+      throw new Error('unwrapErr called on a Ok')
+    }
   }
 
-  onErr(callback: (err: T) => void) {
-    callback(this.#value)
-    return Err.of(this.#value)
+  /**
+   * @throws {Error}
+   */
+  expect(message: string): T {
+    if (this.isOk()) {
+      return this.value!
+    } else {
+      throw new Error(message)
+    }
   }
 
-  orElse<U>(defaultValue: U) {
-    return Ok.of(defaultValue)
+  /**
+   * @throws {Error}
+   */
+  expectErr(message: string): E {
+    if (this.isErr()) {
+      return this.error!
+    } else {
+      throw new Error(message)
+    }
   }
 
-  map(): IResult<never, T> {
-    return Err.of(this.#value)
+  ok(): Option<T> {
+    if (this.isOk()) {
+      return Option.Some(this.value!)
+    } else {
+      return Option.None()
+    }
   }
 
-  get(): never {
-    throw this.#value
+  err(): Option<E> {
+    if (this.isOk()) {
+      return Option.None()
+    } else {
+      return Option.Some(this.error!)
+    }
   }
 }

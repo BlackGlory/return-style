@@ -1,6 +1,6 @@
-export function getResultError<X = Error, T = unknown>(
+export function getResultError<E = Error, T = unknown>(
   fn: () => T
-): [result: T, error: undefined] | [result: undefined, error: X] {
+): [result: T, error: undefined] | [result: undefined, error: E] {
   try {
     const result = fn()
     return [result, void 0]

@@ -1,12 +1,13 @@
-import { AsyncResult, IAsyncResult } from '@classes/async-result'
+import { Result } from '@classes/result'
+import { Awaitable } from '@blackglory/prelude'
 
-export function toResultAsync<X = Error, T = unknown>(
-  fn: () => PromiseLike<T> | T
-): IAsyncResult<T, X> {
+export async function toResultAsync<E = Error, T = unknown>(
+  fn: () => Awaitable<T>
+): Promise<Result<T, E>> {
   try {
-    const result = fn()
-    return new AsyncResult(result)
-  } catch (e: any) {
-    return AsyncResult.Err(e)
+    const result = await fn()
+    return Result.Ok(result)
+  } catch (err) {
+    return Result.Err(err as E)
   }
 }
