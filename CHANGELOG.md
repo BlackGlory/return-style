@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/BlackGlory/return-style/compare/v0.12.6...v1.0.0) (2022-03-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* - Remove `Optional`, `AsyncOptional` and related functions.
+- Rewrite `Result` and related functions.
+- Remove `AsyncResult` and related functions.
+
+### Features
+
+* rewrite Result, replace `Optional` with `Option` ([55a9603](https://github.com/BlackGlory/return-style/commit/55a960366b49257afe74de1826319fbc7e2cefc2))
+
 ### [0.12.6](https://github.com/BlackGlory/return-style/compare/v0.12.5...v0.12.6) (2022-01-06)
 
 ### [0.12.5](https://github.com/BlackGlory/return-style/compare/v0.12.4...v0.12.5) (2021-12-04)
