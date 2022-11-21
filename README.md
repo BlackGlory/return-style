@@ -184,7 +184,7 @@ const [succ, ret] = await getSuccessAsync(() => asyncFn())
 const [succ, ret] = await getSuccessPromise(promise)
 ```
 
-#### [isFailure, Error | undefined ]
+#### [isFailure, Error | undefined]
 ```ts
 function getFailure<E = Error>(fn: () => unknown): [true, E] | [false, undefined]
 function getFailureAsync<E = Error>(fn: () => Awaitable<unknown>): Promise<[true, E] | [false, undefined]>
@@ -278,7 +278,7 @@ class Option<T> {
   filter<U extends T = T>(predicate: (val: T) => boolean): Option<U>
 
   /**
-   * @throws {Error} 
+   * @throws {Error}
    */
   unwrap(): T
 
