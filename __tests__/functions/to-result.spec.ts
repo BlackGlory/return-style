@@ -1,6 +1,5 @@
 import { Result } from '@classes/result'
 import { toResult } from '@functions/to-result'
-import 'jest-extended'
 
 describe('toResult', () => {
   describe('fn throw error', () => {
@@ -11,7 +10,7 @@ describe('toResult', () => {
       const isErr = result.isErr()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isErr).toBeTrue()
+      expect(isErr).toBe(true)
     })
   })
 
@@ -23,7 +22,7 @@ describe('toResult', () => {
       const isOk = result.isOk()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isOk).toBeTrue()
+      expect(isOk).toBe(true)
     })
   })
 })

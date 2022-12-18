@@ -1,6 +1,5 @@
 import { Option } from '@classes/option'
 import { toOption } from '@functions/to-option'
-import 'jest-extended'
 
 describe('toOption', () => {
   describe('fn throw error', () => {
@@ -11,7 +10,7 @@ describe('toOption', () => {
       const isErr = result.isNone()
 
       expect(result).toBeInstanceOf(Option)
-      expect(isErr).toBeTrue()
+      expect(isErr).toBe(true)
     })
   })
 
@@ -23,7 +22,7 @@ describe('toOption', () => {
       const isOk = result.isSome()
 
       expect(result).toBeInstanceOf(Option)
-      expect(isOk).toBeTrue()
+      expect(isOk).toBe(true)
     })
   })
 })

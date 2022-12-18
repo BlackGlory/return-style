@@ -1,5 +1,4 @@
 import { isSuccess } from '@functions/is-success'
-import 'jest-extended'
 import { pass } from '@blackglory/pass'
 
 describe('isSuccess(fn: () => unknown): boolean', () => {
@@ -9,7 +8,7 @@ describe('isSuccess(fn: () => unknown): boolean', () => {
 
       const result = isSuccess(fn)
 
-      expect(result).toBeTrue()
+      expect(result).toBe(true)
     })
   })
 
@@ -19,7 +18,7 @@ describe('isSuccess(fn: () => unknown): boolean', () => {
 
       const result = isSuccess(fn)
 
-      expect(result).toBeFalse()
+      expect(result).toBe(false)
     })
   })
 })

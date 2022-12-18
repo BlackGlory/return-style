@@ -1,17 +1,13 @@
 import { isFailureAsync } from '@functions/is-failure-async'
-import 'jest-extended'
-import '@blackglory/jest-matchers'
 
 describe('isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () => {
   describe('fn returned', () => {
     it('return Promise<false>', async () => {
       const fn = () => Promise.resolve()
 
-      const result = isFailureAsync(fn)
-      const proResult = await result
+      const result = await isFailureAsync(fn)
 
-      expect(result).toBePromise()
-      expect(proResult).toBeFalse()
+      expect(result).toBe(false)
     })
   })
 
@@ -23,11 +19,9 @@ describe('isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () 
           return Promise.reject()
         }
 
-        const result = isFailureAsync(fn)
-        const proResult = await result
+        const result = await isFailureAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toBeTrue()
+        expect(result).toBe(true)
       })
     })
 
@@ -35,11 +29,9 @@ describe('isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () 
       it('return Promise<true>', async () => {
         const fn = () => Promise.reject()
 
-        const result = isFailureAsync(fn)
-        const proResult = await result
+        const result = await isFailureAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toBeTrue()
+        expect(result).toBe(true)
       })
     })
   })

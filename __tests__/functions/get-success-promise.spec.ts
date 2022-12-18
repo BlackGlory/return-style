@@ -1,5 +1,4 @@
 import { getSuccessPromise } from '@functions/get-success-promise'
-import '@blackglory/jest-matchers'
 
 describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('promise resolved', () => {
@@ -7,11 +6,9 @@ describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [fa
       const value = 'value'
       const promise = Promise.resolve(value)
 
-      const result = getSuccessPromise(promise)
-      const proResult = await result
+      const result = await getSuccessPromise(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([true, value])
+      expect(result).toEqual([true, value])
     })
   })
 
@@ -20,11 +17,9 @@ describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [fa
       const customError = new Error('CustomError')
       const promise = Promise.reject(customError)
 
-      const result = getSuccessPromise(promise)
-      const proResult = await result
+      const result = await getSuccessPromise(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([false, undefined])
+      expect(result).toEqual([false, undefined])
     })
   })
 })

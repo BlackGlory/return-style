@@ -1,5 +1,4 @@
 import { getSuccessAsync } from '@functions/get-success-async'
-import '@blackglory/jest-matchers'
 
 describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('fn returned', () => {
@@ -7,11 +6,9 @@ describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [fal
       const value = 'value'
       const fn = () => Promise.resolve(value)
 
-      const result = getSuccessAsync(fn)
-      const proResult = await result
+      const result = await getSuccessAsync(fn)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([true, value])
+      expect(result).toEqual([true, value])
     })
   })
 
@@ -24,11 +21,9 @@ describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [fal
           return Promise.reject()
         }
 
-        const result = getSuccessAsync(fn)
-        const proResult = await result
+        const result = await getSuccessAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toEqual([false, undefined])
+        expect(result).toEqual([false, undefined])
       })
     })
 
@@ -37,11 +32,9 @@ describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [fal
         const customError = new Error('CustomError')
         const fn = () => Promise.reject(customError)
 
-        const result = getSuccessAsync(fn)
-        const proResult = await result
+        const result = await getSuccessAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toEqual([false, undefined])
+        expect(result).toEqual([false, undefined])
       })
     })
   })

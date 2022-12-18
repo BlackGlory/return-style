@@ -1,7 +1,5 @@
 import { Result } from '@classes/result'
 import { toResultAsync } from '@functions/to-result-async'
-import 'jest-extended'
-import '@blackglory/jest-matchers'
 
 describe('toResultAsync', () => {
   describe('fn returned', () => {
@@ -13,7 +11,7 @@ describe('toResultAsync', () => {
         const isOk = result.isOk()
 
         expect(result).toBeInstanceOf(Result)
-        expect(isOk).toBeTrue()
+        expect(isOk).toBe(true)
       })
     })
 
@@ -25,7 +23,7 @@ describe('toResultAsync', () => {
         const isOk = result.isOk()
 
         expect(result).toBeInstanceOf(Result)
-        expect(isOk).toBeTrue()
+        expect(isOk).toBe(true)
       })
     })
   })
@@ -41,7 +39,7 @@ describe('toResultAsync', () => {
         const isErr = result.isErr()
 
         expect(result).toBeInstanceOf(Result)
-        expect(isErr).toBeTrue()
+        expect(isErr).toBe(true)
       })
     })
 
@@ -53,7 +51,7 @@ describe('toResultAsync', () => {
         const isErr = result.isErr()
 
         expect(result).toBeInstanceOf(Result)
-        expect(isErr).toBeTrue()
+        expect(isErr).toBe(true)
       })
     })
   })

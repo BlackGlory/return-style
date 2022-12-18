@@ -1,6 +1,5 @@
 import { Option } from '@classes/option'
 import { toOptionPromise } from '@functions/to-option-promise'
-import 'jest-extended'
 
 describe('toOptionPromise', () => {
   describe('promise rejected', () => {
@@ -11,7 +10,7 @@ describe('toOptionPromise', () => {
       const isErr = result.isNone()
 
       expect(result).toBeInstanceOf(Option)
-      expect(isErr).toBeTrue()
+      expect(isErr).toBe(true)
     })
   })
 
@@ -23,7 +22,7 @@ describe('toOptionPromise', () => {
       const isOk = result.isSome()
 
       expect(result).toBeInstanceOf(Option)
-      expect(isOk).toBeTrue()
+      expect(isOk).toBe(true)
     })
   })
 })

@@ -1,5 +1,4 @@
 import { getResultErrorPromise } from '@functions/get-result-error-promise'
-import '@blackglory/jest-matchers'
 
 describe('getResultErrorPromise<X = Error, T = unknown>(promise: PromiseLike<T>) -> Promise<[T, undefined] | [undefined, X]>', () => {
   describe('promise resolved', () => {
@@ -7,11 +6,9 @@ describe('getResultErrorPromise<X = Error, T = unknown>(promise: PromiseLike<T>)
       const value = 'value'
       const promise = Promise.resolve(value)
 
-      const result = getResultErrorPromise<string>(promise)
-      const proResult = await result
+      const result = await getResultErrorPromise<string>(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([value, undefined])
+      expect(result).toEqual([value, undefined])
     })
   })
 
@@ -20,11 +17,9 @@ describe('getResultErrorPromise<X = Error, T = unknown>(promise: PromiseLike<T>)
       const customError = new Error('CustomError')
       const promise = Promise.reject(customError)
 
-      const result = getResultErrorPromise<string>(promise)
-      const proResult = await result
+      const result = await getResultErrorPromise<string>(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([undefined, customError])
+      expect(result).toEqual([undefined, customError])
     })
   })
 })

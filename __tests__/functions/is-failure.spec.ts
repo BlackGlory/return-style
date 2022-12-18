@@ -1,5 +1,4 @@
 import { isFailure } from '@functions/is-failure'
-import 'jest-extended'
 import { pass } from '@blackglory/pass'
 
 describe('isFailure(fn: () => unknown): boolean', () => {
@@ -9,7 +8,7 @@ describe('isFailure(fn: () => unknown): boolean', () => {
 
       const result = isFailure(fn)
 
-      expect(result).toBeFalse()
+      expect(result).toBe(false)
     })
   })
 
@@ -19,7 +18,7 @@ describe('isFailure(fn: () => unknown): boolean', () => {
 
       const result = isFailure(fn)
 
-      expect(result).toBeTrue()
+      expect(result).toBe(true)
     })
   })
 })

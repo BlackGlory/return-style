@@ -1,5 +1,4 @@
 import { getErrorResultAsync } from '@functions/get-error-result-async'
-import '@blackglory/jest-matchers'
 
 describe('getErrorResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>', () => {
   describe('fn returned', () => {
@@ -7,11 +6,9 @@ describe('getErrorResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>):
       const value = 'value'
       const fn = () => Promise.resolve(value)
 
-      const result = getErrorResultAsync<string>(fn)
-      const proResult = await result
+      const result = await getErrorResultAsync<string>(fn)
 
-      expect(result).toBePromise()
-      expect(proResult).toEqual([undefined, value])
+      expect(result).toEqual([undefined, value])
     })
   })
 
@@ -24,11 +21,9 @@ describe('getErrorResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>):
           return Promise.reject(customError)
         }
 
-        const result = getErrorResultAsync<string>(fn)
-        const proResult = await result
+        const result = await getErrorResultAsync<string>(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toEqual([customError, undefined])
+        expect(result).toEqual([customError, undefined])
       })
     })
 
@@ -37,11 +32,9 @@ describe('getErrorResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>):
         const customError = new Error('CustomError')
         const fn = () => Promise.reject(customError)
 
-        const result = getErrorResultAsync<string>(fn)
-        const proResult = await result
+        const result = await getErrorResultAsync<string>(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toEqual([customError, undefined])
+        expect(result).toEqual([customError, undefined])
       })
     })
   })

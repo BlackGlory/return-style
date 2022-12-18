@@ -1,5 +1,4 @@
 import { getResultPromise } from '@functions/get-result-promise'
-import '@blackglory/jest-matchers'
 
 describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>', () => {
   describe('fn returned', () => {
@@ -7,11 +6,9 @@ describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>',
       const value = 'value'
       const promise = Promise.resolve(value)
 
-      const result = getResultPromise(promise)
-      const proResult = await result
+      const result = await getResultPromise(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toBe(value)
+      expect(result).toBe(value)
     })
   })
 
@@ -19,11 +16,9 @@ describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>',
     it('return Promise<undefined>', async () => {
       const promise = Promise.reject()
 
-      const result = getResultPromise(promise)
-      const proResult = await result
+      const result = await getResultPromise(promise)
 
-      expect(result).toBePromise()
-      expect(proResult).toBeUndefined()
+      expect(result).toBeUndefined()
     })
   })
 })

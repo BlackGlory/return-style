@@ -1,6 +1,5 @@
 import { Result } from '@classes/result'
 import { toResultPromise } from '@functions/to-result-promise'
-import 'jest-extended'
 
 describe('toResultPromise', () => {
   describe('promise rejected', () => {
@@ -11,7 +10,7 @@ describe('toResultPromise', () => {
       const isErr = result.isErr()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isErr).toBeTrue()
+      expect(isErr).toBe(true)
     })
   })
 
@@ -23,7 +22,7 @@ describe('toResultPromise', () => {
       const isOk = result.isOk()
 
       expect(result).toBeInstanceOf(Result)
-      expect(isOk).toBeTrue()
+      expect(isOk).toBe(true)
     })
   })
 })

@@ -1,6 +1,5 @@
 import { Option } from '@classes/option'
 import { toOptionAsync } from '@functions/to-option-async'
-import 'jest-extended'
 
 describe('toOptionAsync', () => {
   describe('fn returned', () => {
@@ -12,7 +11,7 @@ describe('toOptionAsync', () => {
         const isSome = result.isSome()
 
         expect(result).toBeInstanceOf(Option)
-        expect(isSome).toBeTrue()
+        expect(isSome).toBe(true)
       })
     })
 
@@ -24,7 +23,7 @@ describe('toOptionAsync', () => {
         const isSome = result.isSome()
 
         expect(result).toBeInstanceOf(Option)
-        expect(isSome).toBeTrue()
+        expect(isSome).toBe(true)
       })
     })
   })
@@ -40,7 +39,7 @@ describe('toOptionAsync', () => {
         const isNone = result.isNone()
 
         expect(result).toBeInstanceOf(Option)
-        expect(isNone).toBeTrue()
+        expect(isNone).toBe(true)
       })
     })
 
@@ -52,7 +51,7 @@ describe('toOptionAsync', () => {
         const isNone = result.isNone()
 
         expect(result).toBeInstanceOf(Option)
-        expect(isNone).toBeTrue()
+        expect(isNone).toBe(true)
       })
     })
   })

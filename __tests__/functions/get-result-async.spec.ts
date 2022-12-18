@@ -1,5 +1,4 @@
 import { getResultAsync } from '@functions/get-result-async'
-import '@blackglory/jest-matchers'
 
 describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', () => {
   describe('fn returned', () => {
@@ -7,11 +6,9 @@ describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', 
       const value = 'value'
       const fn = () => Promise.resolve(value)
 
-      const result = getResultAsync(fn)
-      const proResult = await result
+      const result = await getResultAsync(fn)
 
-      expect(result).toBePromise()
-      expect(proResult).toBe(value)
+      expect(result).toBe(value)
     })
   })
 
@@ -24,11 +21,9 @@ describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', 
           return Promise.resolve('value')
         }
 
-        const result = getResultAsync(fn)
-        const proResult = await result
+        const result = await getResultAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toBeUndefined()
+        expect(result).toBeUndefined()
       })
     })
 
@@ -37,11 +32,9 @@ describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', 
         const customError = new Error('CustomError')
         const fn = () => Promise.reject(customError)
 
-        const result = getResultAsync(fn)
-        const proResult = await result
+        const result = await getResultAsync(fn)
 
-        expect(result).toBePromise()
-        expect(proResult).toBeUndefined()
+        expect(result).toBeUndefined()
       })
     })
   })
