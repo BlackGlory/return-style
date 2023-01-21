@@ -1,5 +1,5 @@
-import { Option } from '@classes/option'
-import { toOption } from '@functions/to-option'
+import { Option } from '@classes/option.js'
+import { toOption } from '@functions/to-option.js'
 
 describe('toOption', () => {
   describe('fn throw error', () => {

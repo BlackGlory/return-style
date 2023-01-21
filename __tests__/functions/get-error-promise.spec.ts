@@ -1,4 +1,4 @@
-import { getErrorPromise } from '@functions/get-error-promise'
+import { getErrorPromise } from '@functions/get-error-promise.js'
 
 describe('getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {
   describe('promise resolved', () => {

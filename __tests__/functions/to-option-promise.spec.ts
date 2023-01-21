@@ -1,5 +1,5 @@
-import { Option } from '@classes/option'
-import { toOptionPromise } from '@functions/to-option-promise'
+import { Option } from '@classes/option.js'
+import { toOptionPromise } from '@functions/to-option-promise.js'
 
 describe('toOptionPromise', () => {
   describe('promise rejected', () => {

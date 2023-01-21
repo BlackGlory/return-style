@@ -1,4 +1,4 @@
-import { isFailurePromise } from '@functions/is-failure-promise'
+import { isFailurePromise } from '@functions/is-failure-promise.js'
 
 describe('isFailurePromise(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {

@@ -1,5 +1,5 @@
-import { Result } from '@classes/result'
-import { toResultPromise } from '@functions/to-result-promise'
+import { Result } from '@classes/result.js'
+import { toResultPromise } from '@functions/to-result-promise.js'
 
 describe('toResultPromise', () => {
   describe('promise rejected', () => {

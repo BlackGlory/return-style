@@ -1,5 +1,5 @@
-import { Option } from '@classes/option'
-import { toOptionAsync } from '@functions/to-option-async'
+import { Option } from '@classes/option.js'
+import { toOptionAsync } from '@functions/to-option-async.js'
 
 describe('toOptionAsync', () => {
   describe('fn returned', () => {

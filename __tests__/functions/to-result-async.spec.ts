@@ -1,5 +1,5 @@
-import { Result } from '@classes/result'
-import { toResultAsync } from '@functions/to-result-async'
+import { Result } from '@classes/result.js'
+import { toResultAsync } from '@functions/to-result-async.js'
 
 describe('toResultAsync', () => {
   describe('fn returned', () => {

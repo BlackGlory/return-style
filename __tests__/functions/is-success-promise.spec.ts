@@ -1,4 +1,4 @@
-import { isSuccessPromise } from '@functions/is-success-promise'
+import { isSuccessPromise } from '@functions/is-success-promise.js'
 
 describe('isSuccessPromise(promise: PromiseLike<unknown>): Promise<boolean>', () => {
   describe('promise resolved', () => {

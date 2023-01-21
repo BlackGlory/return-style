@@ -1,4 +1,4 @@
-import { getResultPromise } from '@functions/get-result-promise'
+import { getResultPromise } from '@functions/get-result-promise.js'
 
 describe('getResultPromise<T>(promise: PromiseLike<T>): Promise<T | undefined>', () => {
   describe('fn returned', () => {

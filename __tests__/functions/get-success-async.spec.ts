@@ -1,4 +1,4 @@
-import { getSuccessAsync } from '@functions/get-success-async'
+import { getSuccessAsync } from '@functions/get-success-async.js'
 
 describe('getSuccessAsync<T>(fn: () => PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('fn returned', () => {

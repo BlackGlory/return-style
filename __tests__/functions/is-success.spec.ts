@@ -1,4 +1,4 @@
-import { isSuccess } from '@functions/is-success'
+import { isSuccess } from '@functions/is-success.js'
 import { pass } from '@blackglory/pass'
 
 describe('isSuccess(fn: () => unknown): boolean', () => {

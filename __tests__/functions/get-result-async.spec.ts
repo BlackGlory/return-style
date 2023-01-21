@@ -1,4 +1,4 @@
-import { getResultAsync } from '@functions/get-result-async'
+import { getResultAsync } from '@functions/get-result-async.js'
 
 describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', () => {
   describe('fn returned', () => {

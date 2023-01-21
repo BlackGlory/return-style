@@ -1,4 +1,4 @@
-import { getSuccessPromise } from '@functions/get-success-promise'
+import { getSuccessPromise } from '@functions/get-success-promise.js'
 
 describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {
   describe('promise resolved', () => {

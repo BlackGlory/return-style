@@ -1,4 +1,4 @@
-import { Result } from '@classes/result'
+import { Result } from '@classes/result.js'
 
 export async function toResultPromise<E = Error, T = unknown>(
   promise: PromiseLike<T>

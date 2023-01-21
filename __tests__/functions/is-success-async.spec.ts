@@ -1,4 +1,4 @@
-import { isSuccessAsync } from '@functions/is-success-async'
+import { isSuccessAsync } from '@functions/is-success-async.js'
 
 describe('isSuccessAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () => {
   describe('fn returned', () => {

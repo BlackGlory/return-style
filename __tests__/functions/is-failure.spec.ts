@@ -1,4 +1,4 @@
-import { isFailure } from '@functions/is-failure'
+import { isFailure } from '@functions/is-failure.js'
 import { pass } from '@blackglory/pass'
 
 describe('isFailure(fn: () => unknown): boolean', () => {

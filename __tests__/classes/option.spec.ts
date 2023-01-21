@@ -1,6 +1,6 @@
-import { Option } from '@classes/option'
-import { Result } from '@classes/result'
-import { getError } from '@functions/get-error'
+import { Option } from '@classes/option.js'
+import { Result } from '@classes/result.js'
+import { getError } from '@functions/get-error.js'
 
 describe('Option', () => {
   describe('Some', () => {

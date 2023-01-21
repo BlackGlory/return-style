@@ -1,4 +1,4 @@
-import { getFailure } from '@functions/get-failure'
+import { getFailure } from '@functions/get-failure.js'
 
 describe('getFailure<X = Error>(fn: () => unknown): [true, X] | [false, undefined]', () => {
   describe('fn returned', () => {

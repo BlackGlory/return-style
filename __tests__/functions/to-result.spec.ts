@@ -1,5 +1,5 @@
-import { Result } from '@classes/result'
-import { toResult } from '@functions/to-result'
+import { Result } from '@classes/result.js'
+import { toResult } from '@functions/to-result.js'
 
 describe('toResult', () => {
   describe('fn throw error', () => {

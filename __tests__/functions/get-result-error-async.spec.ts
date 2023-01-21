@@ -1,4 +1,4 @@
-import { getResultErrorAsync } from '@functions/get-result-error-async'
+import { getResultErrorAsync } from '@functions/get-result-error-async.js'
 
 describe('getResultErrorAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): Promise<[T, undefined] | [undefined, X]>', () => {
   describe('fn returned', () => {

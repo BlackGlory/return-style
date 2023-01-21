@@ -1,5 +1,5 @@
 import { go } from '@blackglory/go'
-import { getErrorAsyncIterable } from '@functions/get-error-async-iterable'
+import { getErrorAsyncIterable } from '@functions/get-error-async-iterable.js'
 import { pass } from '@blackglory/pass'
 
 describe('getErrorAsyncIterable<T>(iterable: AsyncIterable<unknown>): Promise<T | undefined>', () => {

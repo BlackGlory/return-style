@@ -1,4 +1,4 @@
-import { getErrorResult } from '@functions/get-error-result'
+import { getErrorResult } from '@functions/get-error-result.js'
 
 describe('getErrorResult<X = Error, T = unknown>(fn: () => T): [undefined, T] | [X, undefined]', () => {
   describe('fn returned', () => {

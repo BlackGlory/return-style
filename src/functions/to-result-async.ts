@@ -1,4 +1,4 @@
-import { Result } from '@classes/result'
+import { Result } from '@classes/result.js'
 import { Awaitable } from '@blackglory/prelude'
 
 export async function toResultAsync<E = Error, T = unknown>(

@@ -1,4 +1,4 @@
-import { getSuccess } from '@functions/get-success'
+import { getSuccess } from '@functions/get-success.js'
 
 describe('getSuccess<T>(fn: () => T): [true, T] | [false, undefined]', () => {
   describe('fn returned', () => {

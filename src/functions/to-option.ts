@@ -1,4 +1,4 @@
-import { Option } from '@classes/option'
+import { Option } from '@classes/option.js'
 
 export function toOption<T>(fn: () => T): Option<T> {
   try {
