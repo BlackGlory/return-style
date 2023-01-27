@@ -1,6 +1,7 @@
 import { Option } from '@classes/option.js'
 import { Result } from '@classes/result.js'
 import { getError } from '@functions/get-error.js'
+import { jest } from '@jest/globals'
 
 describe('Option', () => {
   describe('Some', () => {
@@ -158,7 +159,7 @@ describe('Option', () => {
       describe('predicate return false', () => {
         it('return None', () => {
           const option = Option.Some('value')
-          const fn = jest.fn().mockReturnValue(false)
+          const fn = jest.fn<any>().mockReturnValue(false)
 
           const result = option.filter(fn)
 
@@ -171,7 +172,7 @@ describe('Option', () => {
       describe('predicate return true', () => {
         it('return a copy', () => {
           const option = Option.Some('value')
-          const fn = jest.fn().mockReturnValue(true)
+          const fn = jest.fn<any>().mockReturnValue(true)
 
           const result = option.filter(fn)
 
@@ -188,7 +189,7 @@ describe('Option', () => {
       describe('predicate return false', () => {
         it('return None', () => {
           const option = Option.None()
-          const fn = jest.fn().mockReturnValue(false)
+          const fn = jest.fn<any>().mockReturnValue(false)
 
           const result = option.filter(fn)
 
@@ -200,7 +201,7 @@ describe('Option', () => {
       describe('predicate return true', () => {
         it('return a copy', () => {
           const option = Option.Some('value')
-          const fn = jest.fn().mockReturnValue(true)
+          const fn = jest.fn<any>().mockReturnValue(true)
 
           const result = option.filter(fn)
           const isSome = result.isSome()

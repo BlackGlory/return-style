@@ -1,6 +1,7 @@
 import { getError } from '@functions/get-error.js'
 import { Result } from '@classes/result.js'
 import { Option } from '@classes/option.js'
+import { jest } from '@jest/globals'
 
 describe('Result', () => {
   describe('Ok', () => {

@@ -1,5 +1,6 @@
 import { Result } from '@classes/result.js'
 import { toResultAsync } from '@functions/to-result-async.js'
+import { jest } from '@jest/globals'
 
 describe('toResultAsync', () => {
   describe('fn returned', () => {
@@ -17,7 +18,7 @@ describe('toResultAsync', () => {
 
     describe('async', () => {
       it('return Ok', async () => {
-        const fn = jest.fn().mockResolvedValue(true)
+        const fn = jest.fn<any>().mockResolvedValue(true)
 
         const result = await toResultAsync(fn)
         const isOk = result.isOk()
@@ -45,7 +46,7 @@ describe('toResultAsync', () => {
 
     describe('async', () => {
       it('return Err', async () => {
-        const fn = jest.fn().mockRejectedValue(new Error())
+        const fn = jest.fn<any>().mockRejectedValue(new Error())
 
         const result = await toResultAsync(fn)
         const isErr = result.isErr()

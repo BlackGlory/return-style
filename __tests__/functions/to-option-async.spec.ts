@@ -1,5 +1,6 @@
 import { Option } from '@classes/option.js'
 import { toOptionAsync } from '@functions/to-option-async.js'
+import { jest } from '@jest/globals'
 
 describe('toOptionAsync', () => {
   describe('fn returned', () => {
@@ -17,7 +18,7 @@ describe('toOptionAsync', () => {
 
     describe('async', () => {
       it('return Some', async () => {
-        const fn = jest.fn().mockResolvedValue(true)
+        const fn = jest.fn<any>().mockResolvedValue(true)
 
         const result = await toOptionAsync(fn)
         const isSome = result.isSome()
@@ -45,7 +46,7 @@ describe('toOptionAsync', () => {
 
     describe('async', () => {
       it('return None', async () => {
-        const fn = jest.fn().mockRejectedValue(new Error())
+        const fn = jest.fn<any>().mockRejectedValue(new Error())
 
         const result = await toOptionAsync(fn)
         const isNone = result.isNone()
