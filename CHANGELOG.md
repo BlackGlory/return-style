@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/BlackGlory/return-style/compare/v2.0.3...v3.0.0) (2023-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* The minimal version of Node.js is 16.
+
+* upgrade dependencies ([e044bdd](https://github.com/BlackGlory/return-style/commit/e044bdde8b53344b48b9b60a3947e19767e90f73))
+
 ### [2.0.3](https://github.com/BlackGlory/return-style/compare/v2.0.2...v2.0.3) (2023-01-28)
 
 
