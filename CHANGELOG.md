@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/BlackGlory/return-style/compare/v3.0.0...v3.0.1) (2023-06-11)
+
+
+### Bug Fixes
+
+* export src ([7da462e](https://github.com/BlackGlory/return-style/commit/7da462e791f164087eec3c21a2231cde4f8a8876))
+
 ## [3.0.0](https://github.com/BlackGlory/return-style/compare/v2.0.3...v3.0.0) (2023-03-18)
 
 
