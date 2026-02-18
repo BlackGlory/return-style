@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getSuccess } from '@functions/get-success.js'
 
 describe('getSuccess<T>(fn: () => T): [true, T] | [false, undefined]', () => {

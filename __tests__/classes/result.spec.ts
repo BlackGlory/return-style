@@ -1,7 +1,7 @@
+import { describe, test, it, expect, vi } from 'vitest'
 import { getError } from '@functions/get-error.js'
 import { Result } from '@classes/result.js'
 import { Option } from '@classes/option.js'
-import { jest } from '@jest/globals'
 
 describe('Result', () => {
   describe('Ok', () => {
@@ -77,7 +77,7 @@ describe('Result', () => {
   describe('map', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = res.map(fn)
 
@@ -92,7 +92,7 @@ describe('Result', () => {
     test('Err', () => {
       const error = new Error('error')
       const res = Result.Err(error)
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = res.map(fn)
 
@@ -106,7 +106,7 @@ describe('Result', () => {
   describe('mapOr', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = res.mapOr('default-value', fn)
 
@@ -121,7 +121,7 @@ describe('Result', () => {
     test('Err', () => {
       const error = new Error('error')
       const res = Result.Err(error)
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = res.mapOr('default-value', fn)
 
@@ -135,8 +135,8 @@ describe('Result', () => {
   describe('mapOrElse', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
-      const fn = jest.fn().mockReturnValue('new-value')
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = res.mapOrElse(createDefaultValue, fn)
 
@@ -151,8 +151,8 @@ describe('Result', () => {
     test('Err', () => {
       const error = new Error('error')
       const res = Result.Err(error)
-      const fn = jest.fn().mockReturnValue('new-value')
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = res.mapOrElse(createDefaultValue, fn)
 
@@ -166,7 +166,7 @@ describe('Result', () => {
   describe('mapErr', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
-      const fn = jest.fn().mockReturnValue(new Error('new-error'))
+      const fn = vi.fn().mockReturnValue(new Error('new-error'))
 
       const result = res.mapErr(fn)
 
@@ -181,7 +181,7 @@ describe('Result', () => {
       const error = new Error('error')
       const newError = new Error('new-error')
       const res = Result.Err(error)
-      const fn = jest.fn().mockReturnValue(newError)
+      const fn = vi.fn().mockReturnValue(newError)
 
       const result = res.mapErr(fn)
 
@@ -233,7 +233,7 @@ describe('Result', () => {
   describe('unwrapOrElse', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = res.unwrapOrElse(createDefaultValue)
 
@@ -244,7 +244,7 @@ describe('Result', () => {
     test('Err', () => {
       const error = new Error('err')
       const res = Result.Err(error)
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = res.unwrapOrElse(createDefaultValue)
 

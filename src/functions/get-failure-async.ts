@@ -6,7 +6,7 @@ export async function getFailureAsync<E = Error>(
   try {
     await fn()
     return [false, void 0]
-  } catch (e: any) {
-    return [true, e]
+  } catch (err) {
+    return [true, err as E]
   }
 }

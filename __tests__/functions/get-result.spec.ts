@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getResult } from '@functions/get-result.js'
 
 describe('getResult<T>(fn: () => T): T | undefined', () => {

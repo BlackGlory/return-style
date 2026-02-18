@@ -1,7 +1,7 @@
+import { describe, test, it, expect, vi } from 'vitest'
 import { Option } from '@classes/option.js'
 import { Result } from '@classes/result.js'
 import { getError } from '@functions/get-error.js'
-import { jest } from '@jest/globals'
 
 describe('Option', () => {
   describe('Some', () => {
@@ -73,7 +73,7 @@ describe('Option', () => {
   describe('map', () => {
     test('Some', () => {
       const option = Option.Some('value')
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = option.map(fn)
 
@@ -87,7 +87,7 @@ describe('Option', () => {
 
     test('None', () => {
       const option = Option.None()
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = option.map(fn)
 
@@ -101,7 +101,7 @@ describe('Option', () => {
   describe('mapOr', () => {
     test('Some', () => {
       const option = Option.Some('value')
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = option.mapOr('default-value', fn)
 
@@ -114,7 +114,7 @@ describe('Option', () => {
 
     test('None', () => {
       const option = Option.None()
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = option.mapOr('default-value', fn)
 
@@ -127,8 +127,8 @@ describe('Option', () => {
   describe('mapOrElse', () => {
     test('Some', () => {
       const option = Option.Some('value')
-      const fn = jest.fn().mockReturnValue('new-value')
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = option.mapOrElse(createDefaultValue, fn)
 
@@ -142,8 +142,8 @@ describe('Option', () => {
 
     test('None', () => {
       const option = Option.None()
-      const fn = jest.fn().mockReturnValue('new-value')
-      const createDefaultValue = jest.fn().mockReturnValue('default-value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
 
       const result = option.mapOrElse(createDefaultValue, fn)
 
@@ -159,7 +159,7 @@ describe('Option', () => {
       describe('predicate return false', () => {
         it('return None', () => {
           const option = Option.Some('value')
-          const fn = jest.fn<any>().mockReturnValue(false)
+          const fn = vi.fn().mockReturnValue(false)
 
           const result = option.filter(fn)
 
@@ -172,7 +172,7 @@ describe('Option', () => {
       describe('predicate return true', () => {
         it('return a copy', () => {
           const option = Option.Some('value')
-          const fn = jest.fn<any>().mockReturnValue(true)
+          const fn = vi.fn().mockReturnValue(true)
 
           const result = option.filter(fn)
 
@@ -189,7 +189,7 @@ describe('Option', () => {
       describe('predicate return false', () => {
         it('return None', () => {
           const option = Option.None()
-          const fn = jest.fn<any>().mockReturnValue(false)
+          const fn = vi.fn().mockReturnValue(false)
 
           const result = option.filter(fn)
 
@@ -201,7 +201,7 @@ describe('Option', () => {
       describe('predicate return true', () => {
         it('return a copy', () => {
           const option = Option.Some('value')
-          const fn = jest.fn<any>().mockReturnValue(true)
+          const fn = vi.fn().mockReturnValue(true)
 
           const result = option.filter(fn)
           const isSome = result.isSome()
@@ -255,7 +255,7 @@ describe('Option', () => {
   describe('unwrapOrElse', () => {
     test('Some', () => {
       const option = Option.Some('value')
-      const fn = jest.fn()
+      const fn = vi.fn()
 
       const result = option.unwrapOrElse(fn)
 
@@ -265,7 +265,7 @@ describe('Option', () => {
 
     test('None', () => {
       const option = Option.None()
-      const fn = jest.fn().mockReturnValue('new-value')
+      const fn = vi.fn().mockReturnValue('new-value')
 
       const result = option.unwrapOrElse(fn)
 
@@ -321,7 +321,7 @@ describe('Option', () => {
     test('Some', () => {
       const option = Option.Some('value')
       const err = new Error('error')
-      const createErr = jest.fn().mockReturnValue(err)
+      const createErr = vi.fn().mockReturnValue(err)
 
       const result = option.okOrElse(createErr)
 
@@ -334,7 +334,7 @@ describe('Option', () => {
     test('None', () => {
       const option = Option.None()
       const err = new Error('error')
-      const createErr = jest.fn().mockReturnValue(err)
+      const createErr = vi.fn().mockReturnValue(err)
 
       const result = option.okOrElse(createErr)
 

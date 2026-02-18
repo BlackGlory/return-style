@@ -7,8 +7,7 @@ export async function getErrorAsyncIterable<E = Error>(
     for await (const _ of iterable) {
       pass()
     }
-  } catch (promiseError: any) {
-    return promiseError
+  } catch (err) {
+    return err as E
   }
-  return
 }

@@ -4,7 +4,7 @@ export function getResultError<E = Error, T = unknown>(
   try {
     const result = fn()
     return [result, void 0]
-  } catch (e: any) {
-    return [void 0, e]
+  } catch (err) {
+    return [void 0, err as E]
   }
 }

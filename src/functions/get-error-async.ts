@@ -5,8 +5,7 @@ export async function getErrorAsync<E = Error>(
 ): Promise<E | undefined> {
   try {
     await fn()
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return err as E
   }
-  return
 }

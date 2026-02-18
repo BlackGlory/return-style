@@ -4,7 +4,7 @@ export async function getFailurePromise<E = Error>(
   try {
     await promise
     return [false, void 0]
-  } catch (e: any) {
-    return [true, e]
+  } catch (err) {
+    return [true, err as E]
   }
 }

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getResultError } from '@functions/get-result-error.js'
 
 describe('getResultError<X = Error, T = unknown>(fn: () => T): [T, undefined] | [undefined, X]', () => {

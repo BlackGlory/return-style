@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getResultAsync } from '@functions/get-result-async.js'
 
 describe('getResultAsync<T>(fn: () => PromiseLike<T>): Promise<T | undefined>', () => {

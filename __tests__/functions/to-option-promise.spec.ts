@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { Option } from '@classes/option.js'
 import { toOptionPromise } from '@functions/to-option-promise.js'
 

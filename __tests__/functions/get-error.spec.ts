@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getError } from '@functions/get-error.js'
 
 describe('getError<T>(fn: (): unknown) -> T | undefined', () => {

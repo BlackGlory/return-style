@@ -4,7 +4,7 @@ export async function getErrorResultPromise<E = Error, T = unknown>(
   try {
     const result = await promise
     return [void 0, result]
-  } catch (e: any) {
-    return [e, void 0]
+  } catch (err) {
+    return [err as E, void 0]
   }
 }

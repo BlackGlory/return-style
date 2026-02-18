@@ -1,8 +1,7 @@
 export function getError<E = Error>(fn: () => unknown): E | undefined {
   try {
     fn()
-  } catch (syncError: any) {
-    return syncError
+  } catch (err) {
+    return err as E
   }
-  return
 }

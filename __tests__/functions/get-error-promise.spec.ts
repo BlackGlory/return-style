@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getErrorPromise } from '@functions/get-error-promise.js'
 
 describe('getErrorPromise<T>(promise: PromiseLike<unknown>): Promise<T | undefined>', () => {

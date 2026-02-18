@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getSuccessPromise } from '@functions/get-success-promise.js'
 
 describe('getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>', () => {

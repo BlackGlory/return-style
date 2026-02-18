@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { Result } from '@classes/result.js'
 import { toResult } from '@functions/to-result.js'
 

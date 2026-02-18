@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { go } from '@blackglory/go'
 import { getErrorAsyncIterable } from '@functions/get-error-async-iterable.js'
 import { pass } from '@blackglory/pass'

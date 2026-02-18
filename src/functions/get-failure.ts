@@ -4,7 +4,7 @@ export function getFailure<E = Error>(
   try {
     fn()
     return [false, void 0]
-  } catch (e: any) {
-    return [true, e]
+  } catch (err) {
+    return [true, err as E]
   }
 }

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { getErrorResultAsync } from '@functions/get-error-result-async.js'
 
 describe('getErrorResultAsync<X = Error, T = unknown>(fn: () => PromiseLike<T>): Promise<[undefined, T] | [X, undefined]>', () => {

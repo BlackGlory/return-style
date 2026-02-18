@@ -3,8 +3,7 @@ export async function getErrorPromise<E = Error>(
 ): Promise<E | undefined> {
   try {
     await promise
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return err as E
   }
-  return
 }

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { isFailureAsync } from '@functions/is-failure-async.js'
 
 describe('isFailureAsync(fn: () => PromiseLike<unknown>): Promise<boolean>', () => {
