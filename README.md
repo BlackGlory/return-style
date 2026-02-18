@@ -246,12 +246,10 @@ class Result<T, E> {
   isErr(): boolean
 
   map<U>(mapper: (val: T) => U): Result<U, E>
-  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Result<U, E>
-  mapOrElse<U>(
-    createDefaultValue: (err: E) => U
-  , mapper: (val: T) => U
-  ): Result<U, E>
   mapErr<U>(mapper: (err: E) => U): Result<T, U>
+
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): U
+  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): U
 
   /**
    * @throws {E}
@@ -300,10 +298,10 @@ class Option<T> {
   isNone(): boolean
 
   map<U>(mapper: (val: T) => U): Option<U>
-  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Option<U>
-  mapOrElse<U>(createDefaultValue: () => U, mapper: (val: T) => U): Option<U>
-
   filter<U extends T = T>(predicate: (val: T) => boolean): Option<U>
+
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): U 
+  mapOrElse<U>(createDefaultValue: () => U, mapper: (val: T) => U): U
 
   /**
    * @throws {Error}

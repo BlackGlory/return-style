@@ -43,27 +43,27 @@ export class Result<T, E> {
     }
   }
 
-  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Result<U, E> {
-    if (this.isOk()) {
-      return Result.Ok(mapper(this.value!))
-    } else {
-      return Result.Ok(defaultValue)
-    }
-  }
-
-  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): Result<U, E> {
-    if (this.isOk()) {
-      return Result.Ok(mapper(this.value!))
-    } else {
-      return Result.Ok(createDefaultValue(this.error!))
-    }
-  }
-
   mapErr<U>(mapper: (err: E) => U): Result<T, U> {
     if (this.isOk()) {
       return Result.Ok(this.value!)
     } else {
       return Result.Err(mapper(this.error!))
+    }
+  }
+
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): U {
+    if (this.isOk()) {
+      return mapper(this.value!)
+    } else {
+      return defaultValue
+    }
+  }
+
+  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): U {
+    if (this.isOk()) {
+      return mapper(this.value!)
+    } else {
+      return createDefaultValue(this.error!)
     }
   }
 

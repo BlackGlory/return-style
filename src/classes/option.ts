@@ -34,22 +34,6 @@ export class Option<T> {
     }
   }
 
-  mapOr<U>(defaultValue: U, mapper: (val: T) => U): Option<U> {
-    if (this.isSome()) {
-      return Option.Some(mapper(this.value!))
-    } else {
-      return Option.Some(defaultValue)
-    }
-  }
-
-  mapOrElse<U>(createDefaultValue: () => U, mapper: (val: T) => U): Option<U> {
-    if (this.isSome()) {
-      return Option.Some(mapper(this.value!))
-    } else {
-      return Option.Some(createDefaultValue())
-    }
-  }
-
   filter<U extends T = T>(predicate: (val: T) => boolean): Option<U> {
     if (this.isSome()) {
       if (predicate(this.value!)) {
@@ -59,6 +43,22 @@ export class Option<T> {
       }
     } else {
       return Option.None()
+    }
+  }
+
+  mapOr<U>(defaultValue: U, mapper: (val: T) => U): U {
+    if (this.isSome()) {
+      return mapper(this.value!)
+    } else {
+      return defaultValue
+    }
+  }
+
+  mapOrElse<U>(createDefaultValue: () => U, mapper: (val: T) => U): U {
+    if (this.isSome()) {
+      return mapper(this.value!)
+    } else {
+      return createDefaultValue()
     }
   }
 

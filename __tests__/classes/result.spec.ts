@@ -103,66 +103,6 @@ describe('Result', () => {
     })
   })
 
-  describe('mapOr', () => {
-    test('Ok', () => {
-      const res = Result.Ok('value')
-      const fn = vi.fn().mockReturnValue('new-value')
-
-      const result = res.mapOr('default-value', fn)
-
-      expect(result).not.toBe(res)
-      expect(result.isOk()).toBe(true)
-      expect(result.unwrap()).toBe('new-value')
-      expect(fn).toBeCalled()
-      expect(fn).toBeCalledWith('value')
-      expect(res.unwrap()).toBe('value')
-    })
-
-    test('Err', () => {
-      const error = new Error('error')
-      const res = Result.Err(error)
-      const fn = vi.fn().mockReturnValue('new-value')
-
-      const result = res.mapOr('default-value', fn)
-
-      expect(result).not.toBe(res)
-      expect(result.isOk()).toBe(true)
-      expect(result.unwrap()).toBe('default-value')
-      expect(fn).not.toBeCalled()
-    })
-  })
-
-  describe('mapOrElse', () => {
-    test('Ok', () => {
-      const res = Result.Ok('value')
-      const fn = vi.fn().mockReturnValue('new-value')
-      const createDefaultValue = vi.fn().mockReturnValue('default-value')
-
-      const result = res.mapOrElse(createDefaultValue, fn)
-
-      expect(result).not.toBe(res)
-      expect(result.isOk()).toBe(true)
-      expect(result.unwrap()).toBe('new-value')
-      expect(fn).toBeCalled()
-      expect(fn).toBeCalledWith('value')
-      expect(res.unwrap()).toBe('value')
-    })
-
-    test('Err', () => {
-      const error = new Error('error')
-      const res = Result.Err(error)
-      const fn = vi.fn().mockReturnValue('new-value')
-      const createDefaultValue = vi.fn().mockReturnValue('default-value')
-
-      const result = res.mapOrElse(createDefaultValue, fn)
-
-      expect(result).not.toBe(res)
-      expect(result.isOk()).toBe(true)
-      expect(result.unwrap()).toBe('default-value')
-      expect(fn).not.toBeCalled()
-    })
-  })
-
   describe('mapErr', () => {
     test('Ok', () => {
       const res = Result.Ok('value')
@@ -189,6 +129,58 @@ describe('Result', () => {
       expect(result.isErr()).toBe(true)
       expect(getError(() => result.unwrap())).toBe(newError)
       expect(fn).toBeCalled()
+    })
+  })
+
+  describe('mapOr', () => {
+    test('Ok', () => {
+      const res = Result.Ok('value')
+      const fn = vi.fn().mockReturnValue('new-value')
+
+      const result = res.mapOr('default-value', fn)
+
+      expect(result).toBe('new-value')
+      expect(fn).toBeCalled()
+      expect(fn).toBeCalledWith('value')
+      expect(res.unwrap()).toBe('value')
+    })
+
+    test('Err', () => {
+      const error = new Error('error')
+      const res = Result.Err(error)
+      const fn = vi.fn().mockReturnValue('new-value')
+
+      const result = res.mapOr('default-value', fn)
+
+      expect(result).toBe('default-value')
+      expect(fn).not.toBeCalled()
+    })
+  })
+
+  describe('mapOrElse', () => {
+    test('Ok', () => {
+      const res = Result.Ok('value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
+
+      const result = res.mapOrElse(createDefaultValue, fn)
+
+      expect(result).toBe('new-value')
+      expect(fn).toBeCalled()
+      expect(fn).toBeCalledWith('value')
+      expect(res.unwrap()).toBe('value')
+    })
+
+    test('Err', () => {
+      const error = new Error('error')
+      const res = Result.Err(error)
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
+
+      const result = res.mapOrElse(createDefaultValue, fn)
+
+      expect(result).toBe('default-value')
+      expect(fn).not.toBeCalled()
     })
   })
 

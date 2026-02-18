@@ -98,62 +98,6 @@ describe('Option', () => {
     })
   })
 
-  describe('mapOr', () => {
-    test('Some', () => {
-      const option = Option.Some('value')
-      const fn = vi.fn().mockReturnValue('new-value')
-
-      const result = option.mapOr('default-value', fn)
-
-      expect(result).not.toBe(option)
-      expect(result.unwrap()).toBe('new-value')
-      expect(fn).toBeCalled()
-      expect(fn).toBeCalledWith('value')
-      expect(option.unwrap()).toBe('value')
-    })
-
-    test('None', () => {
-      const option = Option.None()
-      const fn = vi.fn().mockReturnValue('new-value')
-
-      const result = option.mapOr('default-value', fn)
-
-      expect(result).not.toBe(option)
-      expect(result.unwrap()).toBe('default-value')
-      expect(fn).not.toBeCalled()
-    })
-  })
-
-  describe('mapOrElse', () => {
-    test('Some', () => {
-      const option = Option.Some('value')
-      const fn = vi.fn().mockReturnValue('new-value')
-      const createDefaultValue = vi.fn().mockReturnValue('default-value')
-
-      const result = option.mapOrElse(createDefaultValue, fn)
-
-      expect(result).not.toBe(option)
-      expect(result.unwrap()).toBe('new-value')
-      expect(fn).toBeCalled()
-      expect(fn).toBeCalledWith('value')
-      expect(createDefaultValue).not.toBeCalled()
-      expect(option.unwrap()).toBe('value')
-    })
-
-    test('None', () => {
-      const option = Option.None()
-      const fn = vi.fn().mockReturnValue('new-value')
-      const createDefaultValue = vi.fn().mockReturnValue('default-value')
-
-      const result = option.mapOrElse(createDefaultValue, fn)
-
-      expect(result).not.toBe(option)
-      expect(result.unwrap()).toBe('default-value')
-      expect(fn).not.toBeCalled()
-      expect(createDefaultValue).toBeCalled()
-    })
-  })
-
   describe('filter', () => {
     describe('Some', () => {
       describe('predicate return false', () => {
@@ -213,6 +157,58 @@ describe('Option', () => {
           expect(internalValue).toBe('value')
         })
       })
+    })
+  })
+
+  describe('mapOr', () => {
+    test('Some', () => {
+      const option = Option.Some('value')
+      const fn = vi.fn().mockReturnValue('new-value')
+
+      const result = option.mapOr('default-value', fn)
+
+      expect(result).toBe('new-value')
+      expect(fn).toBeCalled()
+      expect(fn).toBeCalledWith('value')
+      expect(option.unwrap()).toBe('value')
+    })
+
+    test('None', () => {
+      const option = Option.None()
+      const fn = vi.fn().mockReturnValue('new-value')
+
+      const result = option.mapOr('default-value', fn)
+
+      expect(result).toBe('default-value')
+      expect(fn).not.toBeCalled()
+    })
+  })
+
+  describe('mapOrElse', () => {
+    test('Some', () => {
+      const option = Option.Some('value')
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
+
+      const result = option.mapOrElse(createDefaultValue, fn)
+
+      expect(result).toBe('new-value')
+      expect(fn).toBeCalled()
+      expect(fn).toBeCalledWith('value')
+      expect(createDefaultValue).not.toBeCalled()
+      expect(option.unwrap()).toBe('value')
+    })
+
+    test('None', () => {
+      const option = Option.None()
+      const fn = vi.fn().mockReturnValue('new-value')
+      const createDefaultValue = vi.fn().mockReturnValue('default-value')
+
+      const result = option.mapOrElse(createDefaultValue, fn)
+
+      expect(result).toBe('default-value')
+      expect(fn).not.toBeCalled()
+      expect(createDefaultValue).toBeCalled()
     })
   })
 
