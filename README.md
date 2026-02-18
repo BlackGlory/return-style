@@ -87,7 +87,9 @@ if (result) {
 function getError<E>(fn: () => unknown): E | undefined
 function getErrorAsync<E>(fn: () => Awaitable<unknown>): Promise<E | undefined>
 function getErrorPromise<E>(promise: PromiseLike<unknown>): Promise<E | undefined>
-function getErrorAsyncIterable<E>(iterable: AsyncIterable<unknown>): Promise<E | undefined>
+function getErrorAsyncIterable<E>(
+  iterable: AsyncIterable<unknown>
+): Promise<E | undefined>
 ```
 
 Designed for testing, helping to achieve Arrange-Act-Assert pattern.
@@ -128,10 +130,15 @@ Since modern JavaScript does not advocate repeated declarations of variables (`v
 
 #### [Error, Result]
 ```ts
-function getErrorResult<E = Error, T = unknown>(fn: () => T): [undefined, T] | [E, undefined]
-function getErrorResultAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[undefined, T] | [E, undefined]>
-function getErrorResultPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<[undefined, T] | [E, undefined]>
-
+function getErrorResult<E = Error, T = unknown>(
+  fn: () => T
+): [undefined, T] | [E, undefined]
+function getErrorResultAsync<E = Error, T = unknown>(
+  fn: () => Awaitable<T>
+): Promise<[undefined, T] | [E, undefined]>
+function getErrorResultPromise<E = Error, T = unknown>(
+  promise: PromiseLike<T>
+): Promise<[undefined, T] | [E, undefined]>
 ```
 
 Return tuple (Error, Result).
@@ -149,9 +156,15 @@ const [err] = await getErrorResultAsync(promise)
 
 #### [Result, Error]
 ```ts
-function getResultError<E = Error, T = unknown>(fn: () => T): [T, undefined] | [undefined, E]
-function getResultErrorAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<[T, undefined] | [undefined, E]>
-function getResultErrorPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<[T, undefined] | [undefined, E]>
+function getResultError<E = Error, T = unknown>(
+  fn: () => T
+): [T, undefined] | [undefined, E]
+function getResultErrorAsync<E = Error, T = unknown>(
+  fn: () => Awaitable<T>
+): Promise<[T, undefined] | [undefined, E]>
+function getResultErrorPromise<E = Error, T = unknown>(
+  promise: PromiseLike<T>
+): Promise<[T, undefined] | [undefined, E]>
 ```
 
 Return tuple (Result, Error).
@@ -170,8 +183,12 @@ const [ret] = await getResultErrorPromise(promise)
 #### [isSuccess, Result | undefined]
 ```ts
 function getSuccess<T>(fn: () => T): [true, T] | [false, undefined]
-function getSuccessAsync<T>(fn: () => Awaitable<T>): Promise<[true, T] | [false, undefined]>
-function getSuccessPromise<T>(promise: PromiseLike<T>): Promise<[true, T] | [false, undefined]>
+function getSuccessAsync<T>(
+  fn: () => Awaitable<T>
+): Promise<[true, T] | [false, undefined]>
+function getSuccessPromise<T>(
+  promise: PromiseLike<T>
+): Promise<[true, T] | [false, undefined]>
 ```
 
 Return tuple (isSuccess, Result | undefined)
@@ -187,8 +204,12 @@ const [succ, ret] = await getSuccessPromise(promise)
 #### [isFailure, Error | undefined]
 ```ts
 function getFailure<E = Error>(fn: () => unknown): [true, E] | [false, undefined]
-function getFailureAsync<E = Error>(fn: () => Awaitable<unknown>): Promise<[true, E] | [false, undefined]>
-function getFailurePromise<E = Error>(promise: PromiseLike<unknown>): Promise<[true, E] | [false, undefined]>
+function getFailureAsync<E = Error>(
+  fn: () => Awaitable<unknown>
+): Promise<[true, E] | [false, undefined]>
+function getFailurePromise<E = Error>(
+  promise: PromiseLike<unknown>
+): Promise<[true, E] | [false, undefined]>
 ```
 
 Return tuple (isFailure, Error | undefined)
@@ -205,8 +226,12 @@ const [fail, ret] = await getFailurePromise(promise)
 #### Result<T, E> = Ok<T> | Err<E>
 ```ts
 function toResult<E = Error, T = unknown>(fn: () => T): Result<T, E>
-function toResultAsync<E = Error, T = unknown>(fn: () => Awaitable<T>): Promise<Result<T, E>>
-function toResultPromise<E = Error, T = unknown>(promise: PromiseLike<T>): Promise<Result<T, E>>
+function toResultAsync<E = Error, T = unknown>(
+  fn: () => Awaitable<T>
+): Promise<Result<T, E>>
+function toResultPromise<E = Error, T = unknown>(
+  promise: PromiseLike<T>
+): Promise<Result<T, E>>
 ```
 
 `Result` is designed according to Rust's enumeration of the same name,
@@ -222,7 +247,10 @@ class Result<T, E> {
 
   map<U>(mapper: (val: T) => U): Result<U, E>
   mapOr<U>(defaultValue: U, mapper: (val: T) => U): Result<U, E>
-  mapOrElse<U>(createDefaultValue: (err: E) => U, mapper: (val: T) => U): Result<U, E>
+  mapOrElse<U>(
+    createDefaultValue: (err: E) => U
+  , mapper: (val: T) => U
+  ): Result<U, E>
   mapErr<U>(mapper: (err: E) => U): Result<T, U>
 
   /**
