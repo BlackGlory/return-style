@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/BlackGlory/return-style/compare/v3.0.1...v4.0.0) (2026-02-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **result, option:** - Modified the function signatures of `Result#mapOr`, `Result#mapOrElse`.
+- Modified the function signatures of `Option#mapOr`, `Option#mapOrElse`.
+* Node.js v16 => Node.js v22
+
+### Features
+
+* **result, option:** modify the function signatures of `mapOr`, `mapOrElse` ([b7e9e23](https://github.com/BlackGlory/return-style/commit/b7e9e2342a46f8549f3862b06f4f2d7453a3d4e7))
+* **result:** add `Error.cause` support for `Result#expectErr` ([bfa12e1](https://github.com/BlackGlory/return-style/commit/bfa12e16e4e5958a73ad16ae48ee3cd9e995385a))
+* **result:** add `Error#cause` support for `Result#expect` ([6233757](https://github.com/BlackGlory/return-style/commit/623375780d923506ce43425619d6abda990a3598))
+
+
+* upgrade dependencies ([62e4eaa](https://github.com/BlackGlory/return-style/commit/62e4eaa938178247a2102726aa9fec498fd57885))
+
 ### [3.0.1](https://github.com/BlackGlory/return-style/compare/v3.0.0...v3.0.1) (2023-06-11)
 
 
