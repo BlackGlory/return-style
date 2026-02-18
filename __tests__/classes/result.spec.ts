@@ -295,12 +295,14 @@ describe('Result', () => {
 
   describe('expectErr', () => {
     test('Ok', () => {
-      const res = Result.Ok('value')
+      const result = 'value'
+      const res = Result.Ok(result)
 
       const err = getError(() => res.expectErr('message'))
 
       expect(err).toBeInstanceOf(Error)
       expect(err?.message).toMatch(/message/)
+      expect(err?.cause).toBe(result)
     })
 
     test('Err', () => {

@@ -123,7 +123,7 @@ export class Result<T, E> {
     if (this.isErr()) {
       return this.error!
     } else {
-      throw new Error(message)
+      throw new Error(message, { cause: this.value! })
     }
   }
 
