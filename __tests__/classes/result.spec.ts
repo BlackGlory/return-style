@@ -289,6 +289,7 @@ describe('Result', () => {
 
       expect(err).toBeInstanceOf(Error)
       expect(err?.message).toMatch(/message/)
+      expect(err?.cause).toBe(error)
     })
   })
 

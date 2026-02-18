@@ -112,7 +112,7 @@ export class Result<T, E> {
     if (this.isOk()) {
       return this.value!
     } else {
-      throw new Error(message)
+      throw new Error(message, { cause: this.error! })
     }
   }
 
